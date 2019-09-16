@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://hyfuser:hyfpassword@cluster0-flddr.mongodb.net/test?retryWrites=true&w=majority"
+}
