@@ -1,10 +1,19 @@
-import React, { useState, Fragment } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState, Fragment, useEffect } from 'react';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = ({ createProfile, history }) => {
+const CreateProfile = ({
+  createProfile,
+  getCurrentProfile,
+  profile: { profile, loading },
+  history,
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -45,7 +54,7 @@ const CreateProfile = ({ createProfile, history }) => {
     createProfile(formData, history);
   };
 
-  return (
+  return !loading && profile === null ? (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
       <p className="lead">
@@ -207,14 +216,22 @@ const CreateProfile = ({ createProfile, history }) => {
         </Link>
       </form>
     </Fragment>
+  ) : (
+    <Redirect to="/dashboard" />
   );
 };
 
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
+
 export default connect(
-  null,
-  { createProfile },
+  mapStateToProps,
+  { createProfile, getCurrentProfile },
 )(withRouter(CreateProfile));
