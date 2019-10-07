@@ -94,23 +94,12 @@ router.post(
     if (linkedin) profileFields.social.linkedin = linkedin;
 
     try {
-      let profile = await Profile.findOne({ user: req.user.id });
-
-      if (profile) {
-        // Update
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true },
-        );
-
-        return res.json(profile);
-      }
-
-      // Create
-      profile = new Profile(profileFields);
-
-      await profile.save();
+      // Update or create if does not exist (using upsert to create if not found)
+      const profile = await Profile.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: profileFields },
+        { new: true, upsert: true },
+      );
 
       res.json(profile);
     } catch (error) {
