@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
@@ -28,35 +28,25 @@ const EditProfile = ({
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {
-    if (!profile) getCurrentProfile();
-
-    setFormData({
-      company: loading || !profile.company ? '' : profile.company,
-      website: loading || !profile.website ? '' : profile.website,
-      location: loading || !profile.location ? '' : profile.location,
-      status: loading || !profile.status ? '' : profile.status,
-      skills: loading || !profile.skills ? '' : profile.skills.join(','),
-      githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      twitter: loading || !profile.social ? '' : profile.social.twitter || '',
-      facebook: loading || !profile.social ? '' : profile.social.facebook || '',
-      linkedin: loading || !profile.social ? '' : profile.social.linkedin || '',
-      youtube: loading || !profile.social ? '' : profile.social.youtube || '',
-      instagram: loading || !profile.social ? '' : profile.social.instagram || '',
-    });
-  }, [
-    loading,
-    getCurrentProfile,
-    profile,
-    profile.company,
-    profile.website,
-    profile.location,
-    profile.status,
-    profile.skills,
-    profile.githubusername,
-    profile.bio,
-    profile.social,
-  ]);
+    if (!profile) {
+      getCurrentProfile();
+    } else {
+      setFormData({
+        company: loading || !profile.company ? '' : profile.company,
+        website: loading || !profile.website ? '' : profile.website,
+        location: loading || !profile.location ? '' : profile.location,
+        status: loading || !profile.status ? '' : profile.status,
+        skills: loading || !profile.skills ? '' : profile.skills.join(','),
+        githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+        bio: loading || !profile.bio ? '' : profile.bio,
+        twitter: loading || !profile.social ? '' : profile.social.twitter || '',
+        facebook: loading || !profile.social ? '' : profile.social.facebook || '',
+        linkedin: loading || !profile.social ? '' : profile.social.linkedin || '',
+        youtube: loading || !profile.social ? '' : profile.social.youtube || '',
+        instagram: loading || !profile.social ? '' : profile.social.instagram || '',
+      });
+    }
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     company,
@@ -81,11 +71,13 @@ const EditProfile = ({
     createProfile(formData, history, true);
   };
 
-  return (
+  return !loading && profile === null ? (
+    <Redirect to="/create-profile" />
+  ) : (
     <Fragment>
-      <h1 className="large text-primary">Create Your Profile</h1>
+      <h1 className="large text-primary">Edit Your Profile</h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Let's get some information to make your profile stand out
+        <i className="fas fa-user"></i> Make some changes from your profile
       </p>
       <small>* = required field</small>
       <form className="form" onSubmit={e => onSubmit(e)}>
