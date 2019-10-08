@@ -8,7 +8,7 @@ import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
-import { getProfileById } from '../../actions/profile';
+import { getProfileById } from '../../redux/actions/profileAction';
 
 const Profile = ({ profile: { profile, loading }, auth, getProfileById, match }) => {
   useEffect(() => {

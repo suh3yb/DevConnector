@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
-import { getPost } from '../../actions/post';
+import { getPost } from '../../redux/actions/postAction';
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {

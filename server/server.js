@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const connectDB = require('./config/db');
+const connectDB = require('./db');
 
 const app = express();
 
