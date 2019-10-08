@@ -2,12 +2,12 @@
   "name": "devconnector",
   "version": "1.0.0",
   "description": "Social network for developers",
-  "main": "./server/server.js",
+  "main": "./server/index.js",
   "author": "Suheyb Coskun",
   "license": "ISC",
   "scripts": {
-    "start": "node ./server/server",
-    "server": "nodemon ./server/server",
+    "start": "node .",
+    "server": "nodemon .",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dependencies": "npm i && npm i --prefix server && npm i --prefix client"
