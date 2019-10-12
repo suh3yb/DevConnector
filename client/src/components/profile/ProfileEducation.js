@@ -2,35 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import moment from 'moment';
+import { List, Icon } from 'semantic-ui-react';
 
 const ProfileEducation = ({
-  education: { school, degree, fieldofstudy, current, from, to, description },
+  education: { school, degree, fieldofstudy, current, from, to, description }
 }) => (
-  <div>
-    <h3 className="text-dark">{school}</h3>
-    <p>
-      <Moment format="YYYY/MM/DD">{moment.utc(from)}</Moment> -{' '}
-      {current ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)}</Moment>}
-    </p>
-    <p>
-      <strong>Degree: </strong>
-      {degree}
-    </p>
-    <p>
-      <strong>Field of Study: </strong>
-      {fieldofstudy}
-    </p>
-    {description && (
-      <p>
-        <strong>Description: </strong>
-        {description}
-      </p>
-    )}
-  </div>
+  <List.Item>
+    <Icon name="graduation cap" />
+    <List.Content>
+      <List.Header as="h4">{school}</List.Header>
+      <List.Description as={List}>
+        <List.Item>
+          <Moment format="YYYY/MM/DD">{moment.utc(from)}</Moment> -{' '}
+          {current ? (
+            ' Now'
+          ) : (
+            <Moment format="YYYY/MM/DD">{moment.utc(to)}</Moment>
+          )}
+        </List.Item>
+        <List.Item>
+          <strong>Degree: </strong>
+          {degree}
+        </List.Item>
+        <List.Item>
+          <strong>Field of Study: </strong>
+          {fieldofstudy}
+        </List.Item>
+        {description && (
+          <List.Item>
+            <strong>Description: </strong>
+            {description}
+          </List.Item>
+        )}
+      </List.Description>
+    </List.Content>
+  </List.Item>
 );
 
 ProfileEducation.propTypes = {
-  education: PropTypes.object.isRequired,
+  education: PropTypes.object.isRequired
 };
 
 export default ProfileEducation;

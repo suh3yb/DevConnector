@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getGithubRepos } from '../../redux/actions/profileAction';
+import {
+  Card,
+  Header,
+  Grid,
+  List,
+  Menu,
+  Icon,
+  Label,
+  Button,
+  Divider
+} from 'semantic-ui-react';
 
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
   useEffect(() => {
@@ -10,46 +21,87 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
   }, [getGithubRepos, username]);
 
   return (
-    <div className="profile-github">
-      <h2 className="text-primary my-1">Github Repos</h2>
-      {repos === null ? (
-        <Spinner />
-      ) : (
-        repos.map(repo => (
-          <div key={repo.id} className="repo bg-white p-1 my-1">
-            <div>
-              <h4>
-                <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-                  {repo.name}
-                </a>
-              </h4>
-              <p>{repo.description}</p>
-            </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">Stars: {repo.stargazers_count}</li>
-                <li className="badge badge-dark">Watchers: {repo.watchers_count}</li>
-                <li className="badge badge-light">Forks: {repo.forks_count}</li>
-              </ul>
-            </div>
-          </div>
-        ))
-      )}
-    </div>
+    <Card fluid style={{ flexBasis: '100%' }}>
+      <Card.Content>
+        <Header icon="github" as="h1" content="Github Repos" />
+        <Divider />
+
+        {repos === null ? (
+          <Spinner />
+        ) : (
+          <Grid
+            style={{ marginTop: '1rem' }}
+            container
+            as={Card.Group}
+            stackable
+            columns="three">
+            {repos.map(repo => (
+              <Card
+                as="a"
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={repo.id}>
+                <Card.Content>
+                  <Header
+                    textAlign="center"
+                    as="h4"
+                    content={repo.name}
+                    subheader={repo.description}
+                  />
+                </Card.Content>
+                <Card.Content extra textAlign="center">
+                  <Button as="div" labelPosition="right">
+                    <Button size="tiny" color="orange" icon="star" />
+                    <Label
+                      size="tiny"
+                      color="orange"
+                      basic
+                      pointing="left"
+                      content={repo.stargazers_count}
+                    />
+                  </Button>
+                  <Button as="div" labelPosition="right">
+                    <Button size="tiny" color="grey" icon="eye" />
+                    <Label
+                      size="tiny"
+                      color="grey"
+                      basic
+                      pointing="left"
+                      content={repo.watchers_count}
+                    />
+                  </Button>
+                  <Button as="div" labelPosition="right">
+                    <Button size="tiny" color="blue" icon="fork" />
+                    <Label
+                      size="tiny"
+                      color="blue"
+                      basic
+                      pointing="left"
+                      content={repo.forks_count}
+                    />
+                  </Button>
+                </Card.Content>
+              </Card>
+            ))}
+          </Grid>
+        )}
+      </Card.Content>
+    </Card>
   );
 };
 
 ProfileGithub.propTypes = {
   getGithubRepos: PropTypes.func.isRequired,
   repos: PropTypes.array.isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  repos: state.profile.repos,
+  repos: state.profile.repos
 });
 
 export default connect(
   mapStateToProps,
-  { getGithubRepos },
+  { getGithubRepos }
 )(ProfileGithub);

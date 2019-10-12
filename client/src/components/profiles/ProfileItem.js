@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Card, Image, Button, Header, List } from 'semantic-ui-react';
 
 const ProfileItem = ({
   profile: {
@@ -8,35 +9,34 @@ const ProfileItem = ({
     status,
     company,
     location,
-    skills,
-  },
+    skills
+  }
 }) => {
   return (
-    <div className="profile bg-light">
-      <img src={avatar} alt={name} className="round-img" />
-      <div>
-        <h2>{name}</h2>
-        <p>
+    <Card raised as={Link} to={`/profile/${_id}`}>
+      <Image src={avatar} alt={name} wrapped ui={false} />
+      <Card.Content>
+        <Card.Header textAlign="center" as="h2">
+          {name}
+        </Card.Header>
+        <Card.Meta textAlign="center">
           {status} {company && <span> at {company}</span>}
-        </p>
-        <p className="my-1">{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${_id}`} className="btn btn-primary">
-          View Profile
-        </Link>
-      </div>
-      <ul>
-        {skills.slice(0, 4).map((skill, index) => (
-          <li key={index} className="text-primary">
-            <i className="fas fa-check"></i> {skill}
-          </li>
-        ))}
-      </ul>
-    </div>
+        </Card.Meta>
+        <Card.Meta textAlign="center">
+          {location && <span>{location}</span>}
+        </Card.Meta>
+        <List>
+          {skills.slice(0, 4).map((skill, index) => (
+            <List.Item key={index} icon="check" content={skill} />
+          ))}
+        </List>
+      </Card.Content>
+    </Card>
   );
 };
 
 ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 export default ProfileItem;

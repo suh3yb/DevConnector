@@ -3,7 +3,24 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost } from '../../redux/actions/postAction';
+import {
+  addLike,
+  removeLike,
+  deletePost
+} from '../../redux/actions/postAction';
+import {
+  Card,
+  Feed,
+  List,
+  Image,
+  Button,
+  Label,
+  Dropdown,
+  Menu,
+  Grid,
+  Table,
+  Header
+} from 'semantic-ui-react';
 
 const PostItem = ({
   addLike,
@@ -11,45 +28,58 @@ const PostItem = ({
   deletePost,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date },
-  showActions,
+  showActions
 }) => (
-  <div className="post bg-white p-1 my-1">
-    <div>
-      <Link to={`/profile/${user}`}>
-        <img className="round-img" src={avatar} alt={name} />
-        <h4>{name}</h4>
-      </Link>
-    </div>
-    <div>
-      <p className="my-1">{text}</p>
-      <p className="post-date">
+  <Card fluid>
+    <Card.Content>
+      <Image floated="left" size="big" avatar src={avatar} />
+      {!auth.loading && user === auth.user._id && (
+        <Button
+          floated="right"
+          basic
+          color="red"
+          onClick={() => deletePost(_id)}
+          icon="trash"
+          circular></Button>
+      )}
+      <Card.Header as={Link} to={`/profile/${user}`}>
+        {name}
+      </Card.Header>
+      <Card.Meta>
         Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
-      </p>
+      </Card.Meta>
+    </Card.Content>
+    <Card.Content>
+      <Card.Description>{text}</Card.Description>
+    </Card.Content>
+
+    <Card.Content extra>
       {showActions && (
         <Fragment>
-          <button onClick={() => addLike(_id)} type="button" className="btn btn-light">
-            <i className="fas fa-thumbs-up"></i> {likes.length > 0 && <span>{likes.length}</span>}
-          </button>
-          <button onClick={() => removeLike(_id)} type="button" className="btn btn-light">
-            <i className="fas fa-thumbs-down"></i>
-          </button>
-          <Link to={`/posts/${_id}`} className="btn btn-primary">
-            Discussion{' '}
-            {comments.length > 0 && <span className="comment-count">{comments.length}</span>}
-          </Link>
-          {!auth.loading && user === auth.user._id && (
-            <button onClick={() => deletePost(_id)} type="button" className="btn btn-danger">
-              <i className="fas fa-times"></i>
-            </button>
-          )}
+          <Button
+            onClick={() => addLike(_id)}
+            icon="thumbs up"
+            labelPosition="left"
+            label={likes.length > 0 ? likes.length : 0}
+          />
+          <Button onClick={() => removeLike(_id)} icon="thumbs down" />
+
+          <Button
+            floated="right"
+            as={Link}
+            to={`/posts/${_id}`}
+            labelPosition="left"
+            label={comments.length > 0 ? comments.length : 0}
+            content="Discussion"
+          />
         </Fragment>
       )}
-    </div>
-  </div>
+    </Card.Content>
+  </Card>
 );
 
 PostItem.defaultProps = {
-  showActions: true,
+  showActions: true
 };
 
 PostItem.propTypes = {
@@ -58,14 +88,14 @@ PostItem.propTypes = {
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  showActions: PropTypes.bool,
+  showActions: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { addLike, removeLike, deletePost },
+  { addLike, removeLike, deletePost }
 )(PostItem);

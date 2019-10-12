@@ -3,6 +3,17 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addEducation } from '../../redux/actions/profileAction';
+import {
+  Header,
+  Form,
+  Input,
+  TextArea,
+  Label,
+  Checkbox,
+  Grid,
+  Button,
+  Divider
+} from 'semantic-ui-react';
 
 const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
@@ -12,14 +23,23 @@ const AddEducation = ({ addEducation, history }) => {
     from: '',
     to: '',
     current: false,
-    description: '',
+    description: ''
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const { school, degree, fieldofstudy, from, to, current, description } = formData;
+  const {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description
+  } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -28,49 +48,60 @@ const AddEducation = ({ addEducation, history }) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Add Your Education</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch"></i> Add any school or bootcamp you have attended
-      </p>
-      <small>* = required field</small>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* School or Bootcamp"
-            name="school"
-            value={school}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Degree or Certificate"
-            name="degree"
-            value={degree}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Field of Study"
-            name="fieldofstudy"
-            value={fieldofstudy}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={e => onChange(e)} />
-        </div>
-        <div className="form-group">
-          <p>
-            <input
-              type="checkbox"
+      <Header
+        as="h3"
+        icon="graduation"
+        content="Add Your Aducation"
+        subheader="Add any school or bootcamp you have attended"
+      />
+      <Button as={Link} to="/dashboard" icon="arrow left" content="Go Back" />
+      <Divider />
+      <Form className="form" onSubmit={e => onSubmit(e)}>
+        <Form.Group widths="3">
+          <Form.Field>
+            <Input
+              type="text"
+              placeholder="* School or Bootcamp"
+              name="school"
+              value={school}
+              onChange={e => onChange(e)}
+              required
+            />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              type="text"
+              placeholder="* Degree or Certificate"
+              name="degree"
+              value={degree}
+              onChange={e => onChange(e)}
+              required
+            />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              type="text"
+              placeholder="* Field of Study"
+              name="fieldofstudy"
+              value={fieldofstudy}
+              onChange={e => onChange(e)}
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group widths="3">
+          <Form.Field>
+            <label>From Date</label>
+            <Input
+              type="date"
+              name="from"
+              value={from}
+              onChange={e => onChange(e)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Current School</label>
+            <Checkbox
+              toggle
               name="current"
               checked={current}
               value={current}
@@ -78,44 +109,40 @@ const AddEducation = ({ addEducation, history }) => {
                 setFormData({ ...formData, current: !current });
                 toggleDisabled(!toDateDisabled);
               }}
-            />{' '}
-            Current School
-          </p>
-        </div>
-        <div className="form-group">
-          <h4>To Date</h4>
-          <input
-            type="date"
-            name="to"
-            value={to}
-            onChange={e => onChange(e)}
-            disabled={toDateDisabled ? 'disabled' : ''}
-          />
-        </div>
-        <div className="form-group">
-          <textarea
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>To Date</label>
+            <Input
+              type="date"
+              name="to"
+              value={to}
+              onChange={e => onChange(e)}
+              disabled={toDateDisabled ? 'disabled' : ''}
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Field>
+          <TextArea
             name="description"
             cols="30"
             rows="5"
             placeholder="Program Description"
             value={description}
             onChange={e => onChange(e)}
-          ></textarea>
-        </div>
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
-      </form>
+          />
+        </Form.Field>
+        <Button primary>Submit</Button>
+      </Form>
     </Fragment>
   );
 };
 
 AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired,
+  addEducation: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { addEducation },
+  { addEducation }
 )(withRouter(AddEducation));

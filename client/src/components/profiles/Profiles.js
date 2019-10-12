@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../redux/actions/profileAction';
+import { Header, Icon, Grid, Card } from 'semantic-ui-react';
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
@@ -16,12 +17,20 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i> Browse and connect with
-            developers
-          </p>
-          <div className="profiles">
+          <Header as="h3">
+            <Icon name="connectdevelop" />
+            <Header.Content>
+              Developers
+              <Header.Subheader>
+                Browse and connect with developers
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Grid
+            as={Card.Group}
+            stackable
+            columns="4"
+            style={{ marginTop: '1rem' }}>
             {profiles.length > 0 ? (
               profiles.map(
                 profile =>
@@ -32,7 +41,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             ) : (
               <h4>No profile found...</h4>
             )}
-          </div>
+          </Grid>
         </Fragment>
       )}
     </Fragment>

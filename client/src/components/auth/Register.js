@@ -75,7 +75,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                 onChange={e => onChange(e)}
                 required
               />
-              <Label pointing="above">
+              <Label color="black" icon="user" pointing="above" content="">
                 This site uses Gravatar so if you want a profile image, use a
                 Gravatar email
               </Label>
