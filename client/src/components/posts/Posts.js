@@ -14,11 +14,6 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     getPosts();
   }, [getPosts]);
 
-  const trail = useTrail(posts.length, {
-    from: { marginTop: -20, opacity: 0, transform: 'translate3d(0,-40px,0)' },
-    to: { marginTop: 20, opacity: 1, transform: 'translate3d(0,0px,0)' }
-  });
-
   return loading ? (
     <Spinner />
   ) : (
@@ -31,10 +26,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <PostForm />
       <Update />
       <Grid as={Card.Group} style={{ marginTop: '1rem' }}>
-        {trail.map(post => (
-          <animated.div key={post._id}>
-            <PostItem post={post} />
-          </animated.div>
+        {posts.map(post => (
+          <PostItem post={post} />
         ))}
       </Grid>
     </Fragment>
