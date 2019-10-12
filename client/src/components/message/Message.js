@@ -19,16 +19,18 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
       <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
 
       <div className='comments '>
-        {messages.map(message => {
-          return (
-            <p
-              key={message._id}
-              className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
-            >
-              {message.text}
-            </p>
-          );
-        })}
+        {messages[0] === undefined
+          ? 'No messages, Lets Send First Message !'
+          : messages.map(message => {
+              return (
+                <p
+                  key={message._id}
+                  className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
+                >
+                  {message.text}
+                </p>
+              );
+            })}
       </div>
     </Fragment>
   );

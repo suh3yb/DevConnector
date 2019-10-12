@@ -10,6 +10,7 @@ const ProfileItem = ({
     location,
     skills,
   },
+  user,
 }) => {
   return (
     <div className='profile bg-light'>
@@ -23,9 +24,11 @@ const ProfileItem = ({
         <Link to={`/profile/${_id}`} className='btn btn-primary'>
           View Profile
         </Link>
-        <Link to={`/messages/${_id}/${name.trim().split(' ')[0]}`} className='btn btn-primary'>
-          Send Message
-        </Link>
+        {user._id !== _id && (
+          <Link to={`/messages/${_id}/${name.trim().split(' ')[0]}`} className='btn btn-primary'>
+            Send Message
+          </Link>
+        )}
       </div>
       <ul>
         {skills.slice(0, 4).map((skill, index) => (
@@ -40,6 +43,7 @@ const ProfileItem = ({
 
 ProfileItem.propTypes = {
   profile: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default ProfileItem;
