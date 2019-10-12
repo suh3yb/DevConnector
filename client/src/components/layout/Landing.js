@@ -2,8 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Grid, Header, Button, Message } from 'semantic-ui-react';
-import backgroundImage from '../../img/showcase.jpg';
+import { Grid, Button } from 'semantic-ui-react';
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {

@@ -8,7 +8,7 @@ import {
   removeLike,
   deletePost
 } from '../../redux/actions/postAction';
-import { Card, Image, Button, Transition } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 
 const PostItem = ({
   addLike,

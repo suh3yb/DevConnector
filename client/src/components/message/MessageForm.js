@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sendMessage } from '../../redux/actions/messageAction';
-import { Header, Form, TextArea, Button, Icon, Input } from 'semantic-ui-react';
+import { Form, Button, Input } from 'semantic-ui-react';
 
 const MessageForm = ({ auth, receiver_id, sendMessage }) => {
   const [text, setText] = useState('');

@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import getMessages from '../../redux/actions/messageAction';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import MessageForm from './MessageForm';
-import { Label, Grid, Card, Segment } from 'semantic-ui-react';
+import { Label, Card, Segment } from 'semantic-ui-react';
 
 const Message = ({
   getMessages,

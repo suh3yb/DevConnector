@@ -5,9 +5,8 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../redux/actions/postAction';
-import { Header, Grid, Card, Transition } from 'semantic-ui-react';
+import { Header, Grid, Card } from 'semantic-ui-react';
 import Update from '../layout/Update';
-import { useTrail, animated } from 'react-spring';
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {

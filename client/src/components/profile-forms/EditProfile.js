@@ -11,11 +11,8 @@ import {
   Form,
   Button,
   Label,
-  Dropdown,
-  Select,
   Input,
   TextArea,
-  Icon,
   Divider
 } from 'semantic-ui-react';
 
@@ -66,15 +63,6 @@ const EditProfile = ({
       });
     }
   }, [loading, getCurrentProfile, profile]);
-
-  const statusList = [
-    { key: 'Developer', value: 'Developer', text: 'Developer' },
-    {
-      key: 'Junior Developer',
-      value: 'Junior Developer',
-      text: 'Junior Developer'
-    }
-  ];
 
   const {
     company,

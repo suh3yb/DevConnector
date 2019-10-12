@@ -8,9 +8,7 @@ import {
   Form,
   Input,
   TextArea,
-  Label,
   Checkbox,
-  Grid,
   Button,
   Divider
 } from 'semantic-ui-react';

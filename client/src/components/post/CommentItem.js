@@ -4,15 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { deleteComment } from '../../redux/actions/postAction';
-import {
-  Card,
-  List,
-  Image,
-  Button,
-  Menu,
-  Dropdown,
-  Icon
-} from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 
 const CommentItem = ({
   postId,

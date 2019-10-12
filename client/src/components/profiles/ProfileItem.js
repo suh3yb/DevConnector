@@ -32,7 +32,7 @@ const ProfileItem = ({
         </List>
       </Card.Content>
       <Card.Content extra textAlign="center">
-        <Button as={Link} as={Link} to={`/profile/${_id}`} inverted primary>
+        <Button as={Link} to={`/profile/${_id}`} inverted primary>
           View Profile
         </Button>
         <Button

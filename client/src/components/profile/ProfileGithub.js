@@ -3,17 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getGithubRepos } from '../../redux/actions/profileAction';
-import {
-  Card,
-  Header,
-  Grid,
-  List,
-  Menu,
-  Icon,
-  Label,
-  Button,
-  Divider
-} from 'semantic-ui-react';
+import { Card, Header, Grid, Label, Button, Divider } from 'semantic-ui-react';
 
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
   useEffect(() => {

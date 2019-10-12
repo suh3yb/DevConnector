@@ -9,7 +9,6 @@ import {
 import {
   Header,
   Form,
-  Select,
   Label,
   Input,
   TextArea,
@@ -43,15 +42,6 @@ const CreateProfile = ({
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
-
-  const statusList = [
-    { key: 'Developer', value: 'Developer', text: 'Developer' },
-    {
-      key: 'Junior Developer',
-      value: 'Junior Developer',
-      text: 'Junior Developer'
-    }
-  ];
 
   const {
     company,

@@ -16,7 +16,11 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "@craco/craco": "^5.5.0",
+    "@semantic-ui-react/craco-less": "^1.1.0",
+    "semantic-ui-less": "^2.4.1",
+    "semantic-ui-react": "^0.88.1"
   },
   "scripts": {
     "start": "craco start",
@@ -39,11 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
-  "devDependencies": {
-    "@craco/craco": "^5.5.0",
-    "@semantic-ui-react/craco-less": "^1.1.0",
-    "semantic-ui-less": "^2.4.1",
-    "semantic-ui-react": "^0.88.1"
-  }
+  "proxy": "http://localhost:5000"
 }
