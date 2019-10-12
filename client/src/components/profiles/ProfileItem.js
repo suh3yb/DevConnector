@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, Image, Button, Header, List } from 'semantic-ui-react';
+import { Card, Image, List, Button } from 'semantic-ui-react';
 
 const ProfileItem = ({
   profile: {
@@ -13,7 +13,7 @@ const ProfileItem = ({
   }
 }) => {
   return (
-    <Card raised as={Link} to={`/profile/${_id}`}>
+    <Card raised>
       <Image src={avatar} alt={name} wrapped ui={false} />
       <Card.Content>
         <Card.Header textAlign="center" as="h2">
@@ -30,6 +30,19 @@ const ProfileItem = ({
             <List.Item key={index} icon="check" content={skill} />
           ))}
         </List>
+      </Card.Content>
+      <Card.Content extra textAlign="center">
+        <Button as={Link} as={Link} to={`/profile/${_id}`} inverted primary>
+          View Profile
+        </Button>
+        <Button
+          as={Link}
+          icon="envelope"
+          to={`/messages/${_id}/${name.trim().split(' ')[0]}`}
+          className="btn btn-primary"
+          inverted
+          secondary
+        />
       </Card.Content>
     </Card>
   );
