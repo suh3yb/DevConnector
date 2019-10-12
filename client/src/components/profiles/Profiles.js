@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../redux/actions/profileAction';
-import authReducer from '../../redux/reducers/authReducer';
 
 const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
   useEffect(() => {
@@ -16,22 +15,22 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <Fragment>
-          <h1 className='large text-primary'>Developers</h1>
-          <p className='lead'>
-            <i className='fab fa-connectdevelop'></i> Browse and connect with developers
+          <Fragment>
+            <h1 className='large text-primary'>Developers</h1>
+            <p className='lead'>
+              <i className='fab fa-connectdevelop'></i> Browse and connect with developers
           </p>
-          <div className='profiles'>
-            {profiles.length > 0 ? (
-              profiles.map(profile => (
-                <ProfileItem key={profile._id} profile={profile} user={user} />
-              ))
-            ) : (
-              <h4>No profile found...</h4>
-            )}
-          </div>
-        </Fragment>
-      )}
+            <div className='profiles'>
+              {profiles.length > 0 ? (
+                profiles.map(profile => (
+                  <ProfileItem key={profile._id} profile={profile} user={user} />
+                ))
+              ) : (
+                  <h4>No profile found...</h4>
+                )}
+            </div>
+          </Fragment>
+        )}
     </Fragment>
   );
 };
