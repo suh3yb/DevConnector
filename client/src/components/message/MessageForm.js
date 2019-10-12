@@ -7,6 +7,15 @@ import { Link } from 'react-router-dom';
 const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
   const [text, setText] = useState('');
   const sender_id = auth.user._id;
+
+  const onEnterPress = (e) => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      sendMessage(sender_id, receiver_id, text);
+      setText('');
+    }
+  }
+
   return (
     <div className='post-form'>
       <div className='bg-primary p'>
@@ -14,11 +23,7 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
       </div>
       <form
         className='form my-1'
-        onSubmit={e => {
-          e.preventDefault();
-          sendMessage(sender_id, receiver_id, text);
-          setText('');
-        }}
+
       >
         <textarea
           name='text'
@@ -27,6 +32,7 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
           placeholder='Your message'
           value={text}
           onChange={e => setText(e.target.value)}
+          onKeyDown={onEnterPress}
           required
         ></textarea>
         <input type='submit' className='btn btn-dark my-1' value='Send' />
