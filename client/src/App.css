@@ -34,6 +34,10 @@ img {
   width: 100%;
 }
 
+.hide {
+  display: none !important;
+}
+
 /* Utilities */
 .container {
   max-width: 1100px;

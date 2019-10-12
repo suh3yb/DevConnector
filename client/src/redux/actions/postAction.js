@@ -5,6 +5,7 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
+  EDIT_POST,
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
@@ -21,6 +22,7 @@ export const getPosts = () => async dispatch => {
       payload: res.data,
     });
   } catch (error) {
+    console.log(error)
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
@@ -73,6 +75,25 @@ export const deletePost = id => async dispatch => {
     });
 
     dispatch(setAlert('Post Removed', 'success'));
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Edit post
+export const editPost = (id, formData) => async dispatch => {
+  try {
+    const res = await axios.post(`/api/posts/${id}`, formData);
+
+    dispatch({
+      type: EDIT_POST,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Post updated', 'success'));
   } catch (error) {
     dispatch({
       type: POST_ERROR,
