@@ -4,6 +4,8 @@ const { validationResult } = require('express-validator');
 
 const Post = require('../../../models/Post');
 const User = require('../../../models/User');
+var io = require('socket.io-client');
+var socket = io.connect('http://localhost:5000');
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -23,6 +25,7 @@ const createPost = async (req, res) => {
     });
 
     const post = await newPost.save();
+    socket.emit('post', { userId: req.user.id });
 
     res.json(post);
   } catch (error) {
