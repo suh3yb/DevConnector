@@ -1,19 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 
 const DashboardActions = () => {
   return (
-    <div className="dash-buttons">
-      <Link to="/edit-profile" className="btn btn-light">
-        <i className="fas fa-user-circle text-primary"></i> Edit Profile
-      </Link>
-      <Link to="/add-experience" className="btn btn-light">
-        <i className="fab fa-black-tie text-primary"></i> Add Experience
-      </Link>
-      <Link to="/add-education" className="btn btn-light">
-        <i className="fas fa-graduation-cap text-primary"></i> Add Education
-      </Link>
-    </div>
+    <>
+      <Button
+        as={Link}
+        to="/edit-profile"
+        color="grey"
+        icon="user circle"
+        content="Edit Profile"
+      />
+
+      <Button
+        as={Link}
+        to="/add-experience"
+        icon="suitcase"
+        content="Add Experience"
+        color="grey"
+      />
+      <Button
+        as={Link}
+        to="/add-education"
+        icon="graduation cap"
+        content="Add Education"
+        color="grey"
+      />
+    </>
   );
 };
 
