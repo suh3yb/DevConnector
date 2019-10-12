@@ -7,8 +7,8 @@ import MessageForm from './MessageForm';
 
 const Message = ({ getMessages, message: { messages, loading }, auth, match }) => {
   useEffect(() => {
-    getMessages(auth.user._id, match.params.id);
-  }, [getMessages, match.params.id]);
+    auth.user && getMessages(auth.user._id, match.params.id);
+  }, [getMessages, match.params.id, auth.user]);
   const receiver_id = match.params.id;
   const receiver_name = match.params.name;
 
@@ -16,17 +16,20 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
     <Spinner />
   ) : (
     <Fragment>
-      <div className='comments'>
-        <p className='lead'>Chat with {receiver_name}</p>
+      <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
+
+      <div className='comments '>
         {messages.map(message => {
           return (
-            <p key={message._id} className='lead'>
+            <p
+              key={message._id}
+              className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
+            >
               {message.text}
             </p>
           );
         })}
       </div>
-      <MessageForm receiver_id={receiver_id} />
     </Fragment>
   );
 };
