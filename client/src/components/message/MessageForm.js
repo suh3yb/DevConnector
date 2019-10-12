@@ -8,13 +8,13 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
   const [text, setText] = useState('');
   const sender_id = auth.user._id;
 
-  const onEnterPress = (e) => {
+  const onEnterPress = e => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       sendMessage(sender_id, receiver_id, text);
       setText('');
     }
-  }
+  };
 
   return (
     <div className='post-form'>
@@ -23,7 +23,11 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
       </div>
       <form
         className='form my-1'
-
+        onSubmit={e => {
+          e.preventDefault();
+          sendMessage(sender_id, receiver_id, text);
+          setText('');
+        }}
       >
         <textarea
           name='text'
