@@ -27,3 +27,4 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const MESSAGE_ERROR = 'MESSAGE_ERROR';
 export const GET_UPDATE = 'GET_UPDATE';
 export const RESET_UPDATE = 'RESET_UPDATE';
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
