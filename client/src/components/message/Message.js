@@ -4,6 +4,7 @@ import getMessages from '../../redux/actions/messageAction';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import MessageForm from './MessageForm';
+import NotFound from '../layout/NotFound';
 
 const Message = ({ getMessages, message: { messages, loading }, auth, match }) => {
   useEffect(() => {
@@ -14,6 +15,8 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
 
   return loading ? (
     <Spinner />
+  ) : auth.user._id === receiver_id ? (
+    <NotFound />
   ) : (
     <Fragment>
       <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
