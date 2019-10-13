@@ -2,7 +2,6 @@ import axios from 'axios';
 import { setAlert } from './alertAction';
 import { SEND_MESSAGE, GET_MESSAGES, MESSAGE_ERROR } from './types';
 
-//Get messages
 const getMessages = (sender_id, receiver_id) => async dispatch => {
   try {
     const res = await axios.get(`/api/message/${sender_id}/${receiver_id}`);
