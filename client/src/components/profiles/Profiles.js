@@ -6,7 +6,7 @@ import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../redux/actions/profileAction';
 import { Header, Icon, Grid, Card } from 'semantic-ui-react';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);

@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sendMessage } from '../../redux/actions/messageAction';
-import { Form, Button, Input } from 'semantic-ui-react';
+import { Form, Button, TextArea } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const MessageForm = ({ auth, receiver_id, sendMessage }) => {
+const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
   const [text, setText] = useState('');
   const sender_id = auth.user._id;
+
+  const onEnterPress = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      sendMessage(sender_id, receiver_id, text);
+      setText('');
+    }
+  };
+
   return (
     <div>
       <Form
@@ -18,8 +28,8 @@ const MessageForm = ({ auth, receiver_id, sendMessage }) => {
         }}>
         <Form.Group>
           <Form.Field style={{ flex: 1 }}>
-            <Input
-              size="large"
+            <TextArea
+              rows="2"
               name="text"
               placeholder="Your message"
               value={text}
