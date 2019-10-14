@@ -110,6 +110,14 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  friend: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+      },
+    },
+  ],
 });
 
 const Profile = mongoose.model('profile', ProfileSchema);

@@ -118,4 +118,9 @@ router.delete('/education/:edu_id', auth, deleteEducation);
 // @access  Public
 router.get('/github/:username', getGithubRepos);
 
+// @route   PUT api/profile/follow/:follower_id
+// @desc    follow friend and Update user
+// @access  Private
+router.put('/follow', auth, followFriend);
+
 module.exports = router;

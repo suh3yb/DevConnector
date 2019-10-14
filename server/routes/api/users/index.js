@@ -5,6 +5,7 @@ const router = express.Router();
 const { check } = require('express-validator');
 
 const registerUser = require('./registerUser');
+const followFriend = require('./followFriend');
 
 // @route   POST api/users
 // @desc    Register user

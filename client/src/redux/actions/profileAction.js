@@ -234,3 +234,51 @@ export const deleteAccount = () => async dispatch => {
     }
   }
 };
+
+// follow friend
+export const follow = followedId => async dispatch => {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    const res = await axios.post('/api/profile/follow', followedId, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Friend Added', 'success'));
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Unfollow friend
+export const Unfollow = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profile/education/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Education Deleted', 'success'));
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
