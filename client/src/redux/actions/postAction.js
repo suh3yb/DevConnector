@@ -9,6 +9,7 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  EDIT_POST,
 } from './types';
 
 // Get posts
@@ -41,6 +42,30 @@ export const addLike = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Edit post
+export const editPost = (postId, formData) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.put(`/api/posts/${postId}`, formData, config);
+
+    dispatch({
+      type: EDIT_POST,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Post Edited', 'success'));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };

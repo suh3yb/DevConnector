@@ -6,6 +6,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
+import EditPostForm from './EditPostForm';
 import { getPost } from '../../redux/actions/postAction';
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
@@ -21,6 +22,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
         Back to Posts
       </Link>
       <PostItem post={post} showActions={false} />
+      <EditPostForm postId={post._id} />
       <CommentForm postId={post._id} />
       <div className="comments">
         {post.comments.map(comment => (
