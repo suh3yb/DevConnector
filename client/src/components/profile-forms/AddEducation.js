@@ -102,7 +102,6 @@ const AddEducation = ({ addEducation, history }) => {
               toggle
               name="current"
               checked={current}
-              value={current}
               onChange={() => {
                 setFormData({ ...formData, current: !current });
                 toggleDisabled(!toDateDisabled);
@@ -116,7 +115,7 @@ const AddEducation = ({ addEducation, history }) => {
               name="to"
               value={to}
               onChange={e => onChange(e)}
-              disabled={toDateDisabled ? 'disabled' : ''}
+              disabled={toDateDisabled ? true : false}
             />
           </Form.Field>
         </Form.Group>

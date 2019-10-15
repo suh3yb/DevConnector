@@ -93,10 +93,8 @@ const AddExperience = ({ addExperience, history }) => {
             <label>Current Job</label>
             <Checkbox
               toggle
-              type="checkbox"
               name="current"
               checked={current}
-              value={current}
               onChange={() => {
                 setFormData({ ...formData, current: !current });
                 toggleDisabled(!toDateDisabled);
@@ -110,7 +108,7 @@ const AddExperience = ({ addExperience, history }) => {
               name="to"
               value={to}
               onChange={e => onChange(e)}
-              disabled={toDateDisabled ? 'disabled' : ''}
+              disabled={toDateDisabled ? true : false}
             />
           </Form.Field>
         </Form.Group>

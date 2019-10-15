@@ -200,8 +200,7 @@ const EditProfile = ({
             onClick={() => {
               toggleSocialInputs(!displaySocialInputs);
               return false;
-            }}
-            return>
+            }}>
             Add Social Network Links
           </button>
         </Form.Field>

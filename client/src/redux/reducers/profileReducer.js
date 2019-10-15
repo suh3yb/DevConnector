@@ -5,6 +5,7 @@ import {
   CLEAR_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE,
+  UPDATE_PASSWORD,
 } from '../actions/types';
 
 const initialState = {
@@ -51,6 +52,7 @@ export default function(state = initialState, action) {
         repos: [],
         loading: false,
       };
+    case UPDATE_PASSWORD:
     default:
       return state;
   }
