@@ -13,8 +13,6 @@ import {
 
 // Get all profiles
 export const getProfiles = () => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
-
   try {
     const res = await axios.get('/api/profile');
 
@@ -51,6 +49,8 @@ export const getCurrentProfile = () => async dispatch => {
 
 // Get profile by id
 export const getProfileById = userId => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -236,13 +236,13 @@ export const deleteAccount = () => async dispatch => {
 };
 
 // follow friend
-export const follow = followedId => async dispatch => {
+export const follow = (followId, name) => async dispatch => {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
     };
 
-    const res = await axios.post('/api/profile/follow', followedId, config);
+    const res = await axios.post('/api/profile/follow', { followId, name }, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -265,17 +265,23 @@ export const follow = followedId => async dispatch => {
 };
 
 // Unfollow friend
-export const Unfollow = id => async dispatch => {
+export const unfollow = unfollowId => async dispatch => {
   try {
-    const res = await axios.delete(`/api/profile/education/${id}`);
+    const res = await axios.delete(`/api/profile/follow/${unfollowId}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Education Deleted', 'success'));
+    dispatch(setAlert('Friend Removed', 'success'));
   } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },

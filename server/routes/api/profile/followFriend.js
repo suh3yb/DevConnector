@@ -1,18 +1,31 @@
 'use strict';
 
+const { validationResult } = require('express-validator');
+
 const Profile = require('../../../models/Profile');
 
 const followFriend = async (req, res) => {
-  const { id } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { followId, name } = req.body;
 
   const newFriend = {
-    id,
+    user: followId,
+    name,
   };
 
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    let profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
 
-    profile.friend.unshift(newFriend);
+    if (profile) {
+      profile.friend.unshift(newFriend);
+    } else {
+      return res.status(400).json({ msg: 'Please create a profile first.' });
+    }
 
     await profile.save();
 

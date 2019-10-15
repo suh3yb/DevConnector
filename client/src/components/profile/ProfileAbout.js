@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import ProfileFriend from './ProfileFriend';
 
 const ProfileAbout = ({
   profile: {
+    friend,
     bio,
     skills,
     user: { name },
@@ -25,6 +27,8 @@ const ProfileAbout = ({
         </div>
       ))}
     </div>
+
+    {friend.length > 0 && <ProfileFriend friend={friend} />}
   </div>
 );
 

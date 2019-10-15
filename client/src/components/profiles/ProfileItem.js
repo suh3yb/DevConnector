@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { follow } from '../../redux/actions/profileAction';
+import { connect } from 'react-redux';
+import { follow, unfollow } from '../../redux/actions/profileAction';
 
 const ProfileItem = ({
+  currentUser,
+  currentUserProfile,
   profile: {
     user: { _id, name, avatar },
     status,
@@ -12,10 +15,19 @@ const ProfileItem = ({
     skills,
   },
   follow,
+  unfollow,
 }) => {
-  const onClick = () => {
-    follow(_id);
-  };
+  const followButton = !currentUserProfile ? null : currentUserProfile.friend.find(
+      elem => elem.user === _id,
+    ) ? (
+    <button onClick={() => unfollow(_id)} className="btn btn-danger">
+      Unfollow
+    </button>
+  ) : (
+    <button onClick={() => follow(_id, name)} className="btn btn-primary">
+      Follow
+    </button>
+  );
 
   return (
     <div className="profile bg-light">
@@ -29,9 +41,7 @@ const ProfileItem = ({
         <Link to={`/profile/${_id}`} className="btn btn-primary">
           View Profile
         </Link>
-        <button onClick={() => onClick()} className="btn btn-primary">
-          Follow
-        </button>
+        {currentUser && _id === currentUser._id ? null : followButton}
       </div>
       <ul>
         {skills.slice(0, 4).map((skill, index) => (
@@ -45,11 +55,19 @@ const ProfileItem = ({
 };
 
 ProfileItem.propTypes = {
+  currentUser: PropTypes.object,
+  currentUserProfile: PropTypes.object,
   profile: PropTypes.object.isRequired,
   follow: PropTypes.func.isRequired,
+  unfollow: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  currentUser: state.auth.user,
+  currentUserProfile: state.profile.profile,
+});
+
 export default connect(
-  null,
-  { follow },
+  mapStateToProps,
+  { follow, unfollow },
 )(ProfileItem);
