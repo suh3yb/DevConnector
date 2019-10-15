@@ -11,7 +11,7 @@ import {
   getCurrentProfile,
   deleteAccount
 } from '../../redux/actions/profileAction';
-import { Message, Header, Button, Icon, Divider } from 'semantic-ui-react';
+import { Message, Header, Button, Divider, Grid } from 'semantic-ui-react';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -27,15 +27,23 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
-      <Header as="h1">Dashboard</Header>
-      <p className="lead">
-        <i className="fas fa-user"></i> Welcome {user && user.name}
-      </p>
+      <Header
+        as="h3"
+        icon="dashboard"
+        content="DashBoard"
+        subheader={`Welcome ${user && user.name}`}
+      />
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
-          <Experience experience={profile.experience} />
-          <Education education={profile.education} />
+          <Grid stackable columns="2" style={{ marginTop: '1rem' }}>
+            <Grid.Column>
+              <Experience experience={profile.experience} />
+            </Grid.Column>
+            <Grid.Column>
+              <Education education={profile.education} />
+            </Grid.Column>
+          </Grid>
           <Divider />
           <Button
             icon="user times"

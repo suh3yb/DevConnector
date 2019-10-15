@@ -9,8 +9,14 @@ import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../redux/actions/profileAction';
+import { Button, Card, Grid, Header, Divider, List } from 'semantic-ui-react';
 
-const Profile = ({ profile: { profile, loading }, auth, getProfileById, match }) => {
+const Profile = ({
+  profile: { profile, loading },
+  auth,
+  getProfileById,
+  match
+}) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
@@ -21,44 +27,72 @@ const Profile = ({ profile: { profile, loading }, auth, getProfileById, match })
         <Spinner />
       ) : (
         <Fragment>
-          <Link to="/profiles" className="btn btn-light">
-            Back To Profiles
-          </Link>
-          {auth.isAuthenticated && !auth.loading && auth.user._id === profile.user._id && (
-            <Link to="/edit-profile" className="btn btn-dark">
-              Edit Profile
-            </Link>
-          )}
-          <div className="profile-grid my-1">
+          <Button
+            secondary
+            as={Link}
+            to="/profiles"
+            icon="arrow left"
+            content="Back To Profiles"
+          />
+          {auth.isAuthenticated &&
+            !auth.loading &&
+            auth.user._id === profile.user._id && (
+              <Button
+                as={Link}
+                to="/edit-profile"
+                icon="edit"
+                content="Edit Profile"
+                primary
+              />
+            )}
+          <Grid
+            style={{ marginTop: '1rem' }}
+            as={Card.Group}
+            stackable
+            columns="2">
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className="profile-exp bg-white p-2">
-              <h2 className="text-primary">Experience</h2>
-              {profile.experience.length > 0 ? (
-                <Fragment>
-                  {profile.experience.map(experience => (
-                    <ProfileExperience key={experience._id} experience={experience} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No experience credentials</h4>
-              )}
-            </div>
-            <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map(education => (
-                    <ProfileEducation key={education._id} education={education} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
+            <Card>
+              <Card.Content>
+                <Header as="h2" icon="suitcase" content="Experience" />
+                <Divider />
+                {profile.experience.length > 0 ? (
+                  <List selection animated>
+                    {profile.experience.map(experience => (
+                      <ProfileExperience
+                        key={experience._id}
+                        experience={experience}
+                      />
+                    ))}
+                  </List>
+                ) : (
+                  <h4>No experience credentials</h4>
+                )}
+              </Card.Content>
+            </Card>
+            <Card>
+              <Card.Content>
+                <Header as="h2" icon="graduation cap" content="Education" />
+                <Divider />
+                {profile.education.length > 0 ? (
+                  <List selection animated>
+                    {profile.education.map(education => (
+                      <ProfileEducation
+                        key={education._id}
+                        education={education}
+                      />
+                    ))}
+                  </List>
+                ) : (
+                  <h4>No education credentials</h4>
+                )}
+              </Card.Content>
+            </Card>
 
-            {profile.githubusername && <ProfileGithub username={profile.githubusername} />}
-          </div>
+            {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
+          </Grid>
         </Fragment>
       )}
     </Fragment>
@@ -68,15 +102,15 @@ const Profile = ({ profile: { profile, loading }, auth, getProfileById, match })
 Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileById },
+  { getProfileById }
 )(Profile);

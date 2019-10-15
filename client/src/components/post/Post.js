@@ -7,6 +7,7 @@ import PostItem from '../posts/PostItem';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import { getPost } from '../../redux/actions/postAction';
+import { Button, Divider } from 'semantic-ui-react';
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
@@ -17,9 +18,10 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <Link to="/posts" className="btn">
+      <Button as={Link} to="/posts">
         Back to Posts
-      </Link>
+      </Button>
+      <Divider />
       <PostItem post={post} showActions={false} />
       <CommentForm postId={post._id} />
       <div className="comments">
@@ -33,14 +35,14 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
 
 Post.propTypes = {
   getPost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post,
+  post: state.post
 });
 
 export default connect(
   mapStateToProps,
-  { getPost },
+  { getPost }
 )(Post);

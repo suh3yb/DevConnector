@@ -1,13 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
 
 const NotFound = () => {
   return (
-    <Fragment>
-      <h1 className="x-large text-primary">
-        <i className="fas fa-exclamation-triangle"></i> Page Not Found
-      </h1>
-      <p className="large">Sorry, this page does not exist</p>
-    </Fragment>
+    <Grid verticalAlign="middle" style={{ height: 'calc(100vh - 5rem)' }}>
+      <Grid.Column>
+        <Header
+          color="red"
+          size="huge"
+          icon="exclamation triangle"
+          content="Page Not Found"
+          subheader="Sorry, this page does not exist"
+        />
+      </Grid.Column>
+    </Grid>
   );
 };
 
