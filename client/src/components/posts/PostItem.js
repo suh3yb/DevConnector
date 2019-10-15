@@ -9,6 +9,7 @@ import {
   deletePost
 } from '../../redux/actions/postAction';
 import { Card, Image, Button } from 'semantic-ui-react';
+import PostContent from './PostContent';
 
 const PostItem = ({
   addLike,
@@ -38,7 +39,9 @@ const PostItem = ({
       </Card.Meta>
     </Card.Content>
     <Card.Content>
-      <Card.Description>{text}</Card.Description>
+      <Card.Description>
+        <PostContent source={text} />
+      </Card.Description>
     </Card.Content>
 
     <Card.Content extra>
