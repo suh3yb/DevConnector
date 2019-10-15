@@ -93,12 +93,13 @@ export const editPost = (id, formData) => async dispatch => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Post updated', 'success'));
+    dispatch(setAlert('Post updated!', 'success'));
   } catch (error) {
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
     });
+    dispatch(setAlert('ERROR: Failed to update!', 'danger'));
   }
 };
 

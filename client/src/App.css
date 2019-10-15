@@ -192,6 +192,13 @@ img {
   color: #fff;
 }
 
+.alert-danger {
+  position: fixed;
+  top: 60px;
+  width: calc(100% - 65px);
+  margin: auto;
+}
+
 .btn-success,
 .bg-success,
 .badge-success,

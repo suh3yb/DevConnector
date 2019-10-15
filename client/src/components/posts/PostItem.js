@@ -82,6 +82,7 @@ const PostItem = ({
                     //update post only if there are changes
                     if(newText !== text) {
                       editPost(_id, {text: newText});
+                      setNewText(text);
                     }
                 }}>
                   <i className="fas fa-save"></i>
