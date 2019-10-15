@@ -9,6 +9,7 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  TOGGLE_FILTER,
 } from './types';
 
 // Get posts
@@ -165,4 +166,13 @@ export const deleteComment = (postId, commentId) => async dispatch => {
       payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
+};
+
+// Toggle filter
+export const toggleFilter = () => dispatch => {
+  dispatch({
+    type: TOGGLE_FILTER,
+  });
+
+  dispatch(setAlert('Filter Applied', 'success'));
 };
