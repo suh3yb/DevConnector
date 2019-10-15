@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import getMessages from '../../redux/actions/messageAction';
+import { getMessages } from '../../redux/actions/messageAction';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import MessageForm from './MessageForm';
@@ -18,25 +18,25 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
   ) : auth.user._id === receiver_id ? (
     <NotFound />
   ) : (
-    <Fragment>
-      <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
+        <Fragment>
+          <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
 
-      <div className='comments '>
-        {messages[0] === undefined
-          ? 'No messages, Lets Send First Message !'
-          : messages.map(message => {
-              return (
-                <p
-                  key={message._id}
-                  className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
-                >
-                  {message.text}
-                </p>
-              );
-            })}
-      </div>
-    </Fragment>
-  );
+          <div className='comments '>
+            {messages[0] === undefined
+              ? 'No messages, Lets Send First Message !'
+              : messages.map(message => {
+                return (
+                  <p
+                    key={message._id}
+                    className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
+                  >
+                    {message.text}
+                  </p>
+                );
+              })}
+          </div>
+        </Fragment>
+      );
 };
 
 Message.propTypes = {
