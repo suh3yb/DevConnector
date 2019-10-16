@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, Image, List } from 'semantic-ui-react';
+import { Card, Image, List, Button } from 'semantic-ui-react';
 
 const ProfileItem = ({
   profile: {
@@ -13,7 +13,7 @@ const ProfileItem = ({
   }
 }) => {
   return (
-    <Card raised as={Link} to={`/profile/${_id}`}>
+    <Card raised>
       <Image src={avatar} alt={name} wrapped ui={false} />
       <Card.Content>
         <Card.Header textAlign="center" as="h2">
@@ -31,12 +31,21 @@ const ProfileItem = ({
           ))}
         </List>
       </Card.Content>
+      <Card.Content extra>
+        <Button as={Link} to={`/profile/${_id}`} icon="user" />
+        <Button
+          as={Link}
+          to={`/messages/${_id}/${name.trim().split(' ')[0]}`}
+          icon="envelope"
+        />
+      </Card.Content>
     </Card>
   );
 };
 
 ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default ProfileItem;

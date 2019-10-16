@@ -6,7 +6,7 @@ import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../redux/actions/profileAction';
 import { Header, Icon, Grid, Card } from 'semantic-ui-react';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
@@ -35,7 +35,11 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               profiles.map(
                 profile =>
                   profile.user && (
-                    <ProfileItem key={profile._id} profile={profile} />
+                    <ProfileItem
+                      key={profile._id}
+                      profile={profile}
+                      user={user}
+                    />
                   )
               )
             ) : (
@@ -54,7 +58,8 @@ Profiles.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  user: state.auth.user
 });
 
 export default connect(

@@ -23,3 +23,6 @@ export const GET_POST = 'GET_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const MESSAGE_ERROR = 'MESSAGE_ERROR';

@@ -25,6 +25,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <Menu.Item
         header
         as={Link}
+        to="/messages"
+        content="Messages"
+        icon="envelope"
+      />
+      <Menu.Item
+        header
+        as={Link}
         to="/dashboard"
         content="Dashboard"
         icon="dashboard"
