@@ -18,7 +18,7 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
   };
 
   return (
-    <div className="post-form">
+    <>
       <Header
         as="h3"
         icon="envelope"
@@ -60,7 +60,7 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
         <Button primary>Send</Button>
         <Divider />
       </Form>
-    </div>
+    </>
   );
 };
 

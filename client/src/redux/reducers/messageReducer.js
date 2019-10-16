@@ -3,10 +3,10 @@ import { GET_MESSAGES, SEND_MESSAGE, MESSAGE_ERROR } from '../actions/types';
 const initialState = {
   messages: [],
   loading: true,
-  error: {},
+  error: {}
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -14,21 +14,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         messages: payload,
-        loading: false,
+        loading: false
       };
 
     case MESSAGE_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false,
+        loading: false
       };
 
     case SEND_MESSAGE:
       return {
         ...state,
         messages: [...state.messages, payload],
-        loading: false,
+        loading: false
       };
 
     default:

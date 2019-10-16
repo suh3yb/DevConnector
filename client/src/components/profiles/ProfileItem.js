@@ -16,7 +16,8 @@ const ProfileItem = ({
     skills
   },
   follow,
-  unfollow
+  unfollow,
+  user
 }) => {
   const followButton = !currentUserProfile ? null : currentUserProfile.friend.find(
       elem => elem.user === _id

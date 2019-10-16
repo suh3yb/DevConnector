@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import MessageForm from './MessageForm';
 import NotFound from '../layout/NotFound';
+import openSocket from 'socket.io-client';
 import { Label, Segment } from 'semantic-ui-react';
 
 const Message = ({
@@ -16,6 +17,15 @@ const Message = ({
   useEffect(() => {
     auth.user && getMessages(auth.user._id, match.params.id);
   }, [getMessages, match.params.id, auth.user]);
+
+  const socket = openSocket('http://localhost:5000');
+
+  const currentUser = auth.user._id;
+  socket.on('incoming', receiverId => {
+    if (receiverId === currentUser) {
+      getMessages(auth.user._id, match.params.id);
+    }
+  });
 
   const receiver_id = match.params.id;
   const receiver_name = match.params.name;
@@ -60,10 +70,12 @@ Message.propTypes = {
   message: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   message: state.message,
   auth: state.auth
 });
+
 export default connect(
   mapStateToProps,
   { getMessages }
