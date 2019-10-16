@@ -6,6 +6,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
+import EditPostForm from './EditPostForm';
 import { getPost } from '../../redux/actions/postAction';
 import { Button, Divider } from 'semantic-ui-react';
 

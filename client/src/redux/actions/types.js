@@ -29,3 +29,4 @@ export const MESSAGE_ERROR = 'MESSAGE_ERROR';
 export const TOGGLE_FILTER = 'TOGGLE_FILTER';
 export const GET_UPDATE = 'GET_UPDATE';
 export const RESET_UPDATE = 'RESET_UPDATE';
+export const EDIT_POST = 'EDIT_POST';
