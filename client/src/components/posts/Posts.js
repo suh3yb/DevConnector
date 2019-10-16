@@ -7,6 +7,7 @@ import PostForm from './PostForm';
 import { getPosts, toggleFilter } from '../../redux/actions/postAction';
 import { Header, Grid, Card, Button } from 'semantic-ui-react';
 import { getCurrentProfile } from '../../redux/actions/profileAction';
+import Update from '../layout/Update';
 
 const Posts = ({
   getCurrentProfile,
@@ -37,6 +38,7 @@ const Posts = ({
         content="Posts"
         subheader="Welcome to the community"
       />
+      <Update />
       <PostForm />
       <Button onClick={() => toggleFilter()}>
         {showAll ? 'Show Following' : 'Show All'}
@@ -52,15 +54,15 @@ const Posts = ({
 
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
-  getPosts: PropTypes.func.isRequired
-};
-
-const mapStateToProps = state => ({
-  post: state.post,
   profile: PropTypes.object,
   getPosts: PropTypes.func.isRequired,
   toggleFilter: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  post: state.post,
+  profile: state.profile.profile
 });
 
 export default connect(
