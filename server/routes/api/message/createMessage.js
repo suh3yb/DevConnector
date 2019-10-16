@@ -3,6 +3,7 @@
 const { validationResult } = require('express-validator');
 
 const Message = require('../../../models/Message');
+const User = require('../../../models/User');
 
 const createMessage = async (req, res) => {
   const errors = validationResult(req);
@@ -12,15 +13,33 @@ const createMessage = async (req, res) => {
   }
 
   try {
-    const newMessage = new Message({
+    const sender = await User.findById(req.body.sender_id);
+    const receiver = await User.findById(req.body.receiver_id);
+
+    const current_conversation = sender.conversation.map(con => {
+      if (receiver.conversation.includes(con)) return con._id;
+    });
+    const conversation = await Message.findById(current_conversation);
+
+    const mesObj = {
       text: req.body.text,
       sender: req.body.sender_id,
       receiver: req.body.receiver_id,
-    });
-
-    const message = await newMessage.save();
-
-    res.json(message);
+    };
+    if (!conversation) {
+      const newConversation = new Message({ conversation: [mesObj] });
+      //newMessage.unshift(mesObj);
+      await newConversation.save();
+      res.json(mesObj);
+      sender.conversation.push(newConversation._id);
+      receiver.conversation.push(newConversation._id);
+      await sender.save();
+      await receiver.save();
+    } else {
+      conversation.conversation.unshift(mesObj);
+      await conversation.save();
+      res.json(mesObj);
+    }
   } catch (error) {
     console.error(error.message);
     res.send('Server Error');
