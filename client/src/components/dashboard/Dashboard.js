@@ -12,6 +12,7 @@ import {
   deleteAccount
 } from '../../redux/actions/profileAction';
 import { Message, Header, Button, Divider, Grid } from 'semantic-ui-react';
+import ProfileFriend from '../profile/ProfileFriend';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -42,6 +43,9 @@ const Dashboard = ({
             </Grid.Column>
             <Grid.Column>
               <Education education={profile.education} />
+            </Grid.Column>
+            <Grid.Column>
+              <ProfileFriend friend={profile.friend} />
             </Grid.Column>
           </Grid>
           <Divider />

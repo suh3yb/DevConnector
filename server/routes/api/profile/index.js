@@ -17,6 +17,8 @@ const addEducation = require('./addEducation');
 const deleteEducation = require('./deleteEducation');
 const getGithubRepos = require('./getGithubRepos');
 const updatePassword = require('./updatePassword');
+const followFriend = require('./followFriend');
+const unfollowFriend = require('./unfollowFriend');
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -36,10 +38,10 @@ router.post(
         .isEmpty(),
       check('skills', 'Skills are required')
         .not()
-        .isEmpty(),
-    ],
+        .isEmpty()
+    ]
   ],
-  createUpdateProfile,
+  createUpdateProfile
 );
 
 // @route   GET api/profile
@@ -73,10 +75,10 @@ router.put(
         .isEmpty(),
       check('from', 'From date is required')
         .not()
-        .isEmpty(),
-    ],
+        .isEmpty()
+    ]
   ],
-  addExperience,
+  addExperience
 );
 
 // @route   DELETE api/profile/experience/:exp_id
@@ -103,10 +105,10 @@ router.put(
         .isEmpty(),
       check('from', 'From date is required')
         .not()
-        .isEmpty(),
-    ],
+        .isEmpty()
+    ]
   ],
-  addEducation,
+  addEducation
 );
 
 // @route   DELETE api/profile/education/:edu_id
@@ -128,12 +130,34 @@ router.post(
     auth,
     [
       check('oldPassword', 'Please enter your current password').exists(),
-      check('newPassword', 'Please enter a password with 6 or more characters').isLength({
-        min: 6,
-      }),
-    ],
+      check(
+        'newPassword',
+        'Please enter a password with 6 or more characters'
+      ).isLength({
+        min: 6
+      })
+    ]
   ],
-  updatePassword,
+  updatePassword
 );
+
+// @route   POST api/profile/follow/
+// @desc    Follow a user as friend
+// @access  Private
+router.post(
+  '/follow',
+  auth,
+  [
+    check('followId', 'Specify a user to follow')
+      .not()
+      .isEmpty()
+  ],
+  followFriend
+);
+
+// @route   DELETE api/profile/follow/:user_id
+// @desc    Unfollow a user
+// @access  Private
+router.delete('/follow/:user_id', auth, unfollowFriend);
 
 module.exports = router;

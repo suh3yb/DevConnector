@@ -7,11 +7,13 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  TOGGLE_FILTER,
 } from '../actions/types';
 
 const initialState = {
   posts: [],
   post: null,
+  showAll: true,
   loading: true,
   error: {},
 };
@@ -72,6 +74,11 @@ export default function(state = initialState, action) {
           comments: state.post.comments.filter(comment => comment._id !== payload),
         },
         loading: false,
+      };
+    case TOGGLE_FILTER:
+      return {
+        ...state,
+        showAll: !state.showAll,
       };
     default:
       return state;

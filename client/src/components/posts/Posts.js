@@ -4,13 +4,29 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import { getPosts } from '../../redux/actions/postAction';
-import { Header, Grid, Card } from 'semantic-ui-react';
+import { getPosts, toggleFilter } from '../../redux/actions/postAction';
+import { Header, Grid, Card, Button } from 'semantic-ui-react';
+import { getCurrentProfile } from '../../redux/actions/profileAction';
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = ({
+  getCurrentProfile,
+  getPosts,
+  toggleFilter,
+  post: { posts, loading, showAll },
+  profile
+}) => {
   useEffect(() => {
+    getCurrentProfile();
     getPosts();
-  }, [getPosts]);
+  }, [getCurrentProfile, getPosts]);
+
+  let friendIds;
+  let postsToShow = posts;
+
+  if (profile && !showAll) {
+    friendIds = profile.friend.map(friendObj => friendObj.user);
+    postsToShow = posts.filter(post => friendIds.indexOf(post.user) !== -1);
+  }
 
   return loading ? (
     <Spinner />
@@ -22,8 +38,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         subheader="Welcome to the community"
       />
       <PostForm />
+      <Button onClick={() => toggleFilter()}>
+        {showAll ? 'Show Following' : 'Show All'}
+      </Button>
       <Grid as={Card.Group} style={{ marginTop: '1rem' }}>
-        {posts.map(post => (
+        {postsToShow.map(post => (
           <PostItem key={post._id} post={post} />
         ))}
       </Grid>
@@ -37,10 +56,14 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  profile: PropTypes.object,
+  getPosts: PropTypes.func.isRequired,
+  toggleFilter: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 });
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPosts, toggleFilter, getCurrentProfile }
 )(Posts);

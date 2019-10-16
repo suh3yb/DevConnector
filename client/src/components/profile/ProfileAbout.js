@@ -1,36 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Header, Divider, List, Icon } from 'semantic-ui-react';
+import ProfileFriend from './ProfileFriend';
 
 const ProfileAbout = ({
   profile: {
+    friend,
     bio,
     skills,
     user: { name }
   }
 }) => (
-  <Card fluid style={{ flexBasis: '100%' }}>
-    <Card.Content textAlign="center">
-      {bio && (
-        <>
-          <Header as="h2" className="text-primary">
-            {name.trim().split(' ')[0]}'s Bio
-          </Header>
-          <p>{bio}</p>
-          <Divider />
-        </>
-      )}
+  <>
+    <Card fluid style={{ flexBasis: '100%' }}>
+      <Card.Content textAlign="center">
+        {bio && (
+          <>
+            <Header as="h2" className="text-primary">
+              {name.trim().split(' ')[0]}'s Bio
+            </Header>
+            <p>{bio}</p>
+            <Divider />
+          </>
+        )}
 
-      <h2 className="text-primary">Skill Set</h2>
-      <List horizontal>
-        {skills.map((skill, index) => (
-          <List.Item key={index}>
-            <Icon name="check circle" /> {skill}
-          </List.Item>
-        ))}
-      </List>
-    </Card.Content>
-  </Card>
+        <h2 className="text-primary">Skill Set</h2>
+        <List horizontal>
+          {skills.map((skill, index) => (
+            <List.Item key={index}>
+              <Icon name="check circle" /> {skill}
+            </List.Item>
+          ))}
+        </List>
+      </Card.Content>
+    </Card>
+
+    <h2 className="text-primary">Skill Set</h2>
+    <div className="skills">
+      {skills.map((skill, index) => (
+        <div key={index} className="p-1">
+          <i className="fa fa-check"></i> {skill}
+        </div>
+      ))}
+    </div>
+
+    {friend.length > 0 && <ProfileFriend friend={friend} />}
+  </>
 );
 
 ProfileAbout.propTypes = {

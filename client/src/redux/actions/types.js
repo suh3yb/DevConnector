@@ -26,3 +26,4 @@ export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const MESSAGE_ERROR = 'MESSAGE_ERROR';
+export const TOGGLE_FILTER = 'TOGGLE_FILTER';
