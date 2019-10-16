@@ -4,6 +4,8 @@ const { validationResult } = require('express-validator');
 
 const Message = require('../../../models/Message');
 const User = require('../../../models/User');
+var io = require('socket.io-client');
+var socket = io.connect('http://localhost:5000');
 
 const createMessage = async (req, res) => {
   const errors = validationResult(req);
@@ -26,6 +28,7 @@ const createMessage = async (req, res) => {
       sender: req.body.sender_id,
       receiver: req.body.receiver_id,
     };
+    socket.emit('message', req.body.receiver_id);
     if (!conversation) {
       const newConversation = new Message({ conversation: [mesObj] });
       //newMessage.unshift(mesObj);
