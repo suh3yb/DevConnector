@@ -14,9 +14,10 @@ const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
   showActions,
 }) => {
+  //create a ref to be able to target the element that has this ref
   //newText to use it to update post text, the initial value of newText is old text
   const [newText , setNewText] = useState(text);
-  const inputArea = React.createRef(); //create a ref to be able to target the element that has this ref
+  const inputArea = React.createRef(); 
   const postText = React.createRef();
   const cancelButton = React.createRef();
   const editButton = React.createRef();// return an object with ref inside current property
@@ -39,8 +40,7 @@ const PostItem = ({
           cols="30"
           rows="5"
           value={newText}
-          onChange={e => setNewText(e.target.value)}
-        >{newText}</textarea>
+          onChange={e => setNewText(e.target.value)}/>
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
@@ -58,7 +58,6 @@ const PostItem = ({
             </Link>
             {!auth.loading && user === auth.user._id && (
               <Fragment>
-                {/* create delete button */}
                 <button onClick={() => deletePost(_id)} type="button" className="btn btn-danger">
                   <i className="fas fa-trash-alt"></i>
                 </button>
@@ -66,23 +65,25 @@ const PostItem = ({
                 <button ref={editButton} className="btn btn-danger" onClick={() => {
                     editButton.current.classList.add('hide'); //hide edit button
                     saveButton.current.classList.remove('hide');//show save button
-                    inputArea.current.classList.remove('hide'); //inputText.current = document.getElementbyRef show inputText with text to change
-                    cancelButton.current.classList.remove('hide'); //show cancel button
-                    postText.current.classList.add('hide'); //hide post with old value
+                    cancelButton.current.classList.remove('hide');//show cancel button
+                    postText.current.classList.add('hide'); //hide post paragraph with old value
+                    inputArea.current.classList.remove('hide'); //show inputText with post text - changeinputText.current = document.getElementbyRef
                 }}>
+                  {/* use icon from fontawesome for button */}
                   <i className="fas fa-edit"></i>
                 </button>
                 {/* create save button */}
                 <button ref={saveButton} className="hide btn btn-danger" onClick={() => {
-                    saveButton.current.classList.add('hide');
-                    editButton.current.classList.remove('hide');
-                    postText.current.classList.remove('hide'); //show post with new value
-                    inputArea.current.classList.add('hide'); // hide inputText (user doesn't want to change anymore)
+                    saveButton.current.classList.add('hide'); //hide save button
                     cancelButton.current.classList.add('hide'); // hide cancel button
+                    editButton.current.classList.remove('hide'); //show edit button
+                    inputArea.current.classList.add('hide'); // hide inputText (user doesn't want to change anymore)
+                    postText.current.classList.remove('hide'); //show post paragraph with new value
                     //update post only if there are changes
                     if(newText !== text) {
+                      //call editPost from postActions which will send put request to server to update the post in data base 
+                      //and update posts in state
                       editPost(_id, {text: newText});
-                      setNewText(text);
                     }
                 }}>
                   <i className="fas fa-save"></i>
@@ -90,11 +91,11 @@ const PostItem = ({
                 {/* create cancel button */}
                 <button ref={cancelButton} className="hide btn btn-danger" onClick={() => {
                   setNewText(text); // cancel changes in newText and set it back to text
-                  postText.current.classList.remove('hide'); //show post with old value
-                  inputArea.current.classList.add('hide'); // hide inputText (user doesn't want to change anymore)
-                  cancelButton.current.classList.add('hide'); // hide cancel button
-                  editButton.current.classList.remove('hide');
-                  saveButton.current.classList.add('hide');
+                  postText.current.classList.remove('hide'); //show post paragraph with old value
+                  inputArea.current.classList.add('hide'); //hide inputText (user doesn't want to change anymore)
+                  cancelButton.current.classList.add('hide'); //hide cancel button
+                  saveButton.current.classList.add('hide'); //hide save button
+                  editButton.current.classList.remove('hide'); //show edit button
                 }} type="button" >
                   <i className="fas fa-undo"></i>
                 </button>

@@ -158,6 +158,9 @@ img {
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
+  position: fixed;
+  top: 60px;
+  width: calc(100% - 65px);
 }
 
 .btn-primary,

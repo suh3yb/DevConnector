@@ -5,7 +5,6 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
-  EDIT_POST,
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
@@ -84,19 +83,13 @@ export const deletePost = id => async dispatch => {
 };
 
 // Edit post
-export const editPost = (id, formData) => async dispatch => {
+export const editPost = (id, updatedPost) => async dispatch => {
   try {
-    const res = await axios.post(`/api/posts/${id}`, formData);
+    await axios.put(`/api/posts/${id}`, updatedPost); //will update data base on server side
 
-    dispatch({
-      type: EDIT_POST,
-      payload: res.data,
-    });
+    dispatch(getPosts()); //will get posts after the update we did above this will update posts in the state which will trigger dom render with the updates
 
-
-    dispatch(getPosts());
-
-    dispatch(setAlert('Post updated!', 'success'));
+    dispatch(setAlert('Post updated!', 'success')); //alert user of update success
   } catch (error) {
     dispatch({
       type: POST_ERROR,

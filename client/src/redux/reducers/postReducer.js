@@ -3,7 +3,6 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
-  EDIT_POST,
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
@@ -45,12 +44,6 @@ export default function(state = initialState, action) {
         posts: state.posts.filter(post => post._id !== payload),
         loading: false,
       };
-    case EDIT_POST:
-      return {
-        ...state,
-        posts: [payload, ...state.posts],
-        loading: false,
-      }
     case POST_ERROR:
       return {
         ...state,
