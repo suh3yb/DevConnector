@@ -37,7 +37,7 @@ const editPost = async (req, res) => {
 			{ $set: updatedPost },
 			{ new: true, upsert: true },
 		);
-		res.json(post);
+		res.json('post updated!');
   } catch (error) {
     console.error(error.message);
 

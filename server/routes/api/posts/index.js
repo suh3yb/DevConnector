@@ -50,7 +50,7 @@ router.delete('/:id', auth, deletePost);
 // @route    Update api/posts/:id
 // @desc     Update a post
 // @access   Private
-router.post('/:id', auth, editPost);
+router.put('/:id', auth, editPost);
 
 // @route   PUT api/posts/like/:id
 // @desc    Like a post
