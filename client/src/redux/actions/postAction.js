@@ -93,6 +93,9 @@ export const editPost = (id, formData) => async dispatch => {
       payload: res.data,
     });
 
+
+    dispatch(getPosts());
+
     dispatch(setAlert('Post updated!', 'success'));
   } catch (error) {
     dispatch({

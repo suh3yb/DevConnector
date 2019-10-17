@@ -19,7 +19,7 @@ const PostItem = ({
   const inputArea = React.createRef(); //create a ref to be able to target the element that has this ref
   const postText = React.createRef();
   const cancelButton = React.createRef();
-  const editButton = React.createRef();
+  const editButton = React.createRef();// return an object with ref inside current property
   const saveButton = React.createRef();
   return (
     <div className="post bg-white p-1 my-1">
@@ -62,7 +62,7 @@ const PostItem = ({
                 <button onClick={() => deletePost(_id)} type="button" className="btn btn-danger">
                   <i className="fas fa-trash-alt"></i>
                 </button>
-                {/* create edit button */}
+                {/* create edit button */} 
                 <button ref={editButton} className="btn btn-danger" onClick={() => {
                     editButton.current.classList.add('hide'); //hide edit button
                     saveButton.current.classList.remove('hide');//show save button
