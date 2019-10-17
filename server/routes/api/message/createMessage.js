@@ -39,7 +39,7 @@ const createMessage = async (req, res) => {
       await sender.save();
       await receiver.save();
     } else {
-      conversation.conversation.unshift(mesObj);
+      conversation.conversation.push(mesObj);
       await conversation.save();
       res.json(mesObj);
     }
