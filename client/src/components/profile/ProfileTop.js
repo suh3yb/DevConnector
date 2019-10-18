@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Segment,
-  Container,
-  Header,
-  Image,
-  Icon,
-  Button,
-  Card
-} from 'semantic-ui-react';
+import { Segment, Header, Image, Button, Card } from 'semantic-ui-react';
 
 const ProfileTop = ({
   profile: {
@@ -47,7 +39,6 @@ const ProfileTop = ({
           {website && (
             <Button
               as="a"
-              icon
               circular
               icon="globe"
               primary

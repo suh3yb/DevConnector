@@ -11,11 +11,9 @@ import {
   Form,
   Button,
   Label,
-  Dropdown,
   Select,
   Input,
   TextArea,
-  Icon,
   Divider
 } from 'semantic-ui-react';
 

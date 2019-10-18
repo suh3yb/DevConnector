@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { deleteExperience } from '../../redux/actions/profileAction';
-import { Table, Header, Button, Responsive, Tab } from 'semantic-ui-react';
+import { Table, Header, Button } from 'semantic-ui-react';
 
 const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map(exp => (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Grid, Header, Button, Message } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import backgroundImage from '../../img/showcase.jpg';
 
 const Landing = ({ isAuthenticated }) => {
@@ -15,8 +15,7 @@ const Landing = ({ isAuthenticated }) => {
       textAlign="center"
       verticalAlign="middle"
       style={{
-        background:
-          'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(/static/media/showcase.4b31330b.jpg)',
+        background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '100vh',

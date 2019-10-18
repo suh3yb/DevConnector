@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../redux/actions/authAction';
-import { Menu, Container, Icon, Header } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (

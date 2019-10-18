@@ -11,14 +11,7 @@ import {
   getCurrentProfile,
   deleteAccount
 } from '../../redux/actions/profileAction';
-import {
-  Message,
-  Header,
-  Button,
-  Icon,
-  Divider,
-  Grid
-} from 'semantic-ui-react';
+import { Message, Header, Button, Divider, Grid } from 'semantic-ui-react';
 
 const Dashboard = ({
   getCurrentProfile,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, Image, Button, Header, List } from 'semantic-ui-react';
+import { Card, Image, List } from 'semantic-ui-react';
 
 const ProfileItem = ({
   profile: {
