@@ -10,7 +10,7 @@ const NewMessage = ({ auth: { user } }) => {
 
   useEffect(() => {
     socket.on('incoming', data => {
-      if (data === user._id) {
+      if (user && data === user._id) {
         setMessageCounter(messageCounter + 1);
       }
     });
@@ -25,7 +25,7 @@ const NewMessage = ({ auth: { user } }) => {
   ) : (
     <div className='hello'>
       <span>you have {messageCounter} new messages. Click here to see </span>
-      <Link to='/messages' onClick={() => onClick()}>
+      <Link to='/chat-list' onClick={() => onClick()}>
         New Messages
       </Link>
     </div>
