@@ -1,66 +1,40 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import Spinner from '../layout/Spinner';
-import openSocket from 'socket.io-client';
 import { getProfiles } from '../../redux/actions/profileAction';
-import ConversationItem from './ConversationItem';
+import Conversation from './Conversation';
 
-const socket = openSocket('http://localhost:5000');
-
-const ChatList = ({ auth, profiles, loading }) => {
-  let conversations;
-  let conversationArray;
-  if (auth.user !== null) {
-    conversations = auth.user.conversation;
-
-    conversationArray = conversations.map(conversation =>
-      conversation.conversation[0].sender === auth.user._id
-        ? conversation.conversation[0].receiver
-        : conversation.conversation[0].sender,
-    );
-  }
+const ChatList = ({ getProfiles, profile: { profiles, loading }, auth: { user } }) => {
   useEffect(() => {
     getProfiles();
-    let currentUser;
-    if (auth.user !== null) {
-      currentUser = auth.user._id;
-    }
-    socket.on('incoming', receiverId => {
-      if (receiverId === currentUser) {
-        console.log('your code Hamza :)');
-      }
-    });
-  }, [auth.user]);
+  }, [getProfiles]);
 
-  return loading ? (
+  return loading && user === null ? (
     <Spinner />
   ) : (
     <Fragment>
-      <div className='chat-list '>
-        {profiles &&
-          profiles.map(profile => {
-            if (-1 !== conversationArray.indexOf(profile.user._id)) {
-              return <ConversationItem key={profile._id} user={profile.user} />;
-            } else {
-              return null;
-            }
-          })}
-      </div>
+      <h1 className='large text-primary'>Chats Room</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Welcome {user && user.name}
+      </p>
+      {profiles !== null ? <Conversation /> : null}
     </Fragment>
   );
 };
 
 ChatList.propTypes = {
+  getProfiles: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profiles: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  profile: PropTypes.object.isRequired,
 };
+
 const mapStateToProps = state => ({
   auth: state.auth,
-  profiles: state.profile.profiles,
-  loading: state.profile.loading,
+  profile: state.profile,
 });
+
 export default connect(
   mapStateToProps,
   { getProfiles },

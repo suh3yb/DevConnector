@@ -11,7 +11,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to='/profiles'>Developers</Link>
       </li>
       <li>
-        <Link to='/chat-list'>MyChats</Link>
+        <Link to='/messages'>Messages</Link>
       </li>
       <li>
         <Link to='/posts'>Posts</Link>
