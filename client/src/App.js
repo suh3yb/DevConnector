@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Routes from './components/routing/Routes';
@@ -11,7 +11,7 @@ import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './redux/actions/authAction';
 
-import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -31,6 +31,7 @@ const App = () => {
             <Route exact path="/" component={Landing} />
             <Route component={Routes} />
           </Switch>
+          <ToastContainer autoClose={3000} />
         </Fragment>
       </Router>
     </Provider>

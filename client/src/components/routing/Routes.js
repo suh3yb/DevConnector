@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import { Container } from 'semantic-ui-react';
 import Register from '../auth/Register';
 import Login from '../auth/Login';
-import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
 import CreateProfile from '../profile-forms/CreateProfile';
 import EditProfile from '../profile-forms/EditProfile';
@@ -18,8 +18,7 @@ import PrivateRoute from '../routing/PrivateRoute';
 
 const Routes = () => {
   return (
-    <section className="container">
-      <Alert />
+    <Container style={{ paddingTop: '6rem' }}>
       <Switch>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
@@ -34,7 +33,7 @@ const Routes = () => {
         <PrivateRoute exact path="/posts/:id" component={Post} />
         <Route component={NotFound} />
       </Switch>
-    </section>
+    </Container>
   );
 };
 
