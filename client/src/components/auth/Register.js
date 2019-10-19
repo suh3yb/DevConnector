@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { toastify } from '../../utils/toastify';
 
-import { setAlert } from '../../redux/actions/alertAction';
 import { register } from '../../redux/actions/authAction';
 import {
   Grid,
@@ -16,7 +16,7 @@ import {
   Label
 } from 'semantic-ui-react';
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,7 +32,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger');
+      toastify('error', 'Passwords do not match!');
     } else {
       register({ name, email, password });
     }
@@ -75,10 +75,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                 onChange={e => onChange(e)}
                 required
               />
-              <Label color="black" icon="user" pointing="above" content="">
-                This site uses Gravatar so if you want a profile image, use a
-                Gravatar email
-              </Label>
+              <Label
+                color="black"
+                icon="user"
+                pointing="above"
+                content="This site uses Gravatar so if you want a profile image, use a
+                Gravatar email"
+              />
             </Form.Field>
             <Form.Field>
               <Input
@@ -116,7 +119,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
@@ -127,5 +129,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setAlert, register }
+  { register }
 )(Register);

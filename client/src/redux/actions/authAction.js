@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setAlert } from './alertAction';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,9 +7,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE,
+  CLEAR_PROFILE
 } from './types';
 import setAuthToken from '../../utils/setAuthToken';
+import { toastify } from '../../utils/toastify';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -23,7 +23,7 @@ export const loadUser = () => async dispatch => {
 
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({ type: AUTH_ERROR });
@@ -34,8 +34,8 @@ export const loadUser = () => async dispatch => {
 export const register = ({ name, email, password }) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   };
 
   const body = JSON.stringify({ name, email, password });
@@ -45,7 +45,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(loadUser());
@@ -53,11 +53,11 @@ export const register = ({ name, email, password }) => async dispatch => {
     const errors = error.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach(error => dispatch(toastify('error', error.msg)));
     }
 
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_FAIL
     });
   }
 };
@@ -66,8 +66,8 @@ export const register = ({ name, email, password }) => async dispatch => {
 export const login = (email, password) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   };
 
   const body = JSON.stringify({ email, password });
@@ -77,7 +77,7 @@ export const login = (email, password) => async dispatch => {
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(loadUser());
@@ -85,11 +85,11 @@ export const login = (email, password) => async dispatch => {
     const errors = error.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach(error => dispatch(toastify('error', error.msg)));
     }
 
     dispatch({
-      type: LOGIN_FAIL,
+      type: LOGIN_FAIL
     });
   }
 };
