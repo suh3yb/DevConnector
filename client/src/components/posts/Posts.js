@@ -26,7 +26,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <Update />
       <Grid as={Card.Group} style={{ marginTop: '1rem' }}>
         {posts.map(post => (
-          <PostItem post={post} />
+          <PostItem key={post._id} post={post} />
         ))}
       </Grid>
     </Fragment>
