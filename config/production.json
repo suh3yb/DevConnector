@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://hyfuser:L31NK1wOO0A8mnii@cluster0-flddr.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "46af1ab77be3526f938c",
+  "githubSecret": "c1fd077c5f49f167c7c02aba555d9b54a9c84283"
+}
