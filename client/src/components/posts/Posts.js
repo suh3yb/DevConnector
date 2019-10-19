@@ -5,6 +5,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../redux/actions/postAction';
+import { Header, Grid, Card } from 'semantic-ui-react';
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
@@ -15,30 +16,31 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className="large text-primary">Posts</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Welcome to the community
-      </p>
+      <Header
+        icon="sticky note"
+        content="Posts"
+        subheader="Welcome to the community"
+      />
       <PostForm />
-      <div className="posts">
+      <Grid as={Card.Group} style={{ marginTop: '1rem' }}>
         {posts.map(post => (
           <PostItem key={post._id} post={post} />
         ))}
-      </div>
+      </Grid>
     </Fragment>
   );
 };
 
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
-  getPosts: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post,
+  post: state.post
 });
 
 export default connect(
   mapStateToProps,
-  { getPosts },
+  { getPosts }
 )(Posts);

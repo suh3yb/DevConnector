@@ -1,22 +1,33 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { setAlert } from '../../redux/actions/alertAction';
 import { register } from '../../redux/actions/authAction';
+import {
+  Grid,
+  Header,
+  Segment,
+  Form,
+  Input,
+  Message,
+  Button,
+  Label
+} from 'semantic-ui-react';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    password2: '',
+    password2: ''
   });
 
   const { name, email, password, password2 } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -32,75 +43,89 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a Gravatar email
-          </small>
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="password2"
-            value={password2}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
-      </form>
-      <p className="my-1">
-        Already have an account? <Link to="/login">Sign In</Link>
-      </p>
-    </Fragment>
+    <Grid
+      textAlign="center"
+      verticalAlign="middle"
+      style={{ minHeight: 'calc(100vh - 5rem)' }}>
+      <Grid.Column style={{ maxWidth: '550px' }}>
+        <Header as="h1" textAlign="center">
+          <Header.Content>
+            Sign Up
+            <Header.Subheader>Create New Account</Header.Subheader>
+          </Header.Content>
+        </Header>
+        <Segment padded>
+          <Form className="form" onSubmit={e => onSubmit(e)}>
+            <Form.Field>
+              <Input
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={name}
+                onChange={e => onChange(e)}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={e => onChange(e)}
+                required
+              />
+              <Label color="black" icon="user" pointing="above" content="">
+                This site uses Gravatar so if you want a profile image, use a
+                Gravatar email
+              </Label>
+            </Form.Field>
+            <Form.Field>
+              <Input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => onChange(e)}
+                minLength="6"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                type="password"
+                placeholder="Confirm Password"
+                name="password2"
+                value={password2}
+                onChange={e => onChange(e)}
+                minLength="6"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Button size="large" fluid primary>
+                Sign Up
+              </Button>
+            </Form.Field>
+          </Form>
+          <Message info>
+            Already have an account? <Link to="/login">Sign In</Link>
+          </Message>
+        </Segment>
+      </Grid.Column>
+    </Grid>
   );
 };
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert, register },
+  { setAlert, register }
 )(Register);
