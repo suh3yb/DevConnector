@@ -22,4 +22,8 @@ export const ADD_POST = 'ADD_POST';
 export const GET_POST = 'GET_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+<<<<<<< HEAD
 export const TOGGLE_FILTER = 'TOGGLE_FILTER';
+=======
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+>>>>>>> development

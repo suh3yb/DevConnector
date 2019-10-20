@@ -18,6 +18,7 @@ const deleteEducation = require('./deleteEducation');
 const getGithubRepos = require('./getGithubRepos');
 const followFriend = require('./followFriend');
 const unfollowFriend = require('./unfollowFriend');
+const updatePassword = require('./updatePassword');
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -138,5 +139,22 @@ router.post(
 // @desc    Unfollow a user
 // @access  Private
 router.delete('/follow/:user_id', auth, unfollowFriend);
+
+// @route   POST api/profile/password
+// @desc    Change user's password
+// @access  Private
+router.post(
+  '/password',
+  [
+    auth,
+    [
+      check('oldPassword', 'Please enter your current password').exists(),
+      check('newPassword', 'Please enter a password with 6 or more characters').isLength({
+        min: 6,
+      }),
+    ],
+  ],
+  updatePassword,
+);
 
 module.exports = router;
