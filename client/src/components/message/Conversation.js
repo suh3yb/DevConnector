@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 
 const Conversation = ({ user: { _id, name, avatar } }) => {
   return (
-    <li className='profile bg-light'>
-      <Link to={`/messages/${_id}/${name.trim().split(' ')[0]}`} className='btn btn-primary'>
-        <img src={avatar} alt={name} className='round-img' />
-        <h4>{name}</h4>
-      </Link>
-    </li>
+    <Link to={`/messages/${_id}/${name.trim().split(' ')[0]}`}>
+      <li className='profile bg-light'>
+        <div className='btn btn-primary'>
+          <img src={avatar} alt={name} className='round-img' />
+          <h4>{name}</h4>
+        </div>
+        <h4>Go to your chat history with {name}</h4>
+      </li>
+    </Link>
   );
 };
 

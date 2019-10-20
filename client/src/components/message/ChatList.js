@@ -29,24 +29,28 @@ const ChatList = ({ auth: { user }, profile: { profiles, loading }, getProfiles 
         console.log('your code Hamza :)');
       }
     });
-  }, [user]);
+  }, [user, getProfiles]);
 
   return loading ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <ul>
-        {profiles &&
-          profiles.map(profile => {
-            if (-1 !== conversationArray.indexOf(profile.user._id)) {
-              return <Conversation key={profile._id} user={profile.user} />;
-            } else {
-              return null;
-            }
-          })}
-      </ul>
-    </Fragment>
-  );
+      <Fragment>
+        <h1 className="large text-primary">Chat Room</h1>
+        <p className="lead">
+          <i className="fas fa-user"></i> Welcome {user && user.name} to your private chat room...
+      </p>
+        <ul>
+          {profiles &&
+            profiles.map(profile => {
+              if (-1 !== conversationArray.indexOf(profile.user._id)) {
+                return <Conversation key={profile._id} user={profile.user} />;
+              } else {
+                return null;
+              }
+            })}
+        </ul>
+      </Fragment>
+    );
 };
 ChatList.propTypes = {
   auth: PropTypes.object.isRequired,
