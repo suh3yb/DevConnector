@@ -236,7 +236,7 @@ export const deleteAccount = () => async dispatch => {
   }
 };
 
-export const updatePassword = (formData, history) => async dispatch => {
+export const follow = (followId, name) => async dispatch => {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
@@ -289,8 +289,7 @@ export const unfollow = unfollowId => async dispatch => {
   }
 };
 
-// follow friend
-export const follow = (followId, name) => async dispatch => {
+export const updatePassword = (formData, history) => async dispatch => {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
