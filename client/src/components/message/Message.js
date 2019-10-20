@@ -31,8 +31,6 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
     <NotFound />
   ) : (
     <Fragment>
-      <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
-
       <div className='comments '>
         {messages[0] === undefined
           ? 'No messages, Lets Send First Message !'
@@ -47,6 +45,7 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
               );
             })}
       </div>
+      <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
     </Fragment>
   );
 };

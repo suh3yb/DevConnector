@@ -7,7 +7,6 @@ const getUserProfile = async (req, res) => {
     const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', [
       'name',
       'avatar',
-      'conversation',
     ]);
 
     if (!profile) {

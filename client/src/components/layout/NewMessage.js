@@ -14,7 +14,7 @@ const NewMessage = ({ auth: { user } }) => {
         setMessageCounter(messageCounter + 1);
       }
     });
-  }, [messageCounter]);
+  }, [messageCounter, user]);
 
   const onClick = () => {
     setMessageCounter(0);
@@ -25,7 +25,7 @@ const NewMessage = ({ auth: { user } }) => {
   ) : (
     <div className='hello'>
       <span>you have {messageCounter} new messages. Click here to see </span>
-      <Link to='/chat-list' onClick={() => onClick()}>
+      <Link to='/messages' onClick={() => onClick()}>
         New Messages
       </Link>
     </div>
