@@ -14,8 +14,6 @@ import {
 
 // Get all profiles
 export const getProfiles = () => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
-
   try {
     const res = await axios.get('/api/profile');
 
@@ -52,6 +50,8 @@ export const getCurrentProfile = () => async dispatch => {
 
 // Get profile by id
 export const getProfileById = userId => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -236,12 +236,64 @@ export const deleteAccount = () => async dispatch => {
   }
 };
 
-export const updatePassword = (formData, history) => async dispatch => {
+export const follow = (followId, name) => async dispatch => {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
     };
 
+    const res = await axios.post('/api/profile/follow', { followId, name }, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Friend Added', 'success'));
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Unfollow friend
+export const unfollow = unfollowId => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profile/follow/${unfollowId}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Friend Removed', 'success'));
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+export const updatePassword = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
     await axios.post('/api/profile/password', formData, config);
 
     dispatch({ type: UPDATE_PASSWORD });

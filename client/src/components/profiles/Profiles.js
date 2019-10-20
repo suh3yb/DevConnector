@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
-import { getProfiles } from '../../redux/actions/profileAction';
+import { getCurrentProfile, getProfiles } from '../../redux/actions/profileAction';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getCurrentProfile, getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
     getProfiles();
-  }, [getProfiles]);
+    getCurrentProfile();
+  }, [getProfiles, getCurrentProfile]);
 
   return (
     <Fragment>
@@ -35,6 +36,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
@@ -44,5 +46,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfiles },
+  { getCurrentProfile, getProfiles },
 )(Profiles);

@@ -16,6 +16,8 @@ const deleteExperience = require('./deleteExperience');
 const addEducation = require('./addEducation');
 const deleteEducation = require('./deleteEducation');
 const getGithubRepos = require('./getGithubRepos');
+const followFriend = require('./followFriend');
+const unfollowFriend = require('./unfollowFriend');
 const updatePassword = require('./updatePassword');
 
 // @route   GET api/profile/me
@@ -118,6 +120,25 @@ router.delete('/education/:edu_id', auth, deleteEducation);
 // @desc    Get user repos from Github
 // @access  Public
 router.get('/github/:username', getGithubRepos);
+
+// @route   POST api/profile/follow/
+// @desc    Follow a user as friend
+// @access  Private
+router.post(
+  '/follow',
+  auth,
+  [
+    check('followId', 'Specify a user to follow')
+      .not()
+      .isEmpty(),
+  ],
+  followFriend,
+);
+
+// @route   DELETE api/profile/follow/:user_id
+// @desc    Unfollow a user
+// @access  Private
+router.delete('/follow/:user_id', auth, unfollowFriend);
 
 // @route   POST api/profile/password
 // @desc    Change user's password
