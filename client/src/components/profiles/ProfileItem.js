@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const ProfileItem = ({
+  auth,
   profile: {
     user: { _id, name, avatar },
     status,
@@ -24,7 +26,7 @@ const ProfileItem = ({
         <Link to={`/profile/${_id}`} className='btn btn-primary'>
           View Profile
         </Link>
-        {user._id !== _id && (
+        {user._id !== _id && auth.isAuthenticated && (
           <Link to={`/messages/${_id}/${name.trim().split(' ')[0]}`} className='btn btn-primary'>
             Send Message
           </Link>
@@ -46,4 +48,8 @@ ProfileItem.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default ProfileItem;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ProfileItem);
