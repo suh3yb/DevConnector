@@ -13,25 +13,31 @@ import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
+import Message from '../message/Message';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
+import NewMessage from '../layout/NewMessage';
+import ChatList from '../message/ChatList';
 
 const Routes = () => {
   return (
-    <section className="container">
+    <section className='container'>
       <Alert />
+      <NewMessage />
       <Switch>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/profiles" component={Profiles} />
-        <Route exact path="/profile/:id" component={Profile} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-        <PrivateRoute exact path="/add-experience" component={AddExperience} />
-        <PrivateRoute exact path="/add-education" component={AddEducation} />
-        <PrivateRoute exact path="/posts" component={Posts} />
-        <PrivateRoute exact path="/posts/:id" component={Post} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/profiles' component={Profiles} />
+        <Route exact path='/profile/:id' component={Profile} />
+        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/create-profile' component={CreateProfile} />
+        <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+        <PrivateRoute exact path='/add-experience' component={AddExperience} />
+        <PrivateRoute exact path='/add-education' component={AddEducation} />
+        <PrivateRoute exact path='/posts' component={Posts} />
+        <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path='/messages/:id/:name' component={Message} />
+        <PrivateRoute exact path='/messages' component={ChatList} />
         <Route component={NotFound} />
       </Switch>
     </section>

@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, auth: { isAuthenticated, loading }
   <Route
     {...rest}
     render={
-      props => (!isAuthenticated && !loading ? <Redirect to="/login" /> : <Component {...props} />) // When loading, dashboard can be seen!!
+      props => (!isAuthenticated && !loading ? <Redirect to='/login' /> : <Component {...props} />) // When loading, dashboard can be seen!!
     }
   />
 );
