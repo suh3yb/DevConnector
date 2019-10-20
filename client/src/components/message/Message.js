@@ -11,6 +11,7 @@ const socket = openSocket('http://localhost:5000');
 const Message = ({ getMessages, message: { messages, loading }, auth, match }) => {
   useEffect(() => {
     let currentUser;
+    auth.user && getMessages(auth.user._id, match.params.id);
     if (auth.user !== null) {
       currentUser = auth.user._id;
     }
@@ -19,8 +20,7 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
         getMessages(auth.user._id, match.params.id);
       }
     });
-    auth.user && getMessages(auth.user._id, match.params.id);
-  }, [getMessages, match.params.id, auth.user]);
+  }, [match.params.id, auth.user, messages]);
 
   const receiver_id = match.params.id;
   const receiver_name = match.params.name;

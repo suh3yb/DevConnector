@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alertAction';
-import { SEND_MESSAGE, GET_MESSAGES, MESSAGE_ERROR } from './types';
+import { loadUser } from './authAction';
+import { SEND_MESSAGE, GET_MESSAGES, MESSAGE_ERROR, CLEAR_MESSAGES } from './types';
 
 const getMessages = (sender_id, receiver_id) => async dispatch => {
   try {
@@ -33,7 +34,7 @@ export const sendMessage = (sender_id, receiver_id, text) => async dispatch => {
       type: SEND_MESSAGE,
       payload: res.data,
     });
-
+    dispatch(loadUser());
     dispatch(setAlert('Message Sended', 'success'));
   } catch (error) {
     dispatch({

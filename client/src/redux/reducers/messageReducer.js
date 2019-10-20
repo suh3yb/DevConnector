@@ -20,6 +20,7 @@ export default function(state = initialState, action) {
     case MESSAGE_ERROR:
       return {
         ...state,
+        messages: [],
         error: payload,
         loading: false,
       };

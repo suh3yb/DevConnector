@@ -17,7 +17,7 @@ const ChatList = ({ auth: { user }, profile: { profiles, loading }, getProfiles 
 
   useEffect(() => {
     getProfiles();
-  }, []);
+  }, [getProfiles]);
 
   return loading ? (
     <Spinner />
