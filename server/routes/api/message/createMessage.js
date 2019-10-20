@@ -31,7 +31,6 @@ const createMessage = async (req, res) => {
     socket.emit('message', req.body.receiver_id);
     if (!conversation) {
       const newConversation = new Message({ conversation: [mesObj] });
-      //newMessage.unshift(mesObj);
       await newConversation.save();
       res.json(mesObj);
       sender.conversation.push(newConversation._id);

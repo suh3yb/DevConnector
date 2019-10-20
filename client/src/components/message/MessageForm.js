@@ -39,13 +39,13 @@ const MessageForm = ({ auth, receiver_id, receiver_name, sendMessage }) => {
           onKeyDown={onEnterPress}
           required
         ></textarea>
-        <input type='submit' className='btn btn-dark my-1' value='Send' />
-        <Link to={`/profile/${receiver_id}`} className='btn btn-primary'>
-          View {receiver_name}'s Profile
-        </Link>
         <Link to='/profiles' className='btn btn-light'>
           Back To Profiles
         </Link>
+        <Link to={`/profile/${receiver_id}`} className='btn btn-primary'>
+          View {receiver_name}'s Profile
+        </Link>
+        <input type='submit' className='btn btn-dark my-1' value='Send' />
       </form>
     </div>
   );

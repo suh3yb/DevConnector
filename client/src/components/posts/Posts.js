@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import NewMessage from '../layout/NewMessage';
 
 import { getPosts } from '../../redux/actions/postAction';
 
@@ -17,7 +16,6 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <NewMessage />
       <h1 className='large text-primary'>Posts</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome to the community

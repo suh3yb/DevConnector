@@ -29,6 +29,10 @@ const ChatList = ({ auth: { user }, profile: { profiles, loading }, getProfiles 
     </Fragment>
   ) : (
     <Fragment>
+      <h1 className='large text-primary'>Chat Room</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Welcome {user && user.name} to your private chat room...
+      </p>
       <ul>
         {profiles &&
           profiles.map(profile => {

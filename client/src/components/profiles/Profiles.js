@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../redux/actions/profileAction';
-import NewMessage from '../layout/NewMessage';
 
 const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
   useEffect(() => {
@@ -17,7 +16,6 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <NewMessage />
           <h1 className='large text-primary'>Developers</h1>
           <p className='lead'>
             <i className='fab fa-connectdevelop'></i> Browse and connect with developers

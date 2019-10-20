@@ -7,7 +7,6 @@ import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
-import NewMessage from '../layout/NewMessage';
 
 import { getCurrentProfile, deleteAccount } from '../../redux/actions/profileAction';
 
@@ -25,7 +24,6 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
-      <NewMessage />
       <h1 className='large text-primary'>Dashboard</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome {user && user.name}

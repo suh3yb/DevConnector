@@ -16,14 +16,12 @@ import Post from '../post/Post';
 import Message from '../message/Message';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
-import NewMessage from '../layout/NewMessage';
 import ChatList from '../message/ChatList';
 
 const Routes = () => {
   return (
     <section className='container'>
       <Alert />
-      {/* <NewMessage /> */}
       <Switch>
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
