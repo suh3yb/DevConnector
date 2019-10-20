@@ -16,6 +16,7 @@ const deleteExperience = require('./deleteExperience');
 const addEducation = require('./addEducation');
 const deleteEducation = require('./deleteEducation');
 const getGithubRepos = require('./getGithubRepos');
+const updatePassword = require('./updatePassword');
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -117,5 +118,22 @@ router.delete('/education/:edu_id', auth, deleteEducation);
 // @desc    Get user repos from Github
 // @access  Public
 router.get('/github/:username', getGithubRepos);
+
+// @route   POST api/profile/password
+// @desc    Change user's password
+// @access  Private
+router.post(
+  '/password',
+  [
+    auth,
+    [
+      check('oldPassword', 'Please enter your current password').exists(),
+      check('newPassword', 'Please enter a password with 6 or more characters').isLength({
+        min: 6,
+      }),
+    ],
+  ],
+  updatePassword,
+);
 
 module.exports = router;
