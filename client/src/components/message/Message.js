@@ -20,7 +20,7 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
         getMessages(auth.user._id, match.params.id);
       }
     });
-  }, [match.params.id, auth.user, messages]);
+  }, [match.params.id, auth.user, getMessages]);
 
   const receiver_id = match.params.id;
   const receiver_name = match.params.name;
@@ -30,24 +30,24 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
   ) : auth.user._id === receiver_id ? (
     <NotFound />
   ) : (
-    <Fragment>
-      <div className='comments '>
-        {messages[0] === undefined
-          ? 'No messages, Lets Send First Message !'
-          : messages.map(message => {
-              return (
-                <p
-                  key={message._id}
-                  className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
-                >
-                  {message.text}
-                </p>
-              );
-            })}
-      </div>
-      <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
-    </Fragment>
-  );
+        <Fragment>
+          <div className='comments '>
+            {messages[0] === undefined
+              ? 'No messages, Lets Send First Message !'
+              : messages.map(message => {
+                return (
+                  <p
+                    key={message._id}
+                    className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
+                  >
+                    {message.text}
+                  </p>
+                );
+              })}
+          </div>
+          <MessageForm receiver_id={receiver_id} receiver_name={receiver_name} />
+        </Fragment>
+      );
 };
 
 Message.propTypes = {
