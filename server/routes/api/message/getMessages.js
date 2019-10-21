@@ -14,7 +14,7 @@ const getMessages = async (req, res) => {
     const messages = await Message.findById(currentConversation);
 
     if (!messages) {
-      return res.status(404).json({ msg: 'No message found' });
+      return res.end();
     }
 
     res.json(messages.conversation);

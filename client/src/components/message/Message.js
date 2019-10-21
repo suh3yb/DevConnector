@@ -34,14 +34,14 @@ const Message = ({ getMessages, message: { messages, loading }, auth, match }) =
           <div className='comments '>
             {messages[0] === undefined
               ? 'No messages, Lets Send First Message !'
-              : messages.map(message => {
+              : messages.map(msg => {
                 return (
-                  <p
-                    key={message._id}
-                    className={auth.user._id === message.sender ? 'lead bg-light' : 'lead'}
+                  msg._id && (<p
+                    key={msg._id}
+                    className={auth.user._id === msg.sender ? 'lead bg-light' : 'lead'}
                   >
-                    {message.text}
-                  </p>
+                    {msg.text}
+                  </p>)
                 );
               })}
           </div>
