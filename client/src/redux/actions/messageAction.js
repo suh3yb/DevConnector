@@ -10,6 +10,9 @@ const getMessages = (sender_id, receiver_id) => async dispatch => {
       type: GET_MESSAGES,
       payload: res.data,
     });
+    dispatch({
+      type: CLEAR_MESSAGES
+    });
   } catch (err) {
     dispatch({
       type: MESSAGE_ERROR,
