@@ -8,6 +8,7 @@ const { check } = require('express-validator');
 
 const getUser = require('./getUser');
 const loginUser = require('./loginUser');
+const mediaLogin = require('./mediaLogin');
 
 // @route   GET /api/auth
 // @desc    Test route
@@ -25,5 +26,13 @@ router.post(
   ],
   loginUser,
 );
+
+// @route    POST api/auth/media
+// @desc     Login Social Media
+// @access   Public
+router.post(
+  '/media',
+  mediaLogin,
+  getUser);
 
 module.exports = router;
