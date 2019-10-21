@@ -1,6 +1,6 @@
 'use strict';
 
-const { validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');// Error checking express-validator
 
 const Post = require('../../../models/Post');
 const User = require('../../../models/User');
@@ -13,7 +13,7 @@ const editPost = async (req, res) => {
   }
   console.log({req})
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password');// user connect to the post
     const post = await Post.findById(req.params.id);
     console.log('text', req.body.text)
     const updatedPost = {
@@ -42,7 +42,7 @@ const editPost = async (req, res) => {
     console.error(error.message);
 
     if (error.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Post not found' });// if the id is not a valid 'objectid' then the catch block runs
     }
 
     res.send('Server Error');

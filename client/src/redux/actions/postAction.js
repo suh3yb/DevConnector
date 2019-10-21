@@ -87,7 +87,8 @@ export const editPost = (id, updatedPost) => async dispatch => {
   try {
     await axios.put(`/api/posts/${id}`, updatedPost); //will update data base on server side
 
-    dispatch(getPosts()); //will get posts after the update we did above this will update posts in the state which will trigger dom render with the updates
+    dispatch(getPosts()); //will get posts after the update we did above 
+    //this will update posts in the state which will update the posts in the dom
 
     dispatch(setAlert('Post updated!', 'success')); //alert user of update success
   } catch (error) {

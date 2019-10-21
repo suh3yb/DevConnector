@@ -67,7 +67,8 @@ const PostItem = ({
                     saveButton.current.classList.remove('hide');//show save button
                     cancelButton.current.classList.remove('hide');//show cancel button
                     postText.current.classList.add('hide'); //hide post paragraph with old value
-                    inputArea.current.classList.remove('hide'); //show inputText with post text - changeinputText.current = document.getElementbyRef
+                    inputArea.current.classList.remove('hide'); 
+                    //show inputText with post text - changeinputText.current = document.getElementbyRef
                 }}>
                   {/* use icon from fontawesome for button */}
                   <i className="fas fa-edit"></i>
