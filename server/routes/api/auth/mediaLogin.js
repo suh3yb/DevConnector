@@ -1,17 +1,34 @@
 'use strict';
 
+const admin = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { validationResult } = require('express-validator');
 
 const User = require('../../../models/User');
 
+const serviceAccount = config.get('firebaseAdminPrivateKey');
+const defaultApp = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://class21-dev.firebaseio.com',
+});
+
 const mediaLogin = async (req, res) => {
-  const { name, email, avatar } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { socialToken } = req.body;
 
   try {
+    const decodedToken = await defaultApp.auth().verifyIdToken(socialToken);
+    const { email } = decodedToken;
+
     let user = await User.findOne({ email });
 
-    if (!user) {
+    if (!user || !email) {
       return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
 

@@ -32,7 +32,8 @@ router.post(
 // @access   Public
 router.post(
   '/media',
+  [check('socialToken', 'Please provide a valid social media token').exists()],
   mediaLogin,
-  getUser);
+);
 
 module.exports = router;
