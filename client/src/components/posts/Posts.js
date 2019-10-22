@@ -26,20 +26,20 @@ const Posts = ({
     friendIds = profile.friend.map(friendObj => friendObj.user);
     postsToShow = posts.filter(post => friendIds.indexOf(post.user) !== -1);
   }
-
+  console.log(profile);
   return loading ? (
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className="large text-primary">Posts</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Welcome to the community
+      <h1 className='large text-primary'>Posts</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Welcome to the community
       </p>
       <PostForm />
-      <button className="btn btn-primary" onClick={() => toggleFilter()}>
+      <button className='btn btn-primary' onClick={() => toggleFilter()}>
         {showAll ? 'Show Following' : 'Show All'}
       </button>
-      <div className="posts">
+      <div className='posts'>
         {postsToShow.map(post => (
           <PostItem key={post._id} post={post} />
         ))}

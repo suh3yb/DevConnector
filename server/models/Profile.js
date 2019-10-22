@@ -110,6 +110,7 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imageUrl: { type: String },
   friend: [
     {
       user: {
