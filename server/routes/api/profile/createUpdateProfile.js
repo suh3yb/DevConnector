@@ -12,6 +12,7 @@ const createUpdateProfile = async (req, res) => {
   }
 
   const {
+    imageUrl,
     company,
     website,
     location,
@@ -30,6 +31,8 @@ const createUpdateProfile = async (req, res) => {
   const profileFields = {};
 
   profileFields.user = req.user.id;
+
+  if (imageUrl) profileFields.imageUrl = imageUrl;
   if (company) profileFields.company = company;
   if (website) profileFields.website = website;
   if (location) profileFields.location = location;

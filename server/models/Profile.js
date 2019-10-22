@@ -7,6 +7,9 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
+  imageUrl: {
+    type: String,
+  },
   company: {
     type: String,
   },
