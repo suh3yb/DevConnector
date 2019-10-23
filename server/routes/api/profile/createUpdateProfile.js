@@ -24,6 +24,7 @@ const createUpdateProfile = async (req, res) => {
     twitter,
     instagram,
     linkedin,
+    imageUrl,
   } = req.body;
 
   // Build profile object
@@ -32,6 +33,7 @@ const createUpdateProfile = async (req, res) => {
   profileFields.user = req.user.id;
   if (company) profileFields.company = company;
   if (website) profileFields.website = website;
+  if (imageUrl) profileFields.imageUrl = imageUrl;
   if (location) profileFields.location = location;
   if (bio) profileFields.bio = bio;
   if (status) profileFields.status = status;

@@ -235,6 +235,11 @@ img {
 }
 
 /* Forms */
+.addImage {
+  height: 10%;
+  width: 10%;
+  display: inline-block;
+}
 .form .form-group {
   margin: 1.2rem 0;
 }
