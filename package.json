@@ -17,6 +17,7 @@
     "nodemon": "^1.19.2"
   },
   "dependencies": {
+    "nodemailer": "^6.3.1",
     "react-markdown": "^4.2.2",
     "react-syntax-highlighter": "^11.0.2"
   }

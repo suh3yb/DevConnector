@@ -9,6 +9,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
+  RESET_PASSWORD,
+  RESET_FAIL
 } from './types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -23,7 +25,7 @@ export const loadUser = () => async dispatch => {
 
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({ type: AUTH_ERROR });
@@ -34,8 +36,8 @@ export const loadUser = () => async dispatch => {
 export const register = ({ name, email, password }) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   };
 
   const body = JSON.stringify({ name, email, password });
@@ -45,7 +47,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(loadUser());
@@ -57,7 +59,7 @@ export const register = ({ name, email, password }) => async dispatch => {
     }
 
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_FAIL
     });
   }
 };
@@ -66,8 +68,8 @@ export const register = ({ name, email, password }) => async dispatch => {
 export const login = (email, password) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   };
 
   const body = JSON.stringify({ email, password });
@@ -77,7 +79,7 @@ export const login = (email, password) => async dispatch => {
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(loadUser());
@@ -89,7 +91,7 @@ export const login = (email, password) => async dispatch => {
     }
 
     dispatch({
-      type: LOGIN_FAIL,
+      type: LOGIN_FAIL
     });
   }
 };
@@ -98,4 +100,26 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
+};
+
+// Forgot Password
+export const forgotPassword = email => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    await axios.post('./api/users/forgot-password', { email }, config);
+    dispatch({ type: RESET_PASSWORD, payload: email });
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({ type: RESET_FAIL });
+  }
 };

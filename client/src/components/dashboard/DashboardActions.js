@@ -27,6 +27,13 @@ const DashboardActions = () => {
         content="Add Education"
         color="grey"
       />
+      <Button
+        as={Link}
+        to="/update-password"
+        icon="key"
+        content="Update Password"
+        color="grey"
+      />
     </>
   );
 };

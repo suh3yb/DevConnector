@@ -9,6 +9,7 @@ import {
   PROFILE_ERROR,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
+  UPDATE_PASSWORD,
 } from './types';
 
 // Get all profiles
@@ -232,5 +233,32 @@ export const deleteAccount = () => async dispatch => {
         payload: { msg: error.response.statusText, status: error.response.status },
       });
     }
+  }
+};
+
+export const updatePassword = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    await axios.post('/api/profile/password', formData, config);
+
+    dispatch({ type: UPDATE_PASSWORD });
+
+    dispatch(setAlert('Password Updated', 'success'));
+
+    history.push('/dashboard');
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
   }
 };

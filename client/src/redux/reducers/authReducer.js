@@ -7,13 +7,14 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
+  RESET_PASSWORD
 } from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
-  user: null,
+  user: null
 };
 
 export default function(state = initialState, action) {
@@ -25,7 +26,7 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: payload
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -34,7 +35,7 @@ export default function(state = initialState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false,
+        loading: false
       };
     case AUTH_ERROR:
     case REGISTER_FAIL:
@@ -46,8 +47,13 @@ export default function(state = initialState, action) {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
+        loading: false
         // should have set user to null !!!
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        loading: false
       };
     default:
       return state;

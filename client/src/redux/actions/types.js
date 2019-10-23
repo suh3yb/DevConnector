@@ -22,3 +22,7 @@ export const ADD_POST = 'ADD_POST';
 export const GET_POST = 'GET_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const RESET_FAIL = 'RESET_FAIL';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
