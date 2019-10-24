@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -13,7 +13,10 @@ const PostItem = ({
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date },
   showActions,
-}) => (
+}) => {  
+  const [hover, toggleHover] = useState(false);
+
+  return (
   <div className='post bg-white p-1 my-1'>
     <div>
       <Link to={`/profile/${user}`}>
@@ -28,8 +31,10 @@ const PostItem = ({
       </p>
       {showActions && (
         <Fragment>
-          <button onClick={() => addLike(_id)} type='button' className='btn btn-light'>
-            <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <span>{likes.length}</span>}
+          <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light' >
+            <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <div><span>{likes.length}</span>{
+            hover && <LikeList postId={_id} />}
+            </div> }
           </button>
           <button onClick={() => removeLike(_id)} type='button' className='btn btn-light'>
             <i className='fas fa-thumbs-down'></i>
@@ -43,12 +48,15 @@ const PostItem = ({
               <i className='fas fa-times'></i>
             </button>
           )}
-          <LikeList postId={_id} />
+          {/* <LikeList postId={_id} /> */}
+        
+          
         </Fragment>
       )}
     </div>
   </div>
-);
+)
+          };
 
 PostItem.defaultProps = {
   showActions: true,
