@@ -11,7 +11,7 @@ const searchProfile = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { input } = req.body;
+  const { input } = req.params;
   const inputReg = new RegExp(input, 'gmi');
 
   try {
