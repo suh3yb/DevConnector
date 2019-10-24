@@ -161,17 +161,6 @@ router.post(
 // @route   POST api/profile/search
 // @desc    Search for profile
 // @access  Private
-router.post(
-  '/search',
-  [
-    auth,
-    [
-      check('input', 'Provide an input to search')
-        .not()
-        .isEmpty(),
-    ],
-  ],
-  searchProfile,
-);
+router.get('/search/:input', auth, searchProfile);
 
 module.exports = router;
