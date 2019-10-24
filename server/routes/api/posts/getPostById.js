@@ -4,7 +4,7 @@ const Post = require('../../../models/Post');
 
 const getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('user', ['imageUrl', '_id']);
 
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
