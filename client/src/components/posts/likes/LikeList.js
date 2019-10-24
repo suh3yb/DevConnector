@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import '../like.css';
 import Like from './Like';
 
-
-const LikeList = ({ postId, posts, style }) => {  
+const LikeList = ({ postId, posts }) => {  
   const post = posts.find(post => post._id === postId);
   const likes = post.likes;
   console.log('likes', likes);  
@@ -15,15 +14,15 @@ const LikeList = ({ postId, posts, style }) => {
   // ) : (
    // <Fragment>
    //   <h1 className='large text-primary'>Like List</h1>
-      <ul>
+      <ul className= 'like-list'>
         {/* {likes &&
           likes.map(like => {
             return <Like key={like._id} user={like} />;
           })} */}
           {likes && likes.map(like => {
             return ( <Link to={`/profile/${like.user}`}>
-              <li key={like._id}>
-                <img src={like.avatar} alt={like.name} className='round-img sml-img'/>
+              <li key={like._id} >
+                {/* <img src={like.avatar} alt={like.name} className='round-img sml-img'/> */}
                 {like.name}</li></Link>
           )})}
       </ul>

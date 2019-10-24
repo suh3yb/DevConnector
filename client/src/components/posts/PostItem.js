@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../redux/actions/postAction';
 import LikeList from './likes/LikeList';
+import './like.css';
 
 const PostItem = ({
   addLike,
@@ -31,9 +32,9 @@ const PostItem = ({
       </p>
       {showActions && (
         <Fragment>
-          <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light' >
-            <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <div><span>{likes.length}</span>{
-            hover && <LikeList postId={_id} />}
+          <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light-add' >
+            <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <div className= 'like-list-div'><span >{likes.length}</span>{
+            hover && <LikeList postId={_id}/>}
             </div> }
           </button>
           <button onClick={() => removeLike(_id)} type='button' className='btn btn-light'>
@@ -47,10 +48,7 @@ const PostItem = ({
             <button onClick={() => deletePost(_id)} type='button' className='btn btn-danger'>
               <i className='fas fa-times'></i>
             </button>
-          )}
-          {/* <LikeList postId={_id} /> */}
-        
-          
+          )}       
         </Fragment>
       )}
     </div>
