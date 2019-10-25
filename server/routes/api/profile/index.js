@@ -19,7 +19,6 @@ const getGithubRepos = require('./getGithubRepos');
 const followFriend = require('./followFriend');
 const unfollowFriend = require('./unfollowFriend');
 const updatePassword = require('./updatePassword');
-const searchProfile = require('./searchProfile');
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -157,10 +156,5 @@ router.post(
   ],
   updatePassword,
 );
-
-// @route   POST api/profile/search
-// @desc    Search for profile
-// @access  Private
-router.get('/search/:input', auth, searchProfile);
 
 module.exports = router;
