@@ -318,7 +318,6 @@ export const updatePassword = (formData, history) => async dispatch => {
 
 // filter profiles by searching a user name
 export const searchProfile = input => dispatch => {
-  // dispatch({ type: CLEAR_PROFILE });
   try {
     dispatch({ type: SET_SEARCH, payload: input });
   } catch (error) {
