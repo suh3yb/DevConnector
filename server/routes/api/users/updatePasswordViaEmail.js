@@ -14,6 +14,13 @@ const updatePasswordViaEmail = async (req, res) => {
         .json({ errors: [{ msg: 'There is no user with this email' }] });
     }
 
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      return res.status(400).json({
+        errors: [{ msg: 'You can not use previous password to update' }],
+      });
+    }
+
     const salt = await bcrypt.genSalt(10);
 
     const cryptedPassword = await bcrypt.hash(password, salt);
@@ -23,8 +30,8 @@ const updatePasswordViaEmail = async (req, res) => {
       {
         password: cryptedPassword,
         resetPasswordToken: null,
-        resetPasswordExpires: null
-      }
+        resetPasswordExpires: null,
+      },
     );
 
     res.json({ msg: 'Password updated' });

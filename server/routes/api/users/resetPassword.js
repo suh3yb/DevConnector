@@ -17,16 +17,16 @@ const resetPassword = async (req, res) => {
   try {
     let user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpires: {
-        $gt: Date.now()
-      }
+      // resetPasswordExpires: {
+      //   $gt: Date.now()
+      // }
     });
 
     if (!user) {
       console.log('Password reset link invalid or has expired');
 
       return res.status(403).json({
-        errors: [{ msg: 'Password reset link invalid or has expired' }]
+        errors: [{ msg: 'Password reset link invalid or has expired' }],
       });
     }
 
@@ -34,7 +34,7 @@ const resetPassword = async (req, res) => {
 
     res.status(200).json({
       email: user.email,
-      message: 'Password reset link ok'
+      message: 'Password reset link ok',
     });
   } catch (error) {
     console.error(error.message);

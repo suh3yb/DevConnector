@@ -32,17 +32,17 @@ const forgotPassword = async (req, res) => {
       { email: user.email },
       {
         resetPasswordToken: token,
-        resetPasswordExpires: Date.now() + 36000
+        resetPasswordExpires: Date.now() + 36000,
       },
-      { new: true, upsert: true }
+      { new: true, upsert: true },
     );
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: config.get('email'),
-        pass: config.get('password')
-      }
+        pass: config.get('password'),
+      },
     });
 
     const mailOptions = {
@@ -53,8 +53,8 @@ const forgotPassword = async (req, res) => {
         <h1>Reset Your Password</h1>
         You are receiving this because you (or someone else) have requested the reset of the password for your account.
         Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:
-        http://localhost:5000/reset-password/${token}
-        If you did not request this, please ignore this email and your password will remain unchanged.`
+        http://localhost:3000/reset-password/${token}
+        If you did not request this, please ignore this email and your password will remain unchanged.`,
     };
 
     console.log('Sending mail...');
