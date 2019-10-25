@@ -10,7 +10,7 @@ import {
 	CLEAR_PROFILE,
 	ACCOUNT_DELETED,
 	UPDATE_PASSWORD,
-	SET_FILTER,
+	SET_SEARCH,
 } from './types';
 
 // Get all profiles
@@ -317,15 +317,17 @@ export const updatePassword = (formData, history) => async (dispatch) => {
 };
 
 // filter profiles by searching a user name
-export const searchFilter = (username) => async (dispatch) => {
+export const searchProfile = (input) => (dispatch) => {
+	dispatch({ type: CLEAR_PROFILE });
 	try {
-		const res = await axios.get(`/api/profile/search/${username}`);
-
-		dispatch({
-			type: SET_FILTER,
-			payload: res.data,
-		});
+		dispatch({ type: SET_SEARCH, payload: input });
 	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
+
 		dispatch({
 			type: PROFILE_ERROR,
 			payload: { msg: error.response.statusText, status: error.response.status },

@@ -6,7 +6,7 @@ import {
 	PROFILE_ERROR,
 	UPDATE_PROFILE,
 	UPDATE_PASSWORD,
-	SET_FILTER,
+	SET_SEARCH,
 } from '../actions/types';
 
 const initialState = {
@@ -23,7 +23,6 @@ export default function(state = initialState, action) {
 	switch (type) {
 		case GET_PROFILE:
 		case UPDATE_PROFILE:
-		case SET_FILTER:
 			return {
 				...state,
 				profile: payload,
@@ -53,6 +52,11 @@ export default function(state = initialState, action) {
 				profile: null,
 				repos: [],
 				loading: false,
+			};
+		case SET_SEARCH:
+			return {
+				...state,
+				search: payload,
 			};
 		case UPDATE_PASSWORD:
 		default:

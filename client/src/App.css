@@ -566,22 +566,17 @@ button {
 		padding: 0.3rem 0.4rem;
 	}
 }
-.heading {
-	font-size: 30px;
-	padding: 16px 0;
-	color: #444;
-	text-align: center;
-}
-/*Container*/
-.container {
+
+/*Search bar*/
+.search-container {
 	margin: 36px auto;
 	width: 100%;
-	max-width: 800px;
+	max-width: 1100px;
 }
 .search-label {
 	position: relative;
 }
-.container input {
+.search-container input {
 	width: 100%;
 	padding: 16px;
 	font-size: 36px;
@@ -592,8 +587,8 @@ button {
 }
 .search-icon {
 	position: absolute;
-	top: -10px;
+	top: 25px;
 	font-size: 24px;
 	color: #555;
-	right: 18px;
+	right: 30px;
 }
