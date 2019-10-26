@@ -77,4 +77,9 @@ router.post(
 // @access  Private
 router.delete('/comment/:id/:comment_id', auth, deleteComment);
 
+// @route    Update api/posts/:id
+// @desc     Update a post
+// @access   Private
+router.put('/reaction/:id', auth, addReaction);
+
 module.exports = router;

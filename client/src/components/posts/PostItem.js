@@ -5,6 +5,8 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../redux/actions/postAction';
 import LikeList from './likes/LikeList';
+import AddReaction from './addReaction/AddReaction';
+
 import './like.css';
 
 const PostItem = ({
@@ -16,7 +18,7 @@ const PostItem = ({
   showActions,
 }) => {  
   const [hover, toggleHover] = useState(false);
-
+  const [click, toggleClick] = useState(false);
   return (
   <div className='post bg-white p-1 my-1'>
     <div>
@@ -32,6 +34,10 @@ const PostItem = ({
       </p>
       {showActions && (
         <Fragment>
+          <button onClick={() => toggleClick(true)} type='button' className='btn-emoji' >
+          <i className="far fa-smile"></i> {
+            click && <AddReaction postId={_id}/>}
+          </button>
           <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light-add' >
             <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <div className= 'like-list-div'><span >{likes.length}</span>{
             hover && <LikeList postId={_id}/>}
