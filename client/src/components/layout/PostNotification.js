@@ -9,7 +9,7 @@ const url = process.env.SOCKET_URL || 'http://localhost:5000';
 
 const socket = openSocket(url);
 
-const PostNotification = ({ auth, getPosts, postNotification: { length }, getUpdate }) => {
+const PostNotification = ({ getPosts, postNotification: { length }, getUpdate }) => {
   const token = localStorage.token;
   let decoded = '';
   let presentUserId = '';
@@ -38,22 +38,19 @@ const PostNotification = ({ auth, getPosts, postNotification: { length }, getUpd
   return length === 0 ? (
     ''
   ) : (
-    <div>
+    <div className='post-notification'>
       <span>{length} New posts.</span>
-
-      <button onClick={onClick} className='btn btn-light'>
+      <a href='#top' onClick={onClick} className='btn btn-light'>
         Click to see
-      </button>
+      </a>
     </div>
   );
 };
 PostNotification.propTypes = {
   postNotification: PropTypes.object.isRequired,
   getUpdate: PropTypes.func.isRequired,
-
-  auth: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({ postNotification: state.postNotification, auth: state.auth });
+const mapStateToProps = state => ({ postNotification: state.postNotification });
 
 export default connect(
   mapStateToProps,
