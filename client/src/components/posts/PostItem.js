@@ -32,7 +32,7 @@ const PostItem = ({
       </p>
       {showActions && (
         <Fragment>         
-          <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light-add' >
+          <button onMouseEnter={() => toggleHover(true)} onMouseLeave={() => toggleHover(false)} onClick={() => addLike(_id)} type='button' className='btn btn-light-add btn-like' >
             <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <div className= 'like-list-div'><span >{likes.length}</span>{
             hover && <LikeList postId={_id}/>}
             </div> }
