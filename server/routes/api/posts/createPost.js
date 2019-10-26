@@ -22,7 +22,9 @@ const createPost = async (req, res) => {
       user: req.user.id,
     });
 
-    const post = await newPost.save();
+    const savedPost = await newPost.save();
+    const postId = savedPost._id;
+    const post = await Post.findById(postId).populate('user', ['imageUrl', '_id']);
 
     res.json(post);
   } catch (error) {
