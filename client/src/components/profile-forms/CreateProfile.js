@@ -61,13 +61,13 @@ const CreateProfile = ({
   //Image Upload Functions
   const client = filestack.init(config.key);
   const onSuccess = result => {
-    setFormData({ ...formData, imageUrl: result.filesUploaded[0].url });    
+    setFormData({ ...formData, imageUrl: result.filesUploaded[0].url });
   };
 
   const onError = error => {
     console.error('error', error);
     alert('Failed to upload. Please try again');
-  };  
+  };
 
   const options = {
     accept: 'image/*',
@@ -85,14 +85,14 @@ const CreateProfile = ({
         <i className='fas fa-user'></i> Let's get some information to make your profile stand out
       </p>
       <form className='form' onSubmit={e => onSubmit(e)}>
-        <div className='profile bg-light'>
-          <button type='button' onClick={() => client.picker(options).open()}>
-            Upload Image
-          </button>{' '}
-          {imageUrl ? (
-            <img src={imageUrl} alt='user' className='addImage round-img' />
+        <button type='button' onClick={() => client.picker(options).open()}>
+          Upload Image
+        </button>
+        <div className='addImage'>
+          {!imageUrl ? (
+            <div>No Picture Selected</div>
           ) : (
-            <div></div>
+            <img src={imageUrl} className='round-img' alt='profile foto' />
           )}
         </div>
         <small>* = required field</small>

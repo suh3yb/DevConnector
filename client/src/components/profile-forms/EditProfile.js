@@ -105,8 +105,12 @@ const EditProfile = ({
       </p>
       <div className='addImage'>
         <img src={imageUrl || profile.user.avatar} alt={profile.user.name} className='round-img' />
-        <button className='change-image' type='button' onClick={() => client.picker(options).open()}>
-          <i class="fas fa-pencil-alt"></i>
+        <button
+          className='change-image'
+          type='button'
+          onClick={() => client.picker(options).open()}
+        >
+          <i className='fas fa-pencil-alt'></i>
         </button>
       </div>
       <small>* = required field</small>
