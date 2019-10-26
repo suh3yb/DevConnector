@@ -11,12 +11,12 @@ import {
   REMOVE_COMMENT,
   TOGGLE_FILTER,
 } from './types';
-
+import { resetUpdate } from './postNotificationAction';
 // Get posts
 export const getPosts = () => async dispatch => {
   try {
+    dispatch(resetUpdate());
     const res = await axios.get('/api/posts');
-
     dispatch({
       type: GET_POSTS,
       payload: res.data,
