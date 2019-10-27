@@ -667,3 +667,9 @@ button {
 .strength-Strong::-webkit-progress-value {
   background-color: #70c1b3;
 }
+
+.post-notification {
+  position: fixed;
+  right: 0%;
+  top: 20%;
+}

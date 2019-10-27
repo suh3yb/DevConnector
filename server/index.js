@@ -7,6 +7,7 @@ var socket = require('socket.io');
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+var socket = require('socket.io');
 
 // Connect Database
 connectDB();
@@ -23,18 +24,20 @@ app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/message', require('./routes/api/message'));
 
-const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = app.listen(PORT, () =>
+  console.log(`Server started on port ${PORT}`)
+);
 
 // socket
 
 const io = socket(server);
-io.on('connection', function (socket) {
-  socket.on('post', function (data) {
+io.on('connection', function(socket) {
+  socket.on('post', function(data) {
     socket.broadcast.emit('render', data);
   });
 
-  socket.on('message', function (receiverId) {
+  socket.on('message', function(receiverId) {
     socket.broadcast.emit('incoming', receiverId);
   });
-
+  socket.on('disconnect', function() {});
 });

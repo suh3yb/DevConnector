@@ -1,6 +1,10 @@
 'use strict';
 
 const { validationResult } = require('express-validator');
+const url = process.env.SOCKET_URL || 'http://localhost:5000';
+
+var io = require('socket.io-client');
+var socket = io.connect(url);
 
 const Post = require('../../../models/Post');
 const User = require('../../../models/User');
@@ -19,12 +23,17 @@ const createPost = async (req, res) => {
       text: req.body.text,
       name: user.name,
       avatar: user.avatar,
-      user: req.user.id,
+      user: req.user.id
     });
 
     const savedPost = await newPost.save();
     const postId = savedPost._id;
-    const post = await Post.findById(postId).populate('user', ['imageUrl', '_id']);
+    const post = await Post.findById(postId).populate('user', [
+      'imageUrl',
+      '_id'
+    ]);
+    // const post = await newPost.save();
+    socket.emit('post', { userId: req.user.id });
 
     res.json(post);
   } catch (error) {
