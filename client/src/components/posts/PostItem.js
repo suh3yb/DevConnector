@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost } from '../../redux/actions/postAction';
+import { addLike, removeLike, deletePost, removeReaction } from '../../redux/actions/postAction';
 import ReactionBox from './addReaction/ReactionBox';
 import './post.css';
 const reactions = require('./addReaction/emojis');
@@ -12,6 +12,7 @@ const PostItem = ({
   addLike,
   removeLike,
   deletePost,
+  removeReaction,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, reaction, date },
   showActions,
@@ -31,10 +32,10 @@ const PostItem = ({
         <Fragment>
           {reactionArray.map(emoji =>
             reaction[emoji].length > 0 ? (
-              <span key={emoji} className='reaction'>
+              <div key={emoji} className='reaction' onClick={() => removeReaction(_id, emoji)}>
                 {reactions[emoji]}
                 {reaction[emoji].length}
-              </span>
+              </div>
             ) : null,
           )}
         </Fragment>
@@ -44,7 +45,8 @@ const PostItem = ({
         {showActions && (
           <Fragment>
             <i onClick={() => toggleClick(!click)} type='button' className='btn-emoji'>
-              <i className='far fa-smile'></i> {click && <ReactionBox toggle={()=>toggleClick(false)} postId={_id} />}
+              <i className='far fa-smile'></i>{' '}
+              {click && <ReactionBox toggle={() => toggleClick(false)} postId={_id} />}
             </i>
             <button onClick={() => addLike(_id)} type='button' className='btn btn-light'>
               <i className='fas fa-thumbs-up'></i> {likes.length > 0 && <span>{likes.length}</span>}
@@ -77,6 +79,7 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
+  removeReaction: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
 };
@@ -87,5 +90,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addLike, removeLike, deletePost },
+  { addLike, removeLike, deletePost, removeReaction },
 )(PostItem);

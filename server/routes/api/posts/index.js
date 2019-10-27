@@ -15,6 +15,7 @@ const unlikePost = require('./unlikePost');
 const createComment = require('./createComment');
 const deleteComment = require('./deleteComment');
 const addReaction = require('./addReaction');
+const removeReaction = require('./removeReaction');
 
 // @route   POST api/posts
 // @desc    Create post
@@ -82,5 +83,10 @@ router.delete('/comment/:id/:comment_id', auth, deleteComment);
 // @desc    Add a reaction to a post
 // @access  Private
 router.put('/addreaction/:id/:reaction', auth, addReaction);
+
+// @route   PUT api/posts/removereaction/:id/
+// @desc    Remove a reaction from a post
+// @access  Private
+router.put('/removereaction/:id/:reaction', auth, removeReaction);
 
 module.exports = router;

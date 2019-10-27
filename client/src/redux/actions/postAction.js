@@ -57,7 +57,23 @@ export const addReaction = (id, emoji) => async dispatch => {
       payload: { id, reaction: res.data },
     });
   } catch (err) {
-    console.error(err);
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Remove reaction
+export const removeReaction = (id, emoji) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/removeReaction/${id}/${emoji}`);
+
+    dispatch({
+      type: UPDATE_REACTION,
+      payload: { id, reaction: res.data },
+    });
+  } catch (err) {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

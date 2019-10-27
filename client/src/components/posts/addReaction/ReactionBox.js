@@ -11,7 +11,7 @@ const ReactionBox = ({ toggle, addReaction, postId, posts }) => {
   const emojisArray = Object.entries(emojis);
   return (
     <Fragment>
-      <ul className='emoji-list'>
+      <ul className='emoji-list' onMouseLeave={() => toggle()}>
         {emojisArray.map(emo => (
           <Emoji
             className='reactions'
