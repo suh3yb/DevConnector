@@ -7,7 +7,7 @@ import '../likes/like.css';
 
 const emojis = require('./emojis');
 
-const ReactionBox = ({ toggle, addReaction, postId, posts }) => {
+const ReactionBox = ({ toggle, addReaction, postId }) => {
   const emojisArray = Object.entries(emojis);
   return (
     <Fragment>

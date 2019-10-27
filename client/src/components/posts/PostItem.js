@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost, removeReaction } from '../../redux/actions/postAction';
+import {
+  addLike,
+  removeLike,
+  deletePost,
+  removeReaction,
+  addReaction,
+} from '../../redux/actions/postAction';
 import ReactionBox from './addReaction/ReactionBox';
 import './post.css';
 const reactions = require('./addReaction/emojis');
 
 const PostItem = ({
+  addReaction,
   addLike,
   removeLike,
   deletePost,
@@ -18,7 +25,17 @@ const PostItem = ({
   showActions,
 }) => {
   const [click, toggleClick] = useState(false);
-  const reactionArray = Object.keys(reaction);
+  const reactionArray = Object.entries(reaction);
+  const onclick = (postId, emoji, user) => {
+    const emo = reactions[emoji[0]];
+    if (emoji[1].filter(e => e.user === user).length > 0) {
+      console.log('alooo');
+      removeReaction(postId, emoji[0]);
+    } else {
+      addReaction(postId, emoji[0]);
+      console.log(emo);
+    }
+  };
   return (
     <div className='post bg-white p-1 my-1'>
       <div>
@@ -30,14 +47,22 @@ const PostItem = ({
       <div>
         <p className='my-1'>{text}</p>
         <Fragment>
-          {reactionArray.map(emoji =>
-            reaction[emoji].length > 0 ? (
-              <div key={emoji} className='reaction' onClick={() => removeReaction(_id, emoji)}>
-                {reactions[emoji]}
-                {reaction[emoji].length}
+          {reactionArray.map(emoji => {
+            let dependsClass = '';
+            if (emoji[1].filter(e => e.user === auth.user._id).length > 0) {
+              dependsClass = 'reacted';
+            }
+            return emoji[1].length > 0 ? (
+              <div
+                key={emoji[0]}
+                className={`reaction ${dependsClass}`}
+                onClick={() => onclick(_id, emoji, auth.user._id)}
+              >
+                {reactions[emoji[0]]}
+                {emoji[1].length}
               </div>
-            ) : null,
-          )}
+            ) : null;
+          })}
         </Fragment>
         <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
@@ -82,6 +107,7 @@ PostItem.propTypes = {
   removeReaction: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
+  addReaction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -90,5 +116,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addLike, removeLike, deletePost, removeReaction },
+  { addLike, removeLike, deletePost, removeReaction, addReaction },
 )(PostItem);

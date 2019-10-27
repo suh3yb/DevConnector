@@ -50,6 +50,7 @@ export const addLike = id => async dispatch => {
 // Add reaction
 export const addReaction = (id, emoji) => async dispatch => {
   try {
+    console.log(' i run');
     const res = await axios.put(`/api/posts/addreaction/${id}/${emoji}`);
 
     dispatch({

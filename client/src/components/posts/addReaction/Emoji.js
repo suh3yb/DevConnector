@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../post.css';
 
-const Emoji = ({ className, onclick, symbol, label, id, emoji }) => (
+const Emoji = ({ className, onclick, symbol, label }) => (
   <button
     className='reaction'
     className='emoji'
