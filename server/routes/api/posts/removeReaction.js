@@ -11,7 +11,7 @@ const removeReaction = async (req, res) => {
       return res.status(404).json({ msg: 'Post not found' });
     }
 
-    // Check if the post is already be liked
+    // Check if the reaction is already be added
     if (post.reaction[emoji].filter(emoji => emoji.user.toString() === req.user.id).length === 0) {
       return res.status(400).json({ msg: 'Not reacted' });
     }
