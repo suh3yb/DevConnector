@@ -4,6 +4,7 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
+  UPDATE_REACTION,
   DELETE_POST,
   ADD_POST,
   GET_POST,
@@ -42,6 +43,24 @@ export const addLike = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Add reaction
+export const addReaction = (id, emoji) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/addreaction/${id}/${emoji}`);
+
+    dispatch({
+      type: UPDATE_REACTION,
+      payload: { id, reaction: res.data },
+    });
+  } catch (err) {
+    console.error(err);
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
