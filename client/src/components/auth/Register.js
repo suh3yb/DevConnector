@@ -5,18 +5,20 @@ import PropTypes from 'prop-types';
 
 import { setAlert } from '../../redux/actions/alertAction';
 import { register } from '../../redux/actions/authAction';
+import PasswordCheck from './PasswordCheck';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    password2: '',
+    password2: ''
   });
 
   const { name, email, password, password2 } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -58,7 +60,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             required
           />
           <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a Gravatar email
+            This site uses Gravatar so if you want a profile image, use a
+            Gravatar email
           </small>
         </div>
         <div className="form-group">
@@ -71,6 +74,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             minLength="6"
           />
         </div>
+        <PasswordCheck currentPassword={password} />
         <div className="form-group">
           <input
             type="password"
@@ -93,14 +97,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert, register },
+  { setAlert, register }
 )(Register);
