@@ -1,0 +1,32 @@
+.like-list-div {
+  position: relative;
+}
+.like-list {
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  left: 50px;
+  background-color: lightblue;
+
+  border: solid;
+  border-radius: 6px;
+}
+
+.btn-emoji {
+  position: relative;
+}
+
+.emoji-list {
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  bottom: -45px;
+  background-color: white;
+  border-radius: 5px;
+}
+.reactions {
+  padding: 2px;
+  margin: 2px;
+  font-size: 1.3em;
+  font-style: normal;
+}
