@@ -3,6 +3,7 @@
 const { validationResult } = require('express-validator');
 
 const Profile = require('../../../models/Profile');
+const User = require('../../../models/User');
 
 const createUpdateProfile = async (req, res) => {
   const errors = validationResult(req);
@@ -24,6 +25,7 @@ const createUpdateProfile = async (req, res) => {
     twitter,
     instagram,
     linkedin,
+    imageUrl,
   } = req.body;
 
   // Build profile object
@@ -32,6 +34,7 @@ const createUpdateProfile = async (req, res) => {
   profileFields.user = req.user.id;
   if (company) profileFields.company = company;
   if (website) profileFields.website = website;
+  if (imageUrl) profileFields.imageUrl = imageUrl;
   if (location) profileFields.location = location;
   if (bio) profileFields.bio = bio;
   if (status) profileFields.status = status;
@@ -56,8 +59,13 @@ const createUpdateProfile = async (req, res) => {
       { $set: profileFields },
       { new: true, upsert: true },
     );
-
     res.json(profile);
+    //updating user imageurl
+    await User.findOneAndUpdate(
+      { _id: profile.user },
+      { $set: { imageUrl: imageUrl } },
+      { new: true, upsert: true },
+    );
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
