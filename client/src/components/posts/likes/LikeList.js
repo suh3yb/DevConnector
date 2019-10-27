@@ -6,7 +6,6 @@ import '../like.css';
 const LikeList = ({ postId, posts }) => {
   const post = posts.find(post => post._id === postId);
   const likes = post.likes;
-  console.log('likes', likes);
   return (
     <ul className='like-list'>
       {likes &&
