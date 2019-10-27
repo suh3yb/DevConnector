@@ -9,12 +9,13 @@ import SocialLogin from './SocialLogin';
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
+    password: ''
   });
 
   const { email, password } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -59,20 +60,23 @@ const Login = ({ login, isAuthenticated }) => {
       </p>
       <hr />
       <SocialLogin />
+      <p className="my-1">
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </p>
     </Fragment>
   );
 };
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { login },
+  { login }
 )(Login);

@@ -5,28 +5,35 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   imageUrl: {
-    type: String,
+    type: String
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   avatar: {
-    type: String,
+    type: String
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
-  conversation: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
+  resetPasswordToken: {
+    type: String,
+    default: ''
+  },
+  resetPasswordExpires: {
+    type: Date
+  },
+  conversation: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }]
 });
 
 const User = mongoose.model('user', UserSchema);

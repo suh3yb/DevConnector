@@ -136,3 +136,49 @@ export const logout = () => dispatch => {
   firebase.auth().signOut();
   dispatch({ type: LOGOUT });
 };
+
+// Reset Password
+export const resetPassword = email => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ email });
+
+  try {
+    const res = await axios.post('/api/users/forgot-password', body, config);
+
+    dispatch(setAlert(res.data, 'success'));
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+  }
+};
+
+// Update Password Via Email
+export const updatePasswordViaEmail = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+    const res = await axios.post('/api/users/update-password-via-email', formData, config);
+
+    if (res.data.msg === 'Password updated') {
+      dispatch(setAlert('Password Updated', 'success'));
+      history.push('/login');
+    } else {
+      dispatch(setAlert('Password could not be updated!', 'danger'));
+    }
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+  }
+};
