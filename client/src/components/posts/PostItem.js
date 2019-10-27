@@ -58,7 +58,7 @@ const PostItem = ({
                 {/* create edit button */} 
                 { editing ? 
                   <Fragment>
-                    <button className="btn btn-danger" onClick={() => {
+                    <button className="btn btn-dark" onClick={() => {
                         toggleEditing(!editing);
                         if(newText !== text) {
                           editPost(_id, {text: newText});
@@ -66,7 +66,7 @@ const PostItem = ({
                     }}>
                       <i className="fas fa-save"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => {
+                    <button className="btn btn-primary" onClick={() => {
                       toggleEditing(!editing);
                       setNewText(text);
                     }} type="button" >
@@ -74,7 +74,7 @@ const PostItem = ({
                     </button>
                   </Fragment>
                 :
-                  <button className="btn btn-danger" onClick={() => {
+                  <button className="btn btn-primary" onClick={() => {
                     toggleEditing(!editing);
                   }}>
                     {/* use icon from fontawesome for button */}
