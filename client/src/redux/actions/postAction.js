@@ -23,6 +23,7 @@ export const getPosts = () => async dispatch => {
       payload: res.data,
     });
   } catch (error) {
+    console.log(error)
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
@@ -114,6 +115,24 @@ export const deletePost = id => async dispatch => {
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
     });
+  }
+};
+
+// Edit post
+export const editPost = (id, updatedPost) => async dispatch => {
+  try {
+    await axios.put(`/api/posts/${id}`, updatedPost); //will update data base on server side
+
+    dispatch(getPosts()); //will get posts after the update we did above 
+    //this will update posts in the state which will update the posts in the dom
+
+    dispatch(setAlert('Post updated!', 'success')); //alert user of update success
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+    dispatch(setAlert('ERROR: Failed to update!', 'danger'));
   }
 };
 

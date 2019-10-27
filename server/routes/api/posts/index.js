@@ -10,6 +10,7 @@ const createPost = require('./createPost');
 const getAllPosts = require('./getAllPosts');
 const getPostById = require('./getPostById');
 const deletePost = require('./deletePost');
+const editPost = require('./editPost');
 const likePost = require('./likePost');
 const unlikePost = require('./unlikePost');
 const createComment = require('./createComment');
@@ -47,6 +48,11 @@ router.get('/:id', auth, getPostById);
 // @desc    Delete post by id
 // @access  Private
 router.delete('/:id', auth, deletePost);
+
+// @route    Update api/posts/:id
+// @desc     Update a post
+// @access   Private
+router.put('/:id', auth, editPost);
 
 // @route   PUT api/posts/like/:id
 // @desc    Like a post
