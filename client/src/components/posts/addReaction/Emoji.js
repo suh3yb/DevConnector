@@ -2,16 +2,13 @@ import React from 'react';
 
 import '../post.css';
 
-const Emoji = ({ className, onclick, symbol, label, id, emoji }) => (
+const Emoji = ({ className, onclick, symbol, label }) => (
   <button
-    className='reaction'
-    className='emoji'
-    role='img'
+    role="img"
     aria-label={label ? label : ''}
     aria-hidden={label ? 'false' : 'true'}
     onClick={onclick}
-    className={className}
-  >
+    className={`reaction emoji ${className}`}>
     {symbol}
   </button>
 );

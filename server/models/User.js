@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  conversation: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
 });
 
 const User = mongoose.model('user', UserSchema);
