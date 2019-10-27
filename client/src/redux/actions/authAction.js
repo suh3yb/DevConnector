@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alertAction';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -95,9 +97,42 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
+// Social Media Login
+export const socialLogin = socialToken => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ socialToken });
+
+  try {
+    const res = await axios.post('/api/auth/media', body, config);
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+
+    dispatch(loadUser());
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
+};
+
 // Logout / Clear Profile
 export const logout = () => dispatch => {
   dispatch(resetUpdate());
   dispatch({ type: CLEAR_PROFILE });
+  firebase.auth().signOut();
   dispatch({ type: LOGOUT });
 };

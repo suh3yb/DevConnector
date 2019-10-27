@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { login } from '../../redux/actions/authAction';
+import SocialLogin from './SocialLogin';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -56,6 +57,8 @@ const Login = ({ login, isAuthenticated }) => {
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>
       </p>
+      <hr />
+      <SocialLogin />
     </Fragment>
   );
 };
