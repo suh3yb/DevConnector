@@ -16,6 +16,7 @@ First of all, create default.json file in config folder with necessary informati
 
 Then to start the project simply type;
 
+
 ```bash
 npm run dev
 ```
