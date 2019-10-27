@@ -10,8 +10,10 @@ import {
   removeReaction,
   editPost
 } from '../../redux/actions/postAction';
+import LikeList from './likes/LikeList';
 import ReactionBox from './addReaction/ReactionBox';
 import './post.css';
+import './like.css';
 const reactions = require('./addReaction/emojis');
 
 const PostItem = ({
@@ -27,6 +29,8 @@ const PostItem = ({
   const [click, toggleClick] = useState(false);
   const [newText, setNewText] = useState(text);
   const [editing, toggleEditing] = useState(true);
+  const [hover, toggleHover] = useState(false);
+
   const reactionArray = Object.keys(reaction);
 
   return (
@@ -83,11 +87,18 @@ const PostItem = ({
             </Fragment>
 
             <button
+              onMouseEnter={() => toggleHover(true)}
+              onMouseLeave={() => toggleHover(false)}
               onClick={() => addLike(_id)}
               type="button"
               className="btn btn-light">
               <i className="fas fa-thumbs-up"></i>{' '}
-              {likes.length > 0 && <span>{likes.length}</span>}
+              {likes.length > 0 && (
+                <div className="like-list-div">
+                  <span>{likes.length}</span>
+                  {hover && <LikeList postId={_id} />}
+                </div>
+              )}
             </button>
             <button
               onClick={() => removeLike(_id)}
