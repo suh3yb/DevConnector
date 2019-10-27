@@ -10,6 +10,7 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   UPDATE_PASSWORD,
+  SET_SEARCH,
 } from './types';
 
 // Get all profiles
@@ -301,6 +302,24 @@ export const updatePassword = (formData, history) => async dispatch => {
     dispatch(setAlert('Password Updated', 'success'));
 
     history.push('/dashboard');
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// filter profiles by searching a user name
+export const searchProfile = input => dispatch => {
+  try {
+    dispatch({ type: SET_SEARCH, payload: input });
   } catch (error) {
     const errors = error.response.data.errors;
 

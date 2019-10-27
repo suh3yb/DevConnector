@@ -6,6 +6,7 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   UPDATE_PASSWORD,
+  SET_SEARCH,
 } from '../actions/types';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   profiles: [],
   repos: [],
   loading: true,
+  search: null,
   error: {},
 };
 
@@ -51,6 +53,11 @@ export default function(state = initialState, action) {
         profile: null,
         repos: [],
         loading: false,
+      };
+    case SET_SEARCH:
+      return {
+        ...state,
+        search: payload,
       };
     case UPDATE_PASSWORD:
     default:

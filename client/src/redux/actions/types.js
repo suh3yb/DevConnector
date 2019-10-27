@@ -24,3 +24,4 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const TOGGLE_FILTER = 'TOGGLE_FILTER';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+export const SET_SEARCH = 'SET_SEARCH';

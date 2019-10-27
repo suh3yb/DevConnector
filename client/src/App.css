@@ -393,11 +393,7 @@ button {
 /* Profile Page */
 .profile-grid {
   display: grid;
-  grid-template-areas:
-    'top top'
-    'about about'
-    'exp edu'
-    'github github';
+  grid-template-areas: 'top top' 'about about' 'exp edu' 'github github';
   grid-gap: 1rem;
 }
 
@@ -579,12 +575,7 @@ button {
   }
 
   .profile-grid {
-    grid-template-areas:
-      'top'
-      'about'
-      'exp'
-      'edu'
-      'github';
+    grid-template-areas: 'top' 'about' 'exp' 'edu' 'github';
   }
 
   .profile-about .skills {
@@ -604,4 +595,36 @@ button {
   .post button {
     padding: 0.3rem 0.4rem;
   }
+}
+
+/*Search bar*/
+.search-container {
+  margin: 36px auto;
+  width: 100%;
+  max-width: 1100px;
+}
+.search-label {
+  position: relative;
+}
+.search-container input {
+  width: 100%;
+  padding: 16px;
+  font-size: 36px;
+  font-style: italic;
+  color: #444;
+  box-sizing: border-box;
+  outline: none;
+}
+.search-icon {
+  position: absolute;
+  top: 25px;
+  font-size: 24px;
+  color: #555;
+  right: 30px;
+}
+
+.live-search-container {
+  position: absolute;
+  width: 100%;
+  padding: 10px 25px;
 }
