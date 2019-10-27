@@ -23,10 +23,17 @@ export const getProfiles = () => async dispatch => {
       payload: res.data,
     });
   } catch (error) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
-    });
+    if (error.response) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: error.response.statusText, status: error.response.status },
+      });
+    } else {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: 'Some Error happened' },
+      });
+    }
   }
 };
 
