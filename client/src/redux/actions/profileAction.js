@@ -10,7 +10,7 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   UPDATE_PASSWORD,
-  SET_SEARCH,
+  SET_SEARCH
 } from './types';
 
 // Get all profiles
@@ -20,12 +20,12 @@ export const getProfiles = () => async dispatch => {
 
     dispatch({
       type: GET_PROFILES,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -39,12 +39,12 @@ export const getCurrentProfile = () => async dispatch => {
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -58,12 +58,12 @@ export const getProfileById = userId => async dispatch => {
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -75,28 +75,32 @@ export const getGithubRepos = username => async dispatch => {
 
     dispatch({
       type: GET_REPOS,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
 
 // Create or update profile
-export const createProfile = (formData, history, edit = false) => async dispatch => {
+export const createProfile = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
 
     const res = await axios.post('/api/profile', formData, config);
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
@@ -113,7 +117,7 @@ export const createProfile = (formData, history, edit = false) => async dispatch
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -122,14 +126,14 @@ export const createProfile = (formData, history, edit = false) => async dispatch
 export const addExperience = (formData, history) => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
 
     const res = await axios.put('/api/profile/experience', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Experience Added', 'success'));
@@ -144,7 +148,7 @@ export const addExperience = (formData, history) => async dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -153,14 +157,14 @@ export const addExperience = (formData, history) => async dispatch => {
 export const addEducation = (formData, history) => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
 
     const res = await axios.put('/api/profile/education', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Education Added', 'success'));
@@ -175,7 +179,7 @@ export const addEducation = (formData, history) => async dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -187,14 +191,14 @@ export const deleteExperience = id => async dispatch => {
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Experience Deleted', 'success'));
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -206,14 +210,14 @@ export const deleteEducation = id => async dispatch => {
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Education Deleted', 'success'));
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -231,23 +235,31 @@ export const deleteAccount = () => async dispatch => {
     } catch (error) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: error.response.statusText, status: error.response.status },
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
       });
     }
   }
 };
 
+// Follow friend
 export const follow = (followId, name) => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
 
-    const res = await axios.post('/api/profile/follow', { followId, name }, config);
+    const res = await axios.post(
+      '/api/profile/follow',
+      { followId, name },
+      config
+    );
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Friend Added', 'success'));
@@ -260,7 +272,7 @@ export const follow = (followId, name) => async dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -272,7 +284,7 @@ export const unfollow = unfollowId => async dispatch => {
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data
     });
 
     dispatch(setAlert('Friend Removed', 'success'));
@@ -285,15 +297,16 @@ export const unfollow = unfollowId => async dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
 
+// Update Password
 export const updatePassword = (formData, history) => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
     await axios.post('/api/profile/password', formData, config);
 
@@ -311,7 +324,7 @@ export const updatePassword = (formData, history) => async dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };
@@ -329,7 +342,7 @@ export const searchProfile = input => dispatch => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status },
+      payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };

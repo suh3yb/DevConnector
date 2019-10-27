@@ -9,18 +9,24 @@ import {
   getCurrentProfile,
   getProfiles
 } from '../../redux/actions/profileAction';
+import { getAllFriendRequests } from '../../redux/actions/friendRequestAction';
 
 const Profiles = ({
+  currentUser,
   getCurrentProfile,
   getProfiles,
   profile: { profiles, loading, search },
   searchProfile,
-  currentUser
+  friendRequest,
+  getAllFriendRequests
 }) => {
   useEffect(() => {
     getProfiles();
     getCurrentProfile();
-  }, [getProfiles, getCurrentProfile]);
+    getAllFriendRequests();
+  }, [getProfiles, getCurrentProfile, getAllFriendRequests]);
+
+  const { friendRequests } = friendRequest;
 
   const searchResult = profiles => {
     const results = profiles.map(
@@ -63,13 +69,35 @@ const Profiles = ({
           )}
           <div className="profiles">
             {profiles.length > 0 && !search ? (
-              profiles.map(profile => (
-                <ProfileItem
-                  key={profile._id}
-                  profile={profile}
-                  user={currentUser}
-                />
-              ))
+              profiles.map(profile => {
+                const requesterObj =
+                  (profile &&
+                    currentUser &&
+                    friendRequests.find(
+                      req =>
+                        req.recipient === profile.user._id &&
+                        req.requester === currentUser._id
+                    )) ||
+                  {};
+                const recipientObj =
+                  (profile &&
+                    currentUser &&
+                    friendRequests.find(
+                      req =>
+                        req.recipient === currentUser._id &&
+                        req.requester === profile.user._id
+                    )) ||
+                  {};
+                return (
+                  <ProfileItem
+                    key={profile._id}
+                    profile={profile}
+                    user={currentUser}
+                    requesterObj={requesterObj}
+                    recipientObj={recipientObj}
+                  />
+                );
+              })
             ) : profiles.length > 0 && search ? (
               searchResult(profiles)
             ) : (
@@ -85,15 +113,19 @@ const Profiles = ({
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  friendRequest: PropTypes.object.isRequired,
+  getAllFriendRequests: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  currentUser: state.auth.user,
   profile: state.profile,
-  currentUser: state.auth.user
+  currentUser: state.auth.user,
+  friendRequest: state.friendRequest
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, getProfiles, searchProfile }
+  { getCurrentProfile, getProfiles, searchProfile, getAllFriendRequests }
 )(Profiles);

@@ -7,14 +7,17 @@ import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
-import ProfileFriend from '../profile/ProfileFriend';
-import { getCurrentProfile, deleteAccount } from '../../redux/actions/profileAction';
+import ProfileFollowing from '../profile/ProfileFollowing';
+import {
+  getCurrentProfile,
+  deleteAccount
+} from '../../redux/actions/profileAction';
 
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
   auth: { user },
-  profile: { profile, loading },
+  profile: { profile, loading }
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -33,7 +36,7 @@ const Dashboard = ({
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
-          <ProfileFriend friend={profile.friend} />
+          <ProfileFollowing following={profile.following} />
           <div className="my-2">
             <button onClick={() => deleteAccount()} className="btn btn-danger">
               <i className="fas fa-user-minus"></i> Delete My Account
@@ -56,15 +59,15 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile,
+  profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteAccount },
+  { getCurrentProfile, deleteAccount }
 )(Dashboard);

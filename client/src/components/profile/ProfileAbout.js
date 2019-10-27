@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ProfileFriend from './ProfileFriend';
+import ProfileFollowing from './ProfileFollowing';
 
 const ProfileAbout = ({
   profile: {
-    friend,
+    following,
+    friendship,
     bio,
     skills,
-    user: { name },
-  },
+    user: { name }
+  }
 }) => (
   <div className="profile-about bg-light p-2">
     {bio && (
@@ -28,12 +29,12 @@ const ProfileAbout = ({
       ))}
     </div>
 
-    {friend.length > 0 && <ProfileFriend friend={friend} />}
+    {following.length > 0 && <ProfileFollowing following={following} />}
   </div>
 );
 
 ProfileAbout.propTypes = {
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 export default ProfileAbout;
