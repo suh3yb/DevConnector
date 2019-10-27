@@ -23,7 +23,7 @@ const PasswordCheck = ({ currentPassword }) => {
     <div>
       <progress
         value={testedResult.score}
-        max='4'
+        max="4"
         className={`password-strength-meter-progress strength-${createPasswordLabel(testedResult)}`}
       />
       <br />
@@ -31,6 +31,8 @@ const PasswordCheck = ({ currentPassword }) => {
         {currentPassword && (
           <>
             <strong>Password strength:</strong> {createPasswordLabel(testedResult)}
+            {'-->'}
+            {testedResult.feedback.suggestions}
           </>
         )}
       </label>
