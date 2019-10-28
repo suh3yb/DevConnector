@@ -131,6 +131,7 @@ export const socialLogin = socialToken => async dispatch => {
 
 // Logout / Clear Profile
 export const logout = () => dispatch => {
+  setAuthToken();
   dispatch(resetUpdate());
   dispatch({ type: CLEAR_PROFILE });
   firebase.auth().signOut();
