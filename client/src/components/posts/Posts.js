@@ -13,7 +13,7 @@ const Posts = ({
   getPosts,
   toggleFilter,
   post: { posts, loading, showAll },
-  profile
+  profile,
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -24,7 +24,7 @@ const Posts = ({
   let postsToShow = posts;
 
   if (profile && !showAll) {
-    friendIds = profile.friend.map(friendObj => friendObj.user);
+    friendIds = profile.following.map(friendObj => friendObj.user);
     postsToShow = posts.filter(post => friendIds.indexOf(post.user._id) !== -1);
   }
 
@@ -55,15 +55,15 @@ Posts.propTypes = {
   profile: PropTypes.object,
   getPosts: PropTypes.func.isRequired,
   toggleFilter: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   post: state.post,
-  profile: state.profile.profile
+  profile: state.profile.profile,
 });
 
 export default connect(
   mapStateToProps,
-  { getPosts, toggleFilter, getCurrentProfile }
+  { getPosts, toggleFilter, getCurrentProfile },
 )(Posts);
