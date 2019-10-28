@@ -4,11 +4,12 @@ import '../post.css';
 
 const Emoji = ({ className, onclick, symbol, label }) => (
   <button
-    role="img"
+    role='img'
     aria-label={label ? label : ''}
     aria-hidden={label ? 'false' : 'true'}
     onClick={onclick}
-    className={`reaction emoji ${className}`}>
+    className={className}
+  >
     {symbol}
   </button>
 );
