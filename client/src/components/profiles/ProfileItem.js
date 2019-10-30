@@ -84,7 +84,9 @@ const ProfileItem = ({
                   : 'danger'
               }`}>
               {requesterObj.status === 'requested' && 'Request sent!'}
-              {requesterObj.status === 'accepted' && 'Friend'}
+              {(requesterObj.status === 'accepted' ||
+                recipientObj.status === 'accepted') &&
+                'Friend'}
               {requesterObj.status === 'rejected' && 'Request rejected'}
             </span>
           )}

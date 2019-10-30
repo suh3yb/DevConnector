@@ -146,7 +146,6 @@ Profiles.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.user,
   profile: state.profile,
   currentUser: state.auth.user,
   friendRequest: state.friendRequest

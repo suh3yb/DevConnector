@@ -23,7 +23,7 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return loading && profile === null ? (
+  return loading && !profile ? (
     <Spinner />
   ) : (
     <Fragment>
@@ -31,7 +31,7 @@ const Dashboard = ({
       <p className="lead">
         <i className="fas fa-user"></i> Welcome {user && user.name}
       </p>
-      {profile !== null ? (
+      {profile ? (
         <Fragment>
           <DashboardActions />
           <Experience experience={profile.experience} />
