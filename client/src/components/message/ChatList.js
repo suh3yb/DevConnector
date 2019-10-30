@@ -25,8 +25,7 @@ const ChatList = ({ auth: { user }, profile: { profiles, loading }, getProfiles 
   }
   useEffect(() => {
     getProfiles();
-  }, [getProfiles]);
-
+  }, [getProfiles, user]);
   return loading ? (
     <Spinner />
   ) : !conversationArray ? (
@@ -41,7 +40,13 @@ const ChatList = ({ auth: { user }, profile: { profiles, loading }, getProfiles 
         {conversationArray[0] &&
           conversationArray.map(conversation => {
             if (conversation !== undefined) {
-              return <Conversation key={conversation._id} user={conversation.user} />;
+              return (
+                <Conversation
+                  key={conversation._id}
+                  user={conversation.user}
+                  imageUrl={conversation.imageUrl}
+                />
+              );
             } else {
               return null;
             }
