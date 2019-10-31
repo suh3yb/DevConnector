@@ -122,7 +122,6 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
-
   friendship: [
     {
       user: {
@@ -130,6 +129,12 @@ const ProfileSchema = new mongoose.Schema({
         ref: 'user'
       },
       name: {
+        type: String
+      },
+      avatar: {
+        type: String
+      },
+      imgUrl: {
         type: String
       }
     }

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ProfileFollowing from './ProfileFollowing';
+import ProfileFriendship from './ProfileFriendship';
 
 const ProfileAbout = ({
   profile: {
@@ -30,6 +31,7 @@ const ProfileAbout = ({
     </div>
 
     {following.length > 0 && <ProfileFollowing following={following} />}
+    {friendship.length > 0 && <ProfileFriendship friendship={friendship} />}
   </div>
 );
 

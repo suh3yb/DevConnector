@@ -79,11 +79,7 @@ export const sendFriendRequest = recipientId => async dispatch => {
 };
 
 // Accept request
-export const acceptFriendRequest = (
-  recipientId,
-  receipentName,
-  requesterName
-) => async dispatch => {
+export const acceptFriendRequest = recipientId => async dispatch => {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' }
@@ -91,7 +87,7 @@ export const acceptFriendRequest = (
 
     const res = await axios.put(
       '/api/profile/friend-request/accept',
-      { recipientId, receipentName, requesterName },
+      { recipientId },
       config
     );
 

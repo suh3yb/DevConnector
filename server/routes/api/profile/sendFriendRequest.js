@@ -19,22 +19,19 @@ const sendFriendRequest = async (req, res) => {
   };
 
   try {
-    const friendRequest = await FriendRequest.findOne({
-      requester: req.user.id,
-      recipient: recipientId
-    });
+    const docRequester = await FriendRequest.findOneAndUpdate(
+      { requester: req.user.id, recipient: recipientId },
+      { status: 'requested' },
+      { new: true, upsert: true }
+    );
 
-    let newRequest;
-    if (!friendRequest) {
-      newRequest = new FriendRequest(newFriendRequestObject);
-      await newRequest.save();
-    } else {
-      return res.status(400).json({
-        msg: 'This request has been already sent to this user before!'
-      });
-    }
+    const docRecipient = await FriendRequest.findOneAndUpdate(
+      { recipient: req.user.id, requester: recipientId },
+      { status: 'pending' },
+      { new: true, upsert: true }
+    );
 
-    res.json(newRequest);
+    res.json([docRequester, docRecipient]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');

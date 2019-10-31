@@ -46,7 +46,7 @@ const ProfileItem = ({
         <>
           <button
             className="btn btn-success"
-            onClick={() => acceptFriendRequest(_id, name, currentUser.name)}>
+            onClick={() => acceptFriendRequest(_id)}>
             Accept
           </button>
           <button
@@ -68,28 +68,23 @@ const ProfileItem = ({
       </button>
     );
 
+  const statusMessage = (
+    <span className="badge badge-light">
+      {requesterObj.status === 'requested' && 'Request sent!'}
+      {requesterObj.status === 'pending' && 'Response pending!'}
+      {(requesterObj.status === 'accepted' ||
+        recipientObj.status === 'accepted') &&
+        'Friend'}
+      {requesterObj.status === 'rejected' && 'Request rejected'}
+    </span>
+  );
+
   return (
     <div className="profile bg-light">
       <img src={imageUrl || avatar} alt={name} className="round-img" />
       <div>
         <h2>
-          {name}{' '}
-          {currentUser && requesterObj.status && (
-            <span
-              className={`badge badge-${
-                requesterObj.status === 'requested'
-                  ? 'dark'
-                  : requesterObj.status === 'accepted'
-                  ? 'success'
-                  : 'danger'
-              }`}>
-              {requesterObj.status === 'requested' && 'Request sent!'}
-              {(requesterObj.status === 'accepted' ||
-                recipientObj.status === 'accepted') &&
-                'Friend'}
-              {requesterObj.status === 'rejected' && 'Request rejected'}
-            </span>
-          )}
+          {name} {currentUser && requesterObj.status && statusMessage}
         </h2>
         <p>
           {status} {company && <span> at {company}</span>}
@@ -98,13 +93,15 @@ const ProfileItem = ({
         <Link to={`/profile/${_id}`} className="btn btn-primary">
           View Profile
         </Link>
-        {auth.isAuthenticated && currentUser._id !== _id && (
-          <Link
-            to={`/messages/${_id}/${name.trim().split(' ')[0]}`}
-            className="btn btn-primary">
-            Send Message
-          </Link>
-        )}
+        {auth.isAuthenticated &&
+          currentUser._id !== _id &&
+          requesterObj.status === 'accepted' && (
+            <Link
+              to={`/messages/${_id}/${name.trim().split(' ')[0]}`}
+              className="btn btn-primary">
+              Send Message
+            </Link>
+          )}
         {currentUser && _id === currentUser._id ? null : followButton}
         {requestButton}
         {actionButtons}

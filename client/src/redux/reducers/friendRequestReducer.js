@@ -7,7 +7,6 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  friendRequest: null,
   friendRequests: [],
   loading: true,
   error: {}
@@ -21,7 +20,7 @@ export default function(state = initialState, action) {
     case UPDATE_FRIEND_REQUEST:
       return {
         ...state,
-        friendRequests: [...state.friendRequests, payload],
+        friendRequests: [...state.friendRequests, ...payload],
         loading: false
       };
     case GET_ALL_FRIEND_REQUESTS:

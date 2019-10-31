@@ -3,6 +3,7 @@
 const { validationResult } = require('express-validator');
 
 const FriendRequest = require('../../../models/FriendRequest');
+const Profile = require('../../../models/Profile');
 
 const rejectFriendRequest = async (req, res) => {
   const errors = validationResult(req);
@@ -14,15 +15,19 @@ const rejectFriendRequest = async (req, res) => {
   const { recipientId } = req.body;
 
   try {
-    const friendRequest = await FriendRequest.findOneAndUpdate(
+    const docRequester = await FriendRequest.findOneAndUpdate(
       { requester: recipientId, recipient: req.user.id },
       { $set: { status: 'rejected' } },
       { new: true }
     );
 
-    if (friendRequest) {
-      res.json(friendRequest);
-    }
+    const docRecipient = await FriendRequest.findOneAndUpdate(
+      { recipient: recipientId, requester: req.user.id },
+      { $set: { status: 'rejected' } },
+      { new: true }
+    );
+
+    res.json([docRequester, docRecipient]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
