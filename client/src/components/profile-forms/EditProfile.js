@@ -2,29 +2,16 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  createProfile,
-  getCurrentProfile
-} from '../../redux/actions/profileAction';
+import { createProfile, getCurrentProfile } from '../../redux/actions/profileAction';
 import * as filestack from 'filestack-js';
 import { config } from './config';
-import {
-  Form,
-  Menu,
-  Header,
-  Button,
-  Image,
-  Card,
-  Grid,
-  Input,
-  TextArea
-} from 'semantic-ui-react';
+import { Form, Menu, Header, Button, Image, Card, Grid, Input, TextArea } from 'semantic-ui-react';
 
 const EditProfile = ({
   profile: { profile, loading },
   createProfile,
   getCurrentProfile,
-  history
+  history,
 }) => {
   const [formData, setFormData] = useState({
     company: '',
@@ -39,7 +26,7 @@ const EditProfile = ({
     linkedin: '',
     youtube: '',
     instagram: '',
-    imageUrl: ''
+    imageUrl: '',
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -55,17 +42,13 @@ const EditProfile = ({
         imageUrl: loading || !profile.imageUrl ? '' : profile.imageUrl,
         status: loading || !profile.status ? '' : profile.status,
         skills: loading || !profile.skills ? '' : profile.skills.join(','),
-        githubusername:
-          loading || !profile.githubusername ? '' : profile.githubusername,
+        githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
         bio: loading || !profile.bio ? '' : profile.bio,
         twitter: loading || !profile.social ? '' : profile.social.twitter || '',
-        facebook:
-          loading || !profile.social ? '' : profile.social.facebook || '',
-        linkedin:
-          loading || !profile.social ? '' : profile.social.linkedin || '',
+        facebook: loading || !profile.social ? '' : profile.social.facebook || '',
+        linkedin: loading || !profile.social ? '' : profile.social.linkedin || '',
         youtube: loading || !profile.social ? '' : profile.social.youtube || '',
-        instagram:
-          loading || !profile.social ? '' : profile.social.instagram || ''
+        instagram: loading || !profile.social ? '' : profile.social.instagram || '',
       });
     }
   }, [loading, getCurrentProfile, profile]);
@@ -83,11 +66,10 @@ const EditProfile = ({
     linkedin,
     youtube,
     instagram,
-    imageUrl
+    imageUrl,
   } = formData;
 
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -111,7 +93,7 @@ const EditProfile = ({
     maxSize: 1024 * 1024,
     maxFiles: 1,
     onUploadDone: onSuccess,
-    onFileUploadFailed: onError
+    onFileUploadFailed: onError,
   };
 
   return !loading && profile === null ? (
@@ -128,12 +110,7 @@ const EditProfile = ({
           />
         </Menu.Item>
         <Menu.Item position="right">
-          <Button
-            as={Link}
-            icon="arrow left"
-            to="/dashboard"
-            content="Go Back"
-          />
+          <Button as={Link} icon="arrow left" to="/dashboard" content="Go Back" />
         </Menu.Item>
       </Menu>
 
@@ -145,14 +122,12 @@ const EditProfile = ({
               src={imageUrl || (profile && profile.user.avatar)}
               alt={profile && profile.user.name}
             />
-            <Card.Content textAlign="center">
-              Change your profile image
-            </Card.Content>
+            <Card.Content textAlign="center">Change your profile image</Card.Content>
             <Card.Content extra>
               <Button
                 primary
                 fluid
-                icon="pencil alternative"
+                icon="pencil alternate"
                 onClick={() => client.picker(options).open()}
                 content="Change"
               />
@@ -167,25 +142,18 @@ const EditProfile = ({
                   <Form.Field>
                     <label>Status *</label>
 
-                    <select
-                      name="status"
-                      value={status}
-                      onChange={e => onChange(e)}>
+                    <select name="status" value={status} onChange={e => onChange(e)}>
                       <option value="0">* Select Professional Status</option>
                       <option value="Developer">Developer</option>
                       <option value="Junior Developer">Junior Developer</option>
                       <option value="Senior Developer">Senior Developer</option>
                       <option value="Manager">Manager</option>
-                      <option value="Student or Learning">
-                        Student or Learning
-                      </option>
+                      <option value="Student or Learning">Student or Learning</option>
                       <option value="Instructor">Instructor or Teacher</option>
                       <option value="Intern">Intern</option>
                       <option value="Other">Other</option>
                     </select>
-                    <small>
-                      Give us an idea of where you are at in your career
-                    </small>
+                    <small>Give us an idea of where you are at in your career</small>
                   </Form.Field>
                   <Form.Field>
                     <label>Company</label>
@@ -233,10 +201,7 @@ const EditProfile = ({
                       value={skills}
                       onChange={e => onChange(e)}
                     />
-                    <small>
-                      Please use comma separated values (eg.
-                      HTML,CSS,JavaScript,PHP)
-                    </small>
+                    <small>Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
                   </Form.Field>
                   <Form.Field>
                     <label>Github Username</label>
@@ -249,8 +214,7 @@ const EditProfile = ({
                       onChange={e => onChange(e)}
                     />
                     <small>
-                      If you want your latest repos and a Github link, include
-                      your username
+                      If you want your latest repos and a Github link, include your username
                     </small>
                   </Form.Field>
                 </Form.Group>
@@ -268,7 +232,8 @@ const EditProfile = ({
                   <Button
                     onClick={() => toggleSocialInputs(!displaySocialInputs)}
                     type="button"
-                    className="btn btn-light">
+                    className="btn btn-light"
+                  >
                     Add Social Network Links
                   </Button>
                   <small pointing="left">Optional</small>
@@ -352,14 +317,14 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
 });
 
 export default connect(
   mapStateToProps,
-  { createProfile, getCurrentProfile }
+  { createProfile, getCurrentProfile },
 )(withRouter(EditProfile));

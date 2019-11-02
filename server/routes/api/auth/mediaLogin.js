@@ -28,8 +28,14 @@ const mediaLogin = async (req, res) => {
 
     let user = await User.findOne({ email });
 
-    if (!user || !email) {
+    if (!email) {
       return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
+    }
+
+    if (email && !user) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'To login with social media, please register first' }] });
     }
 
     const payload = {

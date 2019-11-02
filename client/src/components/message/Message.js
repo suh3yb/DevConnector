@@ -43,7 +43,6 @@ const Message = ({
         {messages[0] === undefined
           ? 'No messages, Lets Send First Message !'
           : messages.map(msg => {
-              console.log('msg.date', msg.date);
               return (
                 msg._id && (
                   <div
