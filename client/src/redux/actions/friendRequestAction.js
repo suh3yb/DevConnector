@@ -7,7 +7,7 @@ import {
   CLEAR_FRIEND_REQUEST,
   FRIEND_REQUEST_ERROR,
   UPDATE_FRIEND_REQUEST,
-  GET_PROFILE
+  GET_PROFILE,
 } from './types';
 
 // Get all friend requests
@@ -17,12 +17,12 @@ export const getAllFriendRequests = () => async dispatch => {
 
     dispatch({
       type: GET_ALL_FRIEND_REQUESTS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
       type: FRIEND_REQUEST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
 };
@@ -35,12 +35,12 @@ export const getFriendRequest = () => async dispatch => {
     const res = await axios.get('/api/profile/friend-request/me');
     dispatch({
       type: GET_FRIEND_REQUEST,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
       type: FRIEND_REQUEST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
 };
@@ -49,18 +49,14 @@ export const getFriendRequest = () => async dispatch => {
 export const sendFriendRequest = recipientId => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     };
 
-    const res = await axios.post(
-      '/api/profile/friend-request',
-      { recipientId },
-      config
-    );
+    const res = await axios.post('/api/profile/friend-request', { recipientId }, config);
 
     dispatch({
       type: GET_FRIEND_REQUEST,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert('Friend request has been sent', 'success'));
@@ -73,7 +69,7 @@ export const sendFriendRequest = recipientId => async dispatch => {
 
     dispatch({
       type: FRIEND_REQUEST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
 };
@@ -82,23 +78,17 @@ export const sendFriendRequest = recipientId => async dispatch => {
 export const acceptFriendRequest = recipientId => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     };
 
-    const res = await axios.put(
-      '/api/profile/friend-request/accept',
-      { recipientId },
-      config
-    );
+    const res = await axios.put('/api/profile/friend-request/accept', { recipientId }, config);
 
     dispatch({
       type: UPDATE_FRIEND_REQUEST,
-      payload: res.data
+      payload: res.data,
     });
 
-    dispatch({
-      type: GET_PROFILE
-    });
+    dispatch(getAllFriendRequests());
 
     dispatch(setAlert('Friend request accepted', 'success'));
   } catch (error) {
@@ -110,7 +100,7 @@ export const acceptFriendRequest = recipientId => async dispatch => {
 
     dispatch({
       type: FRIEND_REQUEST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
 };
@@ -119,23 +109,17 @@ export const acceptFriendRequest = recipientId => async dispatch => {
 export const rejectFriendRequest = recipientId => async dispatch => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     };
 
-    const res = await axios.put(
-      '/api/profile/friend-request/reject',
-      { recipientId },
-      config
-    );
+    const res = await axios.put('/api/profile/friend-request/reject', { recipientId }, config);
 
     dispatch({
       type: UPDATE_FRIEND_REQUEST,
-      payload: res.data
+      payload: res.data,
     });
 
-    dispatch({
-      type: GET_PROFILE
-    });
+    dispatch(getAllFriendRequests());
 
     dispatch(setAlert('Friend request rejected', 'success'));
   } catch (error) {
@@ -147,7 +131,7 @@ export const rejectFriendRequest = recipientId => async dispatch => {
 
     dispatch({
       type: FRIEND_REQUEST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.response.statusText, status: error.response.status },
     });
   }
 };
