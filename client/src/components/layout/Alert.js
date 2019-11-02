@@ -7,14 +7,13 @@ const Alert = ({ alerts }) =>
   alerts !== null &&
   alerts.length > 0 &&
   alerts.map(({ id, alertType, msg }) => (
-    <TransitionablePortal open={alerts.length > 0}>
+    <TransitionablePortal key={id} open={alerts.length > 0}>
       <Message
         size="big"
         style={{ position: 'fixed', top: '60px', right: '10px' }}
         warning={alertType === 'warning'}
         error={alertType === 'danger'}
-        success={alertType === 'success'}
-        key={id}>
+        success={alertType === 'success'}>
         <Icon
           name={
             alertType === 'warning'

@@ -44,7 +44,7 @@ const PostNotification = ({
     ''
   ) : (
     <Message
-      size="medium"
+      size="large"
       color="teal"
       style={{
         position: 'sticky',
