@@ -8,18 +8,3 @@
 .btn.btn-like:hover {
   opacity: 1;
 }
-
-/* .btn-emoji {
-  position: relative;
-}
-
-.emoji-list {
-  position: absolute;
-  z-index: 1;
-  bottom: 10px;
-  left: 20px;
-  background-color: lightblue;
-
-  border: solid;
-  border-radius: 6px;
-} */
