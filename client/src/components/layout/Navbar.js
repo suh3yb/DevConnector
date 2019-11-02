@@ -78,7 +78,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           as={Link}
           to="/"
           icon="code"
-          content={<Responsive minWidth={720}>Dev Connector</Responsive>}
+          content={
+            <>
+              <Responsive minWidth={720}>HackYourSocial</Responsive>
+              <Responsive maxWidth={719}>HYS</Responsive>
+            </>
+          }
         />
         {!loading && (
           <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>

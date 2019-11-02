@@ -7,13 +7,17 @@
   margin: auto;
   padding: 1rem;
   border: 1px solid #cccccc;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 
 .message--flow {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding-right: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-size: cover;
+  background-position: top;
 }
 
 .message--form {

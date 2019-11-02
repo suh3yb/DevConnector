@@ -42,7 +42,7 @@ const Posts = ({
   ) : (
     <Fragment>
       <PostNotification />
-      <Menu secondary>
+      <Menu stackable secondary>
         <Menu.Item>
           <Header
             as="h3"
@@ -54,14 +54,12 @@ const Posts = ({
         <Menu.Menu position="right">
           <Menu.Item>
             <Button
+              style={{ marginRight: '1rem' }}
               primary
-              labelPosition="left"
               icon="filter"
               onClick={() => toggleFilter()}
               content={showAll ? 'Show Following' : 'Show All'}
             />
-          </Menu.Item>
-          <Menu.Item>
             <Modal
               basic
               open={open}

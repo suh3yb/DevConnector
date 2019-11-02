@@ -262,7 +262,7 @@ export const follow = (followId, name) => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert('Friend Added', 'success'));
+    dispatch(setAlert('Friend followed', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -287,7 +287,7 @@ export const unfollow = unfollowId => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert('Friend Removed', 'success'));
+    dispatch(setAlert('Friend unfollowed', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
 
