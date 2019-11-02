@@ -3,35 +3,8 @@
   display: inline;
 }
 .like-list {
-  padding: 6px;
-  position: absolute;
-  z-index: 1;
-  top: 0px;
-  left: 24px;
-  background-color: rgb(247, 247, 247);
-  border-radius: 1px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-left: solid 1px #17a2b8;
-  font-size: 0.9em;
-  font-weight: bold;
-  text-align: left;
 }
 
 .btn.btn-like:hover {
   opacity: 1;
 }
-
-/* .btn-emoji {
-  position: relative;
-}
-
-.emoji-list {
-  position: absolute;
-  z-index: 1;
-  bottom: 10px;
-  left: 20px;
-  background-color: lightblue;
-
-  border: solid;
-  border-radius: 6px;
-} */

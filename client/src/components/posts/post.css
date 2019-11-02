@@ -10,5 +10,5 @@
   cursor: pointer;
 }
 .reacted {
-  box-shadow: 0 0 7px gray;
+  box-shadow: 0 0 4px rgb(166, 205, 214);
 }
