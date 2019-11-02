@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addReaction } from '../../../redux/actions/postAction';
 import Emoji from './Emoji';
 import '../likes/like.css';
-import { List, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 const emojis = require('./emojis');
 

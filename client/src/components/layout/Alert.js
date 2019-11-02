@@ -10,7 +10,11 @@ const Alert = ({ alerts }) =>
     <TransitionablePortal key={id} open={alerts.length > 0}>
       <Message
         size="big"
-        style={{ position: 'fixed', bottom: '20px', left: '20px' }}
+        style={{
+          position: 'fixed',
+          top: '60px',
+          left: '20px'
+        }}
         warning={alertType === 'warning'}
         error={alertType === 'danger'}
         success={alertType === 'success'}>

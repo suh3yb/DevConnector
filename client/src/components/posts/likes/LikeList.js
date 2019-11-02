@@ -11,7 +11,7 @@ const LikeList = ({ postId, posts }) => {
       {likes &&
         likes.map(like => {
           return (
-            <div class="like-list-item" key={like._id}>
+            <div className="like-list-item" key={like._id}>
               <Link to={`/profile/${like.user}`}>{like.name}</Link>
             </div>
           );

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Header, Grid } from 'semantic-ui-react';
 import LandingBackground from '../../img/showcase.jpg';
-import Typical from 'react-typical';
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
@@ -14,7 +13,7 @@ const Landing = ({ isAuthenticated }) => {
   return (
     <div
       style={{
-        background: `linear-gradient(rgba(50, 50, 100, 0.6), rgba(20, 20, 100, 0.7)), url(${LandingBackground})`,
+        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${LandingBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'absolute',
