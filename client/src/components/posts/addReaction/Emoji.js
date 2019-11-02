@@ -1,17 +1,21 @@
 import React from 'react';
 
 import '../post.css';
+import { Button } from 'semantic-ui-react';
 
 const Emoji = ({ className, onclick, symbol, label }) => (
-  <button
-    role='img'
+  <Button
+    icon
+    circular
+    basic
+    size="mini"
+    role="img"
     aria-label={label ? label : ''}
     aria-hidden={label ? 'false' : 'true'}
     onClick={onclick}
-    className={className}
-  >
+    className={className}>
     {symbol}
-  </button>
+  </Button>
 );
 
 export default Emoji;

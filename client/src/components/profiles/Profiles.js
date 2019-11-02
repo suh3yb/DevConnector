@@ -10,6 +10,7 @@ import {
   getProfiles
 } from '../../redux/actions/profileAction';
 import { getAllFriendRequests } from '../../redux/actions/friendRequestAction';
+import { Menu, Header, Card, Button, Icon } from 'semantic-ui-react';
 
 const Profiles = ({
   currentUser,
@@ -47,6 +48,8 @@ const Profiles = ({
           )) ||
         {};
 
+      console.log('recipientObj', recipientObj);
+
       if (profile.user.name.toLowerCase().includes(search.name.toLowerCase())) {
         return (
           <ProfileItem
@@ -74,25 +77,34 @@ const Profiles = ({
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <div className="search-bar-container">
-            <p className="lead">
-              <i className="fab fa-connectdevelop" /> Browse and connect with
-              developers
-            </p>
-            <Search profiles={profiles} />
-          </div>
-          {search && (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                searchProfile(null);
-              }}>
-              Back To Profiles
-            </button>
-          )}
-          <div className="profiles">
+          <Menu secondary stackable>
+            <Menu.Item position="left">
+              <Header
+                as="h3"
+                icon="users"
+                content="Developers"
+                subheader="Browse and connect with
+            developers"
+              />
+            </Menu.Item>
+            <Menu.Item position="right">
+              {search && (
+                <Button
+                  style={{ marginRight: '10px' }}
+                  icon
+                  labelPosition="left"
+                  onClick={() => {
+                    searchProfile(null);
+                  }}>
+                  <Icon name="arrow left" />
+                  Back To Profiles
+                </Button>
+              )}
+              <Search profiles={profiles} />
+            </Menu.Item>
+          </Menu>
+
+          <Card.Group stackable itemsPerRow={2}>
             {profiles.length > 0 ? (
               !search ? (
                 profiles.map(profile => {
@@ -130,7 +142,7 @@ const Profiles = ({
             ) : (
               <h4>No profiles found...</h4>
             )}
-          </div>
+          </Card.Group>
         </Fragment>
       )}
     </Fragment>

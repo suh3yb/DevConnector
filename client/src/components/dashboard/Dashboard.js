@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,10 +8,20 @@ import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
 import ProfileFollowing from '../profile/ProfileFollowing';
+import ProfileFriendship from '../profile/ProfileFriendship';
 import {
   getCurrentProfile,
   deleteAccount
 } from '../../redux/actions/profileAction';
+import {
+  Menu,
+  Header,
+  Button,
+  Card,
+  Divider,
+  Icon,
+  Responsive
+} from 'semantic-ui-react';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -26,32 +36,124 @@ const Dashboard = ({
   return loading && !profile ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <h1 className="large text-primary">Dashboard</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Welcome {user && user.name}
-      </p>
+    <>
+      <Menu secondary>
+        <Menu.Item position="left">
+          <Header
+            as="h3"
+            icon="dashboard"
+            content="Dashboard"
+            subheader={`Welcome ${user && user.name}`}
+          />
+        </Menu.Item>
+        <Menu.Item position="right">
+          {profile && <DashboardActions />}
+        </Menu.Item>
+      </Menu>
       {profile ? (
-        <Fragment>
-          <DashboardActions />
-          <Experience experience={profile.experience} />
-          <Education education={profile.education} />
-          <ProfileFollowing following={profile.following} />
-          <div className="my-2">
-            <button onClick={() => deleteAccount()} className="btn btn-danger">
-              <i className="fas fa-user-minus"></i> Delete My Account
-            </button>
-          </div>
-        </Fragment>
+        <Card.Group doubling itemsPerRow="2">
+          <Card>
+            <Card.Content>
+              <Menu secondary size="tiny">
+                <Menu.Item>
+                  <Header as="h3">Experience Credentials</Header>
+                </Menu.Item>
+                <Menu.Item position="right">
+                  <Button
+                    as={Link}
+                    to="/add-experience"
+                    size="mini"
+                    basic
+                    primary
+                    circular
+                    icon>
+                    <Icon name="add" />{' '}
+                    <Responsive as="span" minWidth={500}>
+                      Add New
+                    </Responsive>
+                  </Button>
+                </Menu.Item>
+              </Menu>
+              <Divider />
+              <Card.Description style={{ overflowX: 'auto' }}>
+                <Experience experience={profile.experience} />
+              </Card.Description>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Menu secondary size="tiny">
+                <Menu.Item>
+                  <Header as="h3">Education Credentials</Header>
+                </Menu.Item>
+                <Menu.Item position="right">
+                  <Button
+                    as={Link}
+                    to="/add-education"
+                    size="mini"
+                    basic
+                    primary
+                    circular
+                    icon>
+                    <Icon name="add" />{' '}
+                    <Responsive as="span" minWidth={500}>
+                      Add New
+                    </Responsive>
+                  </Button>
+                </Menu.Item>
+              </Menu>
+              <Divider />
+              <Card.Description style={{ overflowX: 'auto' }}>
+                <Education education={profile.education} />
+              </Card.Description>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header>
+                {profile.following.length} Following
+                {profile.following.length > 1 ? 's' : ''}
+              </Card.Header>
+              <Divider />
+              <Card.Description>
+                <ProfileFollowing following={profile.following} />
+              </Card.Description>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header>
+                {profile.friendship.length} Friend
+                {profile.friendship.length > 1 ? 's' : ''}
+              </Card.Header>
+              <Divider />
+              <Card.Description>
+                <ProfileFriendship friendship={profile.friendship} />
+              </Card.Description>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Button
+                color="red"
+                onClick={() => deleteAccount()}
+                icon="user delete"
+                content="Delete My Account"
+              />
+            </Card.Content>
+          </Card>
+        </Card.Group>
       ) : (
-        <Fragment>
-          <p>You have not yet setup a profile, please add some info</p>
-          <Link to="/create-profile" className="btn btn-primary my-1">
-            Create Profile
-          </Link>
-        </Fragment>
+        <Card fluid>
+          <Card.Content>
+            <p>You have not yet setup a profile, please add some info</p>
+            <Button as={Link} to="/create-profile" primary>
+              Create Profile
+            </Button>
+          </Card.Content>
+        </Card>
       )}
-    </Fragment>
+    </>
   );
 };
 

@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Responsive, Icon } from 'semantic-ui-react';
 
 const DashboardActions = () => {
   return (
-    <div className="dash-buttons">
-      <Link to="/edit-profile" className="btn btn-light">
-        <i className="fas fa-user-circle text-primary"></i> Edit Profile
-      </Link>
-      <Link to="/add-experience" className="btn btn-light">
-        <i className="fab fa-black-tie text-primary"></i> Add Experience
-      </Link>
-      <Link to="/add-education" className="btn btn-light">
-        <i className="fas fa-graduation-cap text-primary"></i> Add Education
-      </Link>
-      <Link to="/change-password" className="btn btn-light">
-        <i className="fas fa-key text-primary"></i> Change Password
-      </Link>
+    <div style={{ overflowX: 'auto' }}>
+      <Button primary icon as={Link} to="/edit-profile">
+        <Icon name="edit" />{' '}
+        <Responsive as="span" minWidth={768}>
+          Edit Profile
+        </Responsive>
+      </Button>
+      <Button primary icon as={Link} to="/change-password">
+        <Icon name="key" />{' '}
+        <Responsive as="span" minWidth={768}>
+          Change Password
+        </Responsive>
+      </Button>
     </div>
   );
 };

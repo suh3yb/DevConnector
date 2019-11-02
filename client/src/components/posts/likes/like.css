@@ -3,13 +3,11 @@
 }
 .like-list {
   position: absolute;
+  width: 100px;
+  list-style: none;
   z-index: 1;
   bottom: 10px;
   left: 50px;
-  background-color: lightblue;
-
-  border: solid;
-  border-radius: 6px;
 }
 
 .btn-emoji {
@@ -17,16 +15,21 @@
 }
 
 .emoji-list {
+  overflow-x: auto;
   position: absolute;
-  display: flex;
   z-index: 1;
-  bottom: -45px;
+  bottom: -100px;
+  padding: 6px;
+  left: 0;
   background-color: white;
   border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 .reactions {
-  padding: 2px;
-  margin: 2px;
-  font-size: 1.3em;
-  font-style: normal;
+  cursor: pointer;
+}
+
+.ui.circular.label.reactions:hover {
+  border: grey;
+  background-color: #ffffff;
 }

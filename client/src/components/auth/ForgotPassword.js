@@ -1,7 +1,17 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {
+  Form,
+  Input,
+  Button,
+  Grid,
+  Header,
+  Card,
+  Icon
+} from 'semantic-ui-react';
+import LayoutGrid from '../layout/LayoutGrid';
 
 import { resetPassword } from '../../redux/actions/authAction';
 
@@ -20,38 +30,50 @@ const ForgotPassword = ({ resetPassword, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Forgot Password</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Send reset link to your email..
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Submit" />
-      </form>
-    </Fragment>
+    <LayoutGrid center>
+      <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
+        <Header icon textAlign="center" as="h3">
+          <Icon name="user" circular />
+          <Header.Content>Forgot Password</Header.Content>
+          <Header.Subheader>Save your password</Header.Subheader>
+        </Header>
+
+        <Card.Content>
+          <Form onSubmit={e => onSubmit(e)}>
+            <Form.Field>
+              <Input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={e => onChange(e)}
+                required
+              />
+            </Form.Field>
+            <Button
+              fluid
+              primary
+              type="submit"
+              icon="paper plane"
+              content="Send Email"
+            />
+          </Form>
+        </Card.Content>
+      </Grid.Column>
+    </LayoutGrid>
   );
 };
 
 ForgotPassword.propTypes = {
   resetPassword: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { resetPassword },
+  { resetPassword }
 )(ForgotPassword);

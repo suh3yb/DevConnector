@@ -1,51 +1,58 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { deleteExperience } from '../../redux/actions/profileAction';
+import { Table, Button } from 'semantic-ui-react';
 
 const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map(exp => (
-    <tr key={exp._id}>
-      <td className="hide-sm">{exp.company}</td>
-      <td className="hide-sm">{exp.title}</td>
-      <td>
+    <Table.Row key={exp._id}>
+      <Table.Cell className="hide-sm">{exp.company}</Table.Cell>
+      <Table.Cell className="hide-sm">{exp.title}</Table.Cell>
+      <Table.Cell>
         <Moment format="YYYY/MM/DD">{moment.utc(exp.from)}</Moment> -{' '}
-        {exp.to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(exp.to)}</Moment>}
-      </td>
-      <td>
-        <button onClick={() => deleteExperience(exp._id)} className="btn btn-danger">
-          Delete
-        </button>
-      </td>
-    </tr>
+        {exp.to === null ? (
+          ' Now'
+        ) : (
+          <Moment format="YYYY/MM/DD">{moment.utc(exp.to)}</Moment>
+        )}
+      </Table.Cell>
+      <Table.Cell textAlign="center">
+        <Button
+          circular
+          inverted
+          size="tiny"
+          color="red"
+          icon="trash"
+          onClick={() => deleteExperience(exp._id)}
+        />
+      </Table.Cell>
+    </Table.Row>
   ));
 
   return (
-    <Fragment>
-      <h2 className="my-2">Experience Credentials</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th className="hide-sm">Title</th>
-            <th className="hide-sm">Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{experiences}</tbody>
-      </table>
-    </Fragment>
+    <Table celled size="small" unstackable>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Company</Table.HeaderCell>
+          <Table.HeaderCell className="hide-sm">Title</Table.HeaderCell>
+          <Table.HeaderCell className="hide-sm">Years</Table.HeaderCell>
+          <Table.HeaderCell />
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>{experiences}</Table.Body>
+    </Table>
   );
 };
 
 Experience.propTypes = {
   experience: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired,
+  deleteExperience: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { deleteExperience },
+  { deleteExperience }
 )(Experience);

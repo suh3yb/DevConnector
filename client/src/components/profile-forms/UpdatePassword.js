@@ -1,86 +1,102 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { setAlert } from '../../redux/actions/alertAction';
 import { updatePassword } from '../../redux/actions/profileAction';
+import LayoutGrid from '../layout/LayoutGrid';
+import {
+  Grid,
+  Card,
+  Form,
+  Header,
+  Icon,
+  Input,
+  Button
+} from 'semantic-ui-react';
 
 const UpdatePassword = ({ setAlert, updatePassword, history }) => {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',
-    newPassword2: '',
+    newPassword2: ''
   });
 
   const { oldPassword, newPassword, newPassword2 } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
     if (newPassword !== newPassword2) {
       setAlert('Passwords do not match', 'danger');
     } else if (oldPassword === newPassword) {
-      setAlert('New password must be different from the current password', 'danger');
+      setAlert(
+        'New password must be different from the current password',
+        'danger'
+      );
     } else {
       updatePassword({ oldPassword, newPassword }, history);
     }
   };
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Change Password</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Update Your Password
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Current Password"
-            name="oldPassword"
-            value={oldPassword}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
+    <LayoutGrid center>
+      <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
+        <Header icon textAlign="center" as="h3">
+          <Icon name="user" circular />
+          <Header.Content>Change Password</Header.Content>
+          <Header.Subheader>Update your password</Header.Subheader>
+        </Header>
 
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="New Password"
-            name="newPassword"
-            value={newPassword}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Confirm New Password"
-            name="newPassword2"
-            value={newPassword2}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Save" />
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
-      </form>
-    </Fragment>
+        <Card.Content>
+          <Form onSubmit={e => onSubmit(e)}>
+            <Form.Field>
+              <Input
+                type="password"
+                placeholder="Current Password"
+                name="oldPassword"
+                value={oldPassword}
+                onChange={e => onChange(e)}
+                required
+              />
+            </Form.Field>
+
+            <Form.Field>
+              <Input
+                type="password"
+                placeholder="New Password"
+                name="newPassword"
+                value={newPassword}
+                onChange={e => onChange(e)}
+                minLength="6"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                type="password"
+                placeholder="Confirm New Password"
+                name="newPassword2"
+                value={newPassword2}
+                onChange={e => onChange(e)}
+                minLength="6"
+              />
+            </Form.Field>
+            <Button fluid primary content="Submit" />
+          </Form>
+        </Card.Content>
+      </Grid.Column>
+    </LayoutGrid>
   );
 };
 
 UpdatePassword.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  updatePassword: PropTypes.func.isRequired,
+  updatePassword: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { setAlert, updatePassword },
+  { setAlert, updatePassword }
 )(UpdatePassword);

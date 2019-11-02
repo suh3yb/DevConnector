@@ -21,10 +21,16 @@ import PrivateRoute from '../routing/PrivateRoute';
 import ChatList from '../message/ChatList';
 import ForgotPassword from '../auth/ForgotPassword';
 import ResetPassword from '../auth/ResetPassword';
+import { Container } from 'semantic-ui-react';
 
 const Routes = () => {
   return (
-    <section className="container">
+    <Container
+      style={{
+        minHeight: 'calc(100vh - 74px)',
+        paddingTop: '24px',
+        paddingBottom: '24px'
+      }}>
       <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
@@ -50,7 +56,7 @@ const Routes = () => {
         <PrivateRoute exact path="/messages" component={ChatList} />
         <Route component={NotFound} />
       </Switch>
-    </section>
+    </Container>
   );
 };
 

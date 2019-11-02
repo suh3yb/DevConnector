@@ -1,20 +1,29 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
-import PostForm from './PostForm';
-import { getPosts, toggleFilter } from '../../redux/actions/postAction';
+import {
+  getPosts,
+  toggleFilter,
+  addPost
+} from '../../redux/actions/postAction';
 import { getCurrentProfile } from '../../redux/actions/profileAction';
 import PostNotification from '../layout/PostNotification';
+import { Menu, Header, Button, Modal, Form } from 'semantic-ui-react';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const Posts = ({
   getCurrentProfile,
   getPosts,
+  addPost,
   toggleFilter,
   post: { posts, loading, showAll },
-  profile,
+  profile
 }) => {
+  const [text, setText] = useState('');
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     getCurrentProfile();
     getPosts();
@@ -33,14 +42,73 @@ const Posts = ({
   ) : (
     <Fragment>
       <PostNotification />
-      <h1 className="large text-primary">Posts</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Welcome to the community
-      </p>
-      <PostForm />
-      <button className="btn btn-primary" onClick={() => toggleFilter()}>
-        {showAll ? 'Show Following' : 'Show All'}
-      </button>
+      <Menu secondary>
+        <Menu.Item>
+          <Header
+            as="h3"
+            icon="sticky note"
+            content="Posts"
+            subheader="Welcome to the community"
+          />
+        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Button
+              primary
+              labelPosition="left"
+              icon="filter"
+              onClick={() => toggleFilter()}
+              content={showAll ? 'Show Following' : 'Show All'}
+            />
+          </Menu.Item>
+          <Menu.Item>
+            <Modal
+              basic
+              open={open}
+              trigger={
+                <Button
+                  onClick={() => setOpen(true)}
+                  icon="plus"
+                  content="Add Post"
+                  primary
+                />
+              }>
+              <Modal.Header>Create a post</Modal.Header>
+              <Modal.Content>
+                <Form>
+                  <Form.Field>
+                    <TextareaAutosize
+                      minRows={20}
+                      placeholder="Create a post"
+                      value={text}
+                      onChange={e => setText(e.target.value)}
+                      required
+                    />
+                  </Form.Field>
+                </Form>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}>
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    addPost({ text });
+                    setText('');
+                    setOpen(false);
+                  }}
+                  primary>
+                  Submit
+                </Button>
+              </Modal.Actions>
+            </Modal>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+
       <div className="posts">
         {postsToShow.map(post => (
           <PostItem key={post._id} post={post} />
@@ -54,16 +122,17 @@ Posts.propTypes = {
   post: PropTypes.object.isRequired,
   profile: PropTypes.object,
   getPosts: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired,
   toggleFilter: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   post: state.post,
-  profile: state.profile.profile,
+  profile: state.profile.profile
 });
 
 export default connect(
   mapStateToProps,
-  { getPosts, toggleFilter, getCurrentProfile },
+  { getPosts, toggleFilter, getCurrentProfile, addPost }
 )(Posts);

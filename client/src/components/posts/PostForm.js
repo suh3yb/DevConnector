@@ -2,43 +2,43 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../redux/actions/postAction';
+import { Form, TextArea, Button, Segment, Header } from 'semantic-ui-react';
 
 const PostForm = ({ addPost }) => {
   const [text, setText] = useState('');
 
   return (
-    <div className='post-form'>
-      <div className='bg-primary p'>
-        <h3>Say something...</h3>
-      </div>
-      <form
-        className='form my-1'
+    <Segment>
+      <Header as="h3">Say something...</Header>
+      <Form
+        className="form my-1"
         onSubmit={e => {
           e.preventDefault();
           addPost({ text });
           setText('');
-        }}
-      >
-        <textarea
-          name='text'
-          cols='30'
-          rows='5'
-          placeholder='Create a post'
-          value={text}
-          onChange={e => setText(e.target.value)}
-          required
-        ></textarea>
-        <input type='submit' className='btn btn-dark my-1' value='Submit' />
-      </form>
-    </div>
+        }}>
+        <Form.Field>
+          <TextArea
+            name="text"
+            cols="30"
+            rows="5"
+            placeholder="Create a post"
+            value={text}
+            onChange={e => setText(e.target.value)}
+            required
+          />
+        </Form.Field>
+        <Button primary>Submit</Button>
+      </Form>
+    </Segment>
   );
 };
 
 PostForm.propTypes = {
-  addPost: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { addPost },
+  { addPost }
 )(PostForm);

@@ -1,5 +1,8 @@
 import React from 'react';
 import zxcvbn from 'zxcvbn';
+import { Label, List, Transition } from 'semantic-ui-react';
+
+import './PasswordCheck.css';
 
 const PasswordCheck = ({ currentPassword }) => {
   const testedResult = zxcvbn(currentPassword);
@@ -20,7 +23,7 @@ const PasswordCheck = ({ currentPassword }) => {
     }
   };
   return (
-    <div>
+    <div pointing="above" className="password-strength-meter">
       <progress
         value={testedResult.score}
         max="4"
@@ -28,19 +31,18 @@ const PasswordCheck = ({ currentPassword }) => {
           testedResult
         )}`}
       />
-      <br />
       <div>
         {currentPassword && (
           <>
             <strong>Password strength:</strong>{' '}
-            <label className="badge badge-primary">
-              {createPasswordLabel(testedResult)}
-            </label>
-            <ul className="list">
-              {testedResult.feedback.suggestions.map(suggestion => (
-                <li className="list-item">{suggestion}</li>
-              ))}
-            </ul>
+            <Label>{createPasswordLabel(testedResult)}</Label>
+            <List className="list">
+              <Transition.Group animation="scale" duration={500}>
+                {testedResult.feedback.suggestions.map(suggestion => (
+                  <List.Item key={suggestion}>{suggestion}</List.Item>
+                ))}
+              </Transition.Group>
+            </List>
           </>
         )}
       </div>

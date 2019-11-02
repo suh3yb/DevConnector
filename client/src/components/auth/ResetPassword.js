@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,14 +8,31 @@ import { updatePasswordViaEmail } from '../../redux/actions/authAction';
 import Axios from 'axios';
 import Spinner from '../layout/Spinner';
 
-const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, match, history }) => {
+import {
+  Form,
+  Input,
+  Button,
+  Grid,
+  Header,
+  Card,
+  Icon
+} from 'semantic-ui-react';
+import LayoutGrid from '../layout/LayoutGrid';
+
+const ResetPassword = ({
+  setAlert,
+  updatePasswordViaEmail,
+  isAuthenticated,
+  match,
+  history
+}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     password2: '',
     tokenValid: false,
     error: false,
-    loading: true,
+    loading: true
   });
 
   useEffect(() => {
@@ -26,7 +43,12 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
         const res = await Axios.get(`/api/users/reset-password/${token}`);
 
         if (res.data.email && res.data.message === 'Password reset link ok') {
-          setFormData({ ...formData, email: res.data.email, tokenValid: true, loading: false });
+          setFormData({
+            ...formData,
+            email: res.data.email,
+            tokenValid: true,
+            loading: false
+          });
         } else {
           setFormData({ ...formData, loading: false });
         }
@@ -40,7 +62,8 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
 
   const { email, password, password2, tokenValid, error, loading } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -56,57 +79,63 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
   }
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Reset Password</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Change Your Password
-      </p>
-      {error ? (
-        <p>Connection problem occurred!</p>
-      ) : loading ? (
-        <Spinner></Spinner>
-      ) : tokenValid ? (
-        <form className="form" onSubmit={e => onSubmit(e)}>
-          <div className="form-group">
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={e => onChange(e)}
-              minLength="6"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="password2"
-              value={password2}
-              onChange={e => onChange(e)}
-              minLength="6"
-            />
-          </div>
-          <input type="submit" className="btn btn-primary" value="Submit" />
-        </form>
-      ) : (
-        <p>Token is not valid</p>
-      )}
-    </Fragment>
+    <LayoutGrid center>
+      <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
+        <Header icon textAlign="center" as="h3">
+          <Icon name="refresh" circular />
+          <Header.Content>Reset Pasword</Header.Content>
+          <Header.Subheader>Change your password</Header.Subheader>
+        </Header>
+
+        {error ? (
+          <p>Connection problem occurred!</p>
+        ) : loading ? (
+          <Spinner></Spinner>
+        ) : tokenValid ? (
+          <Card.Content>
+            <Form className="form" onSubmit={e => onSubmit(e)}>
+              <Form.Field>
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={e => onChange(e)}
+                  minLength="6"
+                />
+              </Form.Field>
+              <Form.Field>
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="password2"
+                  value={password2}
+                  onChange={e => onChange(e)}
+                  minLength="6"
+                />
+              </Form.Field>
+              <Button primary fluid content="Submit" />
+            </Form>
+          </Card.Content>
+        ) : (
+          <p>Token is not valid</p>
+        )}
+      </Grid.Column>
+    </LayoutGrid>
   );
 };
 
 ResetPassword.propTypes = {
   setAlert: PropTypes.func.isRequired,
   updatePasswordViaEmail: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert, updatePasswordViaEmail },
+  { setAlert, updatePasswordViaEmail }
 )(ResetPassword);
