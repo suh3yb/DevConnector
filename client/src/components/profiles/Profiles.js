@@ -48,8 +48,6 @@ const Profiles = ({
           )) ||
         {};
 
-      console.log('recipientObj', recipientObj);
-
       if (profile.user.name.toLowerCase().includes(search.name.toLowerCase())) {
         return (
           <ProfileItem

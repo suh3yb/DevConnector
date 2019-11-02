@@ -123,6 +123,7 @@ export const socialLogin = socialToken => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
+    firebase.auth().signOut();
     dispatch({
       type: LOGIN_FAIL,
     });

@@ -21,9 +21,7 @@ const forgotPassword = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      return res
-        .status(403)
-        .json({ errors: [{ msg: 'There is no user with this email' }] });
+      return res.status(403).json({ errors: [{ msg: 'There is no user with this email' }] });
     }
 
     const token = crypto.randomBytes(20).toString('hex');
@@ -57,11 +55,10 @@ const forgotPassword = async (req, res) => {
         If you did not request this, please ignore this email and your password will remain unchanged.`,
     };
 
-    console.log('Sending mail...');
-
     transporter.sendMail(mailOptions, (err, response) => {
       if (err) {
         console.error('There is an error: ', err);
+        res.status(500).json('Sending mail failed');
       } else {
         console.log('Response: ', response);
         res.status(200).json('Recovery mail sent');
@@ -69,7 +66,7 @@ const forgotPassword = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server error');
+    res.status(500).json('Server error');
   }
 };
 
