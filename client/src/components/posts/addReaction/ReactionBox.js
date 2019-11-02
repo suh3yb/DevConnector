@@ -4,19 +4,14 @@ import { connect } from 'react-redux';
 import { addReaction } from '../../../redux/actions/postAction';
 import Emoji from './Emoji';
 import '../likes/like.css';
-import { List } from 'semantic-ui-react';
+import { List, Button } from 'semantic-ui-react';
 
 const emojis = require('./emojis');
 
 const ReactionBox = ({ toggle, addReaction, postId }) => {
   const emojisArray = Object.entries(emojis);
   return (
-    <div
-      as={List}
-      basic
-      icon
-      className="emoji-list"
-      onMouseLeave={() => toggle()}>
+    <Button.Group className="emoji-list" onMouseLeave={() => toggle()}>
       {emojisArray.map(emo => (
         <Emoji
           key={emo[0]}
@@ -26,7 +21,7 @@ const ReactionBox = ({ toggle, addReaction, postId }) => {
             toggle();
           }}></Emoji>
       ))}
-    </div>
+    </Button.Group>
   );
 };
 

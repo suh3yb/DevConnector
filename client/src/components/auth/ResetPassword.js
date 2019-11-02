@@ -8,17 +8,31 @@ import { updatePasswordViaEmail } from '../../redux/actions/authAction';
 import Axios from 'axios';
 import Spinner from '../layout/Spinner';
 
-import { Form, Input, Button, Grid, Header, Card, Icon } from 'semantic-ui-react';
+import {
+  Form,
+  Input,
+  Button,
+  Grid,
+  Header,
+  Card,
+  Icon
+} from 'semantic-ui-react';
 import LayoutGrid from '../layout/LayoutGrid';
 
-const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, match, history }) => {
+const ResetPassword = ({
+  setAlert,
+  updatePasswordViaEmail,
+  isAuthenticated,
+  match,
+  history
+}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     password2: '',
     tokenValid: false,
     error: false,
-    loading: true,
+    loading: true
   });
 
   useEffect(() => {
@@ -33,7 +47,7 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
             ...formData,
             email: res.data.email,
             tokenValid: true,
-            loading: false,
+            loading: false
           });
         } else {
           setFormData({ ...formData, loading: false });
@@ -48,7 +62,8 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
 
   const { email, password, password2, tokenValid, error, loading } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -66,7 +81,7 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
   return (
     <LayoutGrid center>
       <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
-        <Header icon textAlign="center" as="h3">
+        <Header color="blue" icon textAlign="center" as="h3">
           <Icon name="refresh" circular />
           <Header.Content>Reset Pasword</Header.Content>
           <Header.Subheader>Change your password</Header.Subheader>
@@ -113,14 +128,14 @@ const ResetPassword = ({ setAlert, updatePasswordViaEmail, isAuthenticated, matc
 ResetPassword.propTypes = {
   setAlert: PropTypes.func.isRequired,
   updatePasswordViaEmail: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert, updatePasswordViaEmail },
+  { setAlert, updatePasswordViaEmail }
 )(ResetPassword);

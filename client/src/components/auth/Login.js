@@ -40,7 +40,7 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <LayoutGrid center>
       <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
-        <Header icon textAlign="center" as="h3">
+        <Header color="blue" icon textAlign="center" as="h3">
           <Icon name="key" circular />
           <Header.Content>Login</Header.Content>
           <Header.Subheader>Sign into your account</Header.Subheader>

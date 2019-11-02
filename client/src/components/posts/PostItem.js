@@ -149,6 +149,7 @@ const PostItem = ({
             }
             return emoji[1].length > 0 ? (
               <Label
+                basic
                 circular
                 key={emoji[0]}
                 className={`reaction ${dependsClass}`}

@@ -45,6 +45,7 @@ const Posts = ({
       <Menu stackable secondary>
         <Menu.Item>
           <Header
+            color="blue"
             as="h3"
             icon="sticky note"
             content="Posts"

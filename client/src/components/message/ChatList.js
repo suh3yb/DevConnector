@@ -46,6 +46,7 @@ const ChatList = ({
   ) : (
     <Fragment>
       <Header
+        color="blue"
         as="h3"
         icon="chat"
         content="Chat Room"

@@ -6,25 +6,37 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../redux/actions/alertAction';
 import { updatePassword } from '../../redux/actions/profileAction';
 import LayoutGrid from '../layout/LayoutGrid';
-import { Grid, Card, Form, Header, Icon, Input, Button } from 'semantic-ui-react';
+import {
+  Grid,
+  Card,
+  Form,
+  Header,
+  Icon,
+  Input,
+  Button
+} from 'semantic-ui-react';
 
 const UpdatePassword = ({ setAlert, updatePassword, history }) => {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',
-    newPassword2: '',
+    newPassword2: ''
   });
 
   const { oldPassword, newPassword, newPassword2 } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
     if (newPassword !== newPassword2) {
       setAlert('Passwords do not match', 'danger');
     } else if (oldPassword === newPassword) {
-      setAlert('New password must be different from the current password', 'danger');
+      setAlert(
+        'New password must be different from the current password',
+        'danger'
+      );
     } else {
       updatePassword({ oldPassword, newPassword }, history);
     }
@@ -33,7 +45,7 @@ const UpdatePassword = ({ setAlert, updatePassword, history }) => {
   return (
     <LayoutGrid center>
       <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
-        <Header icon textAlign="center" as="h3">
+        <Header color="blue" icon textAlign="center" as="h3">
           <Icon name="user" circular />
           <Header.Content>Change Password</Header.Content>
           <Header.Subheader>Update your password</Header.Subheader>
@@ -74,6 +86,7 @@ const UpdatePassword = ({ setAlert, updatePassword, history }) => {
             </Form.Field>
             <Button fluid primary content="Submit" />
             <Button
+              primary
               as={Link}
               icon="arrow left"
               to="/dashboard"
@@ -89,10 +102,10 @@ const UpdatePassword = ({ setAlert, updatePassword, history }) => {
 
 UpdatePassword.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  updatePassword: PropTypes.func.isRequired,
+  updatePassword: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { setAlert, updatePassword },
+  { setAlert, updatePassword }
 )(UpdatePassword);

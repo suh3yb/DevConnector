@@ -32,7 +32,7 @@ const ForgotPassword = ({ resetPassword, isAuthenticated }) => {
   return (
     <LayoutGrid center>
       <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
-        <Header icon textAlign="center" as="h3">
+        <Header color="blue" icon textAlign="center" as="h3">
           <Icon name="user" circular />
           <Header.Content>Forgot Password</Header.Content>
           <Header.Subheader>Save your password</Header.Subheader>

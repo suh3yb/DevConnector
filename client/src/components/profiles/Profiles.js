@@ -78,6 +78,7 @@ const Profiles = ({
           <Menu secondary stackable>
             <Menu.Item position="left">
               <Header
+                color="blue"
                 as="h3"
                 icon="users"
                 content="Developers"

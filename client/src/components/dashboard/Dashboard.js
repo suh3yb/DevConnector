@@ -40,6 +40,7 @@ const Dashboard = ({
       <Menu secondary>
         <Menu.Item position="left">
           <Header
+            color="blue"
             as="h3"
             icon="dashboard"
             content="Dashboard"

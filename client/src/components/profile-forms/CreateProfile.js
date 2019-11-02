@@ -99,6 +99,7 @@ const CreateProfile = ({
       <Menu secondary>
         <Menu.Item position="left">
           <Header
+            color="blue"
             as="h3"
             icon="user circle"
             content="Create Your Profile"
@@ -107,6 +108,7 @@ const CreateProfile = ({
         </Menu.Item>
         <Menu.Item position="right">
           <Button
+            primary
             as={Link}
             icon="arrow left"
             to="/dashboard"

@@ -26,9 +26,11 @@ const ProfileFriendship = ({ friendship }) => {
           </List.Item>
         ))}
         {friendship.length > 4 && (
-          <Button size="tiny" onClick={() => onClick()}>
-            {showAll ? 'See less' : 'See all'}
-          </Button>
+          <List.Item as={Grid.Column}>
+            <Button size="tiny" onClick={() => onClick()}>
+              {showAll ? 'See less' : 'See all'}
+            </Button>
+          </List.Item>
         )}
       </List>
     </Fragment>

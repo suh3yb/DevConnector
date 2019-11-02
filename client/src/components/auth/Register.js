@@ -48,7 +48,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   return (
     <LayoutGrid center>
       <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
-        <Header icon textAlign="center" as="h3">
+        <Header color="blue" icon textAlign="center" as="h3">
           <Icon name="user plus" circular />
           <Header.Content>Register</Header.Content>
           <Header.Subheader>Create an account</Header.Subheader>

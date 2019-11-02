@@ -3,7 +3,16 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addExperience } from '../../redux/actions/profileAction';
-import { Menu, Button, Header, Form, Segment, Checkbox, Input, TextArea } from 'semantic-ui-react';
+import {
+  Menu,
+  Button,
+  Header,
+  Form,
+  Segment,
+  Checkbox,
+  Input,
+  TextArea
+} from 'semantic-ui-react';
 
 const AddExperience = ({ addExperience, history }) => {
   const [formData, setFormData] = useState({
@@ -13,14 +22,15 @@ const AddExperience = ({ addExperience, history }) => {
     from: '',
     to: '',
     current: false,
-    description: '',
+    description: ''
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
   const { company, title, location, from, to, current, description } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -32,6 +42,7 @@ const AddExperience = ({ addExperience, history }) => {
       <Menu secondary>
         <Menu.Item position="left">
           <Header
+            color="blue"
             as="h3"
             icon="suitcase"
             content="Add Your Experience"
@@ -40,7 +51,13 @@ const AddExperience = ({ addExperience, history }) => {
           />
         </Menu.Item>
         <Menu.Item position="right">
-          <Button as={Link} icon="arrow left" to="/dashboard" content="Go Back" />
+          <Button
+            primary
+            as={Link}
+            icon="arrow left"
+            to="/dashboard"
+            content="Go Back"
+          />
         </Menu.Item>
       </Menu>
       <Segment raised>
@@ -82,7 +99,12 @@ const AddExperience = ({ addExperience, history }) => {
           <Form.Group widths="3">
             <Form.Field>
               <label>From Date</label>
-              <Input type="date" name="from" value={from} onChange={e => onChange(e)} />
+              <Input
+                type="date"
+                name="from"
+                value={from}
+                onChange={e => onChange(e)}
+              />
             </Form.Field>
             <Form.Field>
               <label>Current Job</label>
@@ -125,10 +147,10 @@ const AddExperience = ({ addExperience, history }) => {
 };
 
 AddExperience.propTypes = {
-  addExperience: PropTypes.func.isRequired,
+  addExperience: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { addExperience },
+  { addExperience }
 )(withRouter(AddExperience));
