@@ -30,6 +30,7 @@ const Profile = ({
         <Fragment>
           <div style={{ marginBottom: '2rem' }}>
             <Button
+              primary
               as={Link}
               to="/profiles"
               icon="arrow left"

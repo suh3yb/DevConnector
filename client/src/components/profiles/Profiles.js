@@ -89,6 +89,7 @@ const Profiles = ({
             <Menu.Item position="right">
               {search && (
                 <Button
+                  primary
                   style={{ marginRight: '10px' }}
                   icon
                   labelPosition="left"
