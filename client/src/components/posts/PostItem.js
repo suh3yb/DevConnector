@@ -10,23 +10,13 @@ import {
   removeLike,
   deletePost,
   removeReaction,
-  editPost
+  editPost,
 } from '../../redux/actions/postAction';
 import LikeList from './likes/LikeList';
 import ReactionBox from './addReaction/ReactionBox';
 import './post.css';
 import './like.css';
-import {
-  Card,
-  Image,
-  Grid,
-  Dropdown,
-  Button,
-  Icon,
-  Divider,
-  Form,
-  Label
-} from 'semantic-ui-react';
+import { Card, Image, Grid, Dropdown, Button, Icon, Divider, Form, Label } from 'semantic-ui-react';
 import TextareaAutosize from 'react-textarea-autosize';
 const reactions = require('./addReaction/emojis');
 
@@ -39,7 +29,7 @@ const PostItem = ({
   editPost,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, reaction, date },
-  showActions
+  showActions,
 }) => {
   const [click, toggleClick] = useState(false);
   const [newText, setNewText] = useState(text);
@@ -58,13 +48,13 @@ const PostItem = ({
   return (
     <Card fluid raised style={{ marginBottom: '3rem' }}>
       <Card.Content>
-        <Grid columns="2">
-          <Grid.Column width="12">
+        <Grid columns='2'>
+          <Grid.Column width='12'>
             <Image
               style={{ marginBottom: '0' }}
               avatar
-              size="huge"
-              floated="left"
+              size='huge'
+              floated='left'
               src={user.imageUrl || avatar}
               alt={name}
             />
@@ -72,23 +62,19 @@ const PostItem = ({
               <Link to={`/profile/${user._id}`}>{name}</Link>
             </Card.Header>
             <Card.Meta>
-              Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
+              Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
             </Card.Meta>
           </Grid.Column>
           {!auth.loading && user._id === auth.user._id && (
-            <Grid.Column width="4" floated="right" textAlign="right">
-              <Dropdown floating icon="ellipsis vertical">
+            <Grid.Column width='4' floated='right' textAlign='right'>
+              <Dropdown floating icon='ellipsis vertical'>
                 <Dropdown.Menu style={{ right: 0, left: 'auto' }}>
                   <Dropdown.Item
-                    icon="edit"
-                    text="Edit Post"
+                    icon='edit'
+                    text='Edit Post'
                     onClick={() => toggleEditing(!editing)}
                   />
-                  <Dropdown.Item
-                    icon="trash"
-                    text="Delete Post"
-                    onClick={() => deletePost(_id)}
-                  />
+                  <Dropdown.Item icon='trash' text='Delete Post' onClick={() => deletePost(_id)} />
                 </Dropdown.Menu>
               </Dropdown>
             </Grid.Column>
@@ -103,10 +89,10 @@ const PostItem = ({
                 style={{
                   backgroundColor: '#eeeeee',
                   width: '100%',
-                  padding: '1rem'
+                  padding: '1rem',
                 }}
-                name="text"
-                rows="5"
+                name='text'
+                rows='5'
                 value={newText}
                 onChange={e => setNewText(e.target.value)}
               />
@@ -114,9 +100,9 @@ const PostItem = ({
               {!auth.loading && user._id === auth.user._id && !editing && (
                 <Button.Group>
                   <Button
-                    icon="save"
+                    icon='save'
                     primary
-                    content="Save"
+                    content='Save'
                     onClick={() => {
                       toggleEditing(!editing);
                       if (newText !== text) {
@@ -126,9 +112,9 @@ const PostItem = ({
                   />
                   <Button.Or />
                   <Button
-                    icon="undo"
-                    color="grey"
-                    content="Undo"
+                    icon='undo'
+                    color='grey'
+                    content='Undo'
                     onClick={() => {
                       toggleEditing(!editing);
                       setNewText(text);
@@ -143,60 +129,58 @@ const PostItem = ({
         <PostContent source={text} />
         <div style={{ position: 'relative' }}>
           {reactionArray.map(emoji => {
+            let dependsClass = '';
+            if (emoji[1].filter(e => e.user === auth.user._id).length > 0) {
+              dependsClass = 'reacted';
+            }
             return emoji[1].length > 0 ? (
               <Label
                 circular
                 key={emoji[0]}
-                className="reaction"
-                onClick={() => onclick(_id, emoji, auth.user._id)}>
+                className={`reaction ${dependsClass}`}
+                onClick={() => onclick(_id, emoji, auth.user._id)}
+              >
                 {reactions[emoji[0]]}
                 {emoji[1].length}
               </Label>
             ) : null;
           })}
-          {click && (
-            <ReactionBox toggle={() => toggleClick(false)} postId={_id} />
-          )}
+          {click && <ReactionBox toggle={() => toggleClick(false)} postId={_id} />}
         </div>
       </Card.Content>
 
       <Card.Content>
         {showActions && (
           <>
-            <Button
-              icon="smile"
-              basic
-              circular
-              onClick={() => toggleClick(!click)}
-            />
+            <Button icon='smile' basic circular onClick={() => toggleClick(!click)} />
             <Button
               basic
               circular
               icon
               onMouseEnter={() => toggleHover(true)}
               onMouseLeave={() => toggleHover(false)}
-              onClick={() => addLike(_id)}>
-              <Icon name="thumbs up" />{' '}
+              onClick={() => addLike(_id)}
+            >
+              <Icon name='thumbs up' />{' '}
               {likes.length > 0 && (
-                <div className="like-list-div">
+                <div className='like-list-div'>
                   <span>{likes.length}</span>
                   {hover && <LikeList postId={_id} />}
                 </div>
               )}
             </Button>
             <Button icon basic circular onClick={() => removeLike(_id)}>
-              <i className="fas fa-thumbs-down"></i>
+              <i className='fas fa-thumbs-down'></i>
             </Button>
             <Button
-              floated="right"
+              floated='right'
               primary
               as={Link}
               to={`/posts/${_id}`}
-              className="btn btn-primary">
+              className='btn btn-primary'
+            >
               Discussion{' '}
-              {comments.length > 0 && (
-                <span className="comment-count">{comments.length}</span>
-              )}
+              {comments.length > 0 && <span className='comment-count'>{comments.length}</span>}
             </Button>
           </>
         )}
@@ -206,7 +190,7 @@ const PostItem = ({
 };
 
 PostItem.defaultProps = {
-  showActions: true
+  showActions: true,
 };
 
 PostItem.propTypes = {
@@ -218,14 +202,14 @@ PostItem.propTypes = {
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
   addReaction: PropTypes.func.isRequired,
-  editPost: PropTypes.func.isRequired
+  editPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(
   mapStateToProps,
-  { addLike, removeLike, deletePost, editPost, removeReaction, addReaction }
+  { addLike, removeLike, deletePost, editPost, removeReaction, addReaction },
 )(PostItem);

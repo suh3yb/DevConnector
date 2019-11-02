@@ -7,20 +7,20 @@ const LikeList = ({ postId, posts }) => {
   const post = posts.find(post => post._id === postId);
   const likes = post.likes;
   return (
-    <ul className="like-list">
+    <div className='like-list'>
       {likes &&
         likes.map(like => {
           return (
-            <li key={like._id}>
+            <div key={like._id}>
               <Link to={`/profile/${like.user}`}>{like.name}</Link>
-            </li>
+            </div>
           );
         })}
-    </ul>
+    </div>
   );
 };
 const mapStateToProps = state => ({
-  posts: state.post.posts
+  posts: state.post.posts,
 });
 
 export default connect(mapStateToProps)(LikeList);
