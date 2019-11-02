@@ -11,7 +11,6 @@ import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './redux/actions/authAction';
 
-// import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 if (localStorage.token) {

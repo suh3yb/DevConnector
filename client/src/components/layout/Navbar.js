@@ -71,7 +71,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <Menu
       inverted
       borderless
-      style={{ backgroundColor: 'rgba(100,20,60,0.7)', margin: '0' }}>
+      style={{
+        backgroundColor: 'rgba(22, 120, 194, 0.9)',
+        margin: '0',
+        position: 'sticky',
+        top: '0',
+        zIndex: 999
+      }}>
       <Container>
         <Menu.Item
           style={{ fontSize: '1.5rem', fontWeight: '700' }}
