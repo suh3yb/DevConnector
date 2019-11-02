@@ -11,8 +11,8 @@ const ProfileTop = ({
     social,
     imageUrl,
     skills,
-    user: { name, avatar }
-  }
+    user: { name, avatar },
+  },
 }) => {
   return (
     <Card fluid raised style={{ maxWidth: '500px' }}>
@@ -25,8 +25,7 @@ const ProfileTop = ({
         </Header>
         <Card.Meta textAlign="center">
           <p>
-            <Icon name="suitcase" /> {status}{' '}
-            {company && <span> at {company}</span>}
+            <Icon name="suitcase" /> {status} {company && <span> at {company}</span>}
           </p>
           <p>
             <Icon name="location arrow" /> {location && <span>{location}</span>}
@@ -50,7 +49,7 @@ const ProfileTop = ({
               circular
               icon="globe"
               primary
-              href={website}
+              href={`//${website}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -62,7 +61,7 @@ const ProfileTop = ({
               circular
               icon="twitter"
               color="twitter"
-              href={social.twitter}
+              href={`//${social.twitter}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -73,7 +72,7 @@ const ProfileTop = ({
               circular
               icon="facebook"
               color="facebook"
-              href={social.facebook}
+              href={`//${social.facebook}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -84,7 +83,7 @@ const ProfileTop = ({
               circular
               icon="linkedin"
               color="linkedin"
-              href={social.linkedin}
+              href={`//${social.linkedin}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -95,7 +94,7 @@ const ProfileTop = ({
               circular
               icon="youtube"
               color="youtube"
-              href={social.youtube}
+              href={`//${social.youtube}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -106,7 +105,7 @@ const ProfileTop = ({
               circular
               icon="instagram"
               color="instagram"
-              href={social.instagram}
+              href={`//${social.instagram}`}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -118,7 +117,7 @@ const ProfileTop = ({
 };
 
 ProfileTop.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
 export default ProfileTop;

@@ -19,14 +19,12 @@ const ProfileFriendship = ({ friendship }) => {
           <List.Item as={Grid.Column} key={index}>
             <Icon name="user circle" />
             <List.Content>
-              <Link to={`/profile/${friendObj._id}`}>
-                {friendObj.name && friendObj.name}
-              </Link>
+              <Link to={`/profile/${friendObj._id}`}>{friendObj.name && friendObj.name}</Link>
             </List.Content>
           </List.Item>
         ))}
         {friendship.length > 4 && (
-          <Button size="tiny" onClick={() => onClick()}>
+          <Button size="tiny" onClick={() => onClick()} style={{ margin: 'auto 10px' }}>
             {showAll ? 'See less' : 'See all'}
           </Button>
         )}
@@ -36,7 +34,7 @@ const ProfileFriendship = ({ friendship }) => {
 };
 
 ProfileFriendship.propTypes = {
-  friendship: PropTypes.array.isRequired
+  friendship: PropTypes.array.isRequired,
 };
 
 export default ProfileFriendship;
