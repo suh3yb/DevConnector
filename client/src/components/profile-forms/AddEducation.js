@@ -4,16 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addEducation } from '../../redux/actions/profileAction';
 
-import {
-  Form,
-  Button,
-  Menu,
-  Header,
-  Input,
-  Checkbox,
-  TextArea,
-  Segment
-} from 'semantic-ui-react';
+import { Form, Button, Menu, Header, Input, Checkbox, TextArea, Segment } from 'semantic-ui-react';
 
 const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
@@ -23,23 +14,14 @@ const AddEducation = ({ addEducation, history }) => {
     from: '',
     to: '',
     current: false,
-    description: ''
+    description: '',
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const {
-    school,
-    degree,
-    fieldofstudy,
-    from,
-    to,
-    current,
-    description
-  } = formData;
+  const { school, degree, fieldofstudy, from, to, current, description } = formData;
 
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -59,12 +41,7 @@ const AddEducation = ({ addEducation, history }) => {
           />
         </Menu.Item>
         <Menu.Item position="right">
-          <Button
-            as={Link}
-            icon="arrow left"
-            to="/dashboard"
-            content="Go Back"
-          />
+          <Button as={Link} icon="arrow left" to="/dashboard" content="Go Back" />
         </Menu.Item>
       </Menu>
       <Segment raised>
@@ -107,21 +84,14 @@ const AddEducation = ({ addEducation, history }) => {
           <Form.Group widths="3">
             <Form.Field>
               <label>From Date</label>
-              <Input
-                type="date"
-                name="from"
-                value={from}
-                onChange={e => onChange(e)}
-              />
+              <Input type="date" name="from" value={from} onChange={e => onChange(e)} />
             </Form.Field>
             <Form.Field>
               <label>Current School</label>
               <Checkbox
                 toggle
-                type="checkbox"
                 name="current"
                 checked={current}
-                value={current}
                 onChange={() => {
                   setFormData({ ...formData, current: !current });
                   toggleDisabled(!toDateDisabled);
@@ -135,7 +105,7 @@ const AddEducation = ({ addEducation, history }) => {
                 name="to"
                 value={to}
                 onChange={e => onChange(e)}
-                disabled={toDateDisabled ? 'disabled' : ''}
+                disabled={toDateDisabled ? true : false}
               />
             </Form.Field>
           </Form.Group>
@@ -157,10 +127,10 @@ const AddEducation = ({ addEducation, history }) => {
 };
 
 AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired
+  addEducation: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { addEducation }
+  { addEducation },
 )(withRouter(AddEducation));

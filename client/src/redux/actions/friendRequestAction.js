@@ -7,7 +7,6 @@ import {
   CLEAR_FRIEND_REQUEST,
   FRIEND_REQUEST_ERROR,
   UPDATE_FRIEND_REQUEST,
-  GET_PROFILE,
 } from './types';
 
 // Get all friend requests
