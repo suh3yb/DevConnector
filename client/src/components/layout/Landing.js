@@ -42,18 +42,16 @@ const Landing = ({ isAuthenticated }) => {
                 icon="user plus"
                 as={Link}
                 to="/register"
-                labelPosition="left"
-                size="big"
+                size="large"
                 primary
                 content="Sign Up"
               />
               <Button
+                color="teal"
                 icon="key"
-                labelPosition="right"
                 as={Link}
                 to="/login"
-                size="big"
-                secondary
+                size="large"
                 content="Login"
               />
             </div>

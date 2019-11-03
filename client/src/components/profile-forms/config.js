@@ -1,1 +1,1 @@
-export const config = { key: 'Alrjmh04mSdWWsYbPMWAvz' };
+export const config = { key: 'AGDlNYHFxSM6WOAPVcYGCz' };

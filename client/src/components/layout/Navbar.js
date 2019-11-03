@@ -76,7 +76,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         margin: '0',
         position: 'sticky',
         top: '0',
-        zIndex: 999
+        zIndex: 999,
+        overflowX: 'auto'
       }}>
       <Container>
         <Menu.Item
