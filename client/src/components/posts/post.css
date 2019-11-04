@@ -9,6 +9,6 @@
 .reaction:hover {
   cursor: pointer;
 }
-.reacted {
+.ui.basic.circular.label.reaction.reacted {
   box-shadow: 0 0 4px rgb(166, 205, 214);
 }
