@@ -1,0 +1,46 @@
+.like-list-div {
+  position: relative;
+}
+.like-list {
+  padding: 10px;
+  position: absolute;
+  width: max-content;
+  z-index: 1;
+  top: 2px;
+  left: 18px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: left;
+  background-color: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.like-list-item {
+  padding: 3px 0;
+}
+
+.btn-emoji {
+  position: relative;
+}
+
+.emoji-list {
+  overflow-x: auto;
+  position: absolute;
+  z-index: 1;
+  bottom: -100px;
+  padding: 6px;
+  left: 0;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.reactions {
+  cursor: pointer;
+}
+
+.ui.circular.label.reactions:hover {
+  border: grey;
+  background-color: #ffffff;
+}

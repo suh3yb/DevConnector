@@ -10,6 +10,7 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   UPDATE_PASSWORD,
+  SET_SEARCH,
 } from './types';
 
 // Get all profiles
@@ -230,12 +231,16 @@ export const deleteAccount = () => async dispatch => {
     } catch (error) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: error.response.statusText, status: error.response.status },
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
       });
     }
   }
 };
 
+// Follow friend
 export const follow = (followId, name) => async dispatch => {
   try {
     const config = {
@@ -249,7 +254,7 @@ export const follow = (followId, name) => async dispatch => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Friend Added', 'success'));
+    dispatch(setAlert('Friend followed', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -274,7 +279,7 @@ export const unfollow = unfollowId => async dispatch => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Friend Removed', 'success'));
+    dispatch(setAlert('Friend unfollowed', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -289,6 +294,7 @@ export const unfollow = unfollowId => async dispatch => {
   }
 };
 
+// Update Password
 export const updatePassword = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -301,6 +307,24 @@ export const updatePassword = (formData, history) => async dispatch => {
     dispatch(setAlert('Password Updated', 'success'));
 
     history.push('/dashboard');
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// filter profiles by searching a user name
+export const searchProfile = input => dispatch => {
+  try {
+    dispatch({ type: SET_SEARCH, payload: input });
   } catch (error) {
     const errors = error.response.data.errors;
 

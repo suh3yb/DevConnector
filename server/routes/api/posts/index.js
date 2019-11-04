@@ -10,10 +10,13 @@ const createPost = require('./createPost');
 const getAllPosts = require('./getAllPosts');
 const getPostById = require('./getPostById');
 const deletePost = require('./deletePost');
+const editPost = require('./editPost');
 const likePost = require('./likePost');
 const unlikePost = require('./unlikePost');
 const createComment = require('./createComment');
 const deleteComment = require('./deleteComment');
+const addReaction = require('./addReaction');
+const removeReaction = require('./removeReaction');
 
 // @route   POST api/posts
 // @desc    Create post
@@ -46,6 +49,11 @@ router.get('/:id', auth, getPostById);
 // @access  Private
 router.delete('/:id', auth, deletePost);
 
+// @route    Update api/posts/:id
+// @desc     Update a post
+// @access   Private
+router.put('/:id', auth, editPost);
+
 // @route   PUT api/posts/like/:id
 // @desc    Like a post
 // @access  Private
@@ -76,5 +84,15 @@ router.post(
 // @desc    Delete comment
 // @access  Private
 router.delete('/comment/:id/:comment_id', auth, deleteComment);
+
+// @route   PUT api/posts/reaction/:id
+// @desc    Add a reaction to a post
+// @access  Private
+router.put('/addreaction/:id/:reaction', auth, addReaction);
+
+// @route   PUT api/posts/removereaction/:id/
+// @desc    Remove a reaction from a post
+// @access  Private
+router.put('/removereaction/:id/:reaction', auth, removeReaction);
 
 module.exports = router;

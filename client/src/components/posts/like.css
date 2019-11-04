@@ -1,0 +1,10 @@
+.like-list-div {
+  position: relative;
+  display: inline;
+}
+.like-list {
+}
+
+.btn.btn-like:hover {
+  opacity: 1;
+}

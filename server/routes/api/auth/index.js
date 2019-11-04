@@ -8,6 +8,7 @@ const { check } = require('express-validator');
 
 const getUser = require('./getUser');
 const loginUser = require('./loginUser');
+const mediaLogin = require('./mediaLogin');
 
 // @route   GET /api/auth
 // @desc    Test route
@@ -24,6 +25,15 @@ router.post(
     check('password', 'Password is required').exists(),
   ],
   loginUser,
+);
+
+// @route    POST api/auth/media
+// @desc     Login Social Media
+// @access   Public
+router.post(
+  '/media',
+  [check('socialToken', 'Please provide a valid social media token').exists()],
+  mediaLogin,
 );
 
 module.exports = router;

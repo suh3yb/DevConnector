@@ -6,9 +6,12 @@
     "config": "^3.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
+    "firebase-admin": "^8.6.1",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "socket.io": "^2.3.0",
+    "nodemailer": "^6.3.1"
   }
 }

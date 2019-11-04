@@ -7,6 +7,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imageUrl: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,
@@ -23,6 +26,14 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  resetPasswordToken: {
+    type: String,
+    default: '',
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
+  conversation: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
 });
 
 const User = mongoose.model('user', UserSchema);

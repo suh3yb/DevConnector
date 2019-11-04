@@ -1,0 +1,14 @@
+.reaction {
+  display: inline;
+  padding: 4px;
+  padding-bottom: 1px;
+  margin-left: 2px;
+  border-radius: 10px;
+  border: 1px solid lightblue;
+}
+.reaction:hover {
+  cursor: pointer;
+}
+.reacted {
+  box-shadow: 0 0 4px rgb(166, 205, 214);
+}

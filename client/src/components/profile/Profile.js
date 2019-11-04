@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
-import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../redux/actions/profileAction';
+import { Button, Grid, Card, Header, Divider, List } from 'semantic-ui-react';
+import ProfileFollowing from './ProfileFollowing';
+import ProfileFriendship from './ProfileFriendship';
 
 const Profile = ({ profile: { profile, loading }, auth, getProfileById, match }) => {
   useEffect(() => {
@@ -21,44 +23,67 @@ const Profile = ({ profile: { profile, loading }, auth, getProfileById, match })
         <Spinner />
       ) : (
         <Fragment>
-          <Link to="/profiles" className="btn btn-light">
-            Back To Profiles
-          </Link>
-          {auth.isAuthenticated && !auth.loading && auth.user._id === profile.user._id && (
-            <Link to="/edit-profile" className="btn btn-dark">
-              Edit Profile
-            </Link>
-          )}
-          <div className="profile-grid my-1">
+          <div style={{ marginBottom: '2rem' }}>
+            <Button primary as={Link} to="/profiles" icon="arrow left" content="Back To Profiles" />
+            {auth.isAuthenticated && !auth.loading && auth.user._id === profile.user._id && (
+              <Button as={Link} to="/edit-profile" icon="edit" content="Edit Profile" primary />
+            )}
+          </div>
+          <Grid centered style={{ marginBottom: '1rem' }}>
             <ProfileTop profile={profile} />
-            <ProfileAbout profile={profile} />
-            <div className="profile-exp bg-white p-2">
-              <h2 className="text-primary">Experience</h2>
-              {profile.experience.length > 0 ? (
-                <Fragment>
-                  {profile.experience.map(experience => (
-                    <ProfileExperience key={experience._id} experience={experience} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No experience credentials</h4>
-              )}
-            </div>
-            <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map(education => (
-                    <ProfileEducation key={education._id} education={education} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
+          </Grid>
+
+          <Grid as={Card.Group} stackable style={{ marginTop: '1rem' }} itemsPerRow="2">
+            <Card>
+              <Card.Content textAlign="left">
+                <Header as="h3" icon="user" content="Follows" />
+                <Divider />
+                <ProfileFollowing following={profile.following} />
+              </Card.Content>
+            </Card>
+
+            <Card>
+              <Card.Content textAlign="left">
+                <Header as="h3" icon="user" content="Friends" />
+                <Divider />
+                <ProfileFriendship friendship={profile.friendship} />
+              </Card.Content>
+            </Card>
+
+            <Card>
+              <Card.Content textAlign="left">
+                <Header as="h3" icon="suitcase" content="Experience" />
+                <Divider />
+                {profile.experience.length > 0 ? (
+                  <List animated selection>
+                    {profile.experience.map(experience => (
+                      <ProfileExperience key={experience._id} experience={experience} />
+                    ))}
+                  </List>
+                ) : (
+                  <h4>No experience credentials</h4>
+                )}
+              </Card.Content>
+            </Card>
+
+            <Card>
+              <Card.Content textAlign="left">
+                <Header as="h3" icon="graduation cap" content="Education" />
+                <Divider />
+                {profile.education.length > 0 ? (
+                  <List animated selection>
+                    {profile.education.map(education => (
+                      <ProfileEducation key={education._id} education={education} />
+                    ))}
+                  </List>
+                ) : (
+                  <h4>No education credentials</h4>
+                )}
+              </Card.Content>
+            </Card>
 
             {profile.githubusername && <ProfileGithub username={profile.githubusername} />}
-          </div>
+          </Grid>
         </Fragment>
       )}
     </Fragment>

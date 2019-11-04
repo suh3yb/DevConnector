@@ -4,6 +4,7 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
+  UPDATE_REACTION,
   DELETE_POST,
   ADD_POST,
   GET_POST,
@@ -11,12 +12,13 @@ import {
   REMOVE_COMMENT,
   TOGGLE_FILTER,
 } from './types';
+import { resetUpdate } from './postNotificationAction';
 
 // Get posts
 export const getPosts = () => async dispatch => {
   try {
+    dispatch(resetUpdate());
     const res = await axios.get('/api/posts');
-
     dispatch({
       type: GET_POSTS,
       payload: res.data,
@@ -42,6 +44,40 @@ export const addLike = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
+    });
+  }
+};
+
+// Add reaction
+export const addReaction = (id, emoji) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/addreaction/${id}/${emoji}`);
+
+    dispatch({
+      type: UPDATE_REACTION,
+      payload: { id, reaction: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Remove reaction
+export const removeReaction = (id, emoji) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/removeReaction/${id}/${emoji}`);
+
+    dispatch({
+      type: UPDATE_REACTION,
+      payload: { id, reaction: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
@@ -79,6 +115,24 @@ export const deletePost = id => async dispatch => {
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status },
     });
+  }
+};
+
+// Edit post
+export const editPost = (id, updatedPost) => async dispatch => {
+  try {
+    await axios.put(`/api/posts/${id}`, updatedPost); //will update data base on server side
+
+    dispatch(getPosts()); //will get posts after the update we did above
+    //this will update posts in the state which will update the posts in the dom
+
+    dispatch(setAlert('Post updated!', 'success')); //alert user of update success
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status },
+    });
+    dispatch(setAlert('ERROR: Failed to update!', 'danger'));
   }
 };
 

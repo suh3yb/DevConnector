@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button, Header, Grid } from 'semantic-ui-react';
+import LandingBackground from '../../img/showcase.jpg';
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
@@ -9,24 +11,49 @@ const Landing = ({ isAuthenticated }) => {
   }
 
   return (
-    <section className="landing">
-      <div className="dark-overlay">
-        <div className="landing-inner">
-          <h1 className="x-large">Developer Connector</h1>
-          <p className="lead">
-            Create a developer profile/portfolio, share posts and get help from other developers
-          </p>
-          <div className="buttons">
-            <Link to="/register" className="btn btn-primary">
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-light">
-              Login
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div
+      style={{
+        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${LandingBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      }}
+    >
+      <Grid
+        container
+        textAlign="center"
+        verticalAlign="middle"
+        style={{ height: 'calc(100vh - 60px)' }}
+      >
+        <Grid.Row>
+          <Grid.Column>
+            <Header
+              inverted
+              textAlign="center"
+              as="h1"
+              content="Welcome to Hack Your Social"
+              subheader="Create a developer profile/portfolio, share posts and get help from
+              other developers"
+            />
+            <div>
+              <Button
+                icon="user plus"
+                as={Link}
+                to="/register"
+                size="large"
+                primary
+                content="Sign Up"
+              />
+              <Button color="teal" icon="key" as={Link} to="/login" size="large" content="Login" />
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </div>
   );
 };
 

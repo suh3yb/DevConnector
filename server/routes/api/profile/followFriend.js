@@ -13,7 +13,7 @@ const followFriend = async (req, res) => {
 
   const { followId, name } = req.body;
 
-  const newFriend = {
+  const newFollowing = {
     user: followId,
     name,
   };
@@ -22,7 +22,7 @@ const followFriend = async (req, res) => {
     let profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
 
     if (profile) {
-      profile.friend.unshift(newFriend);
+      profile.following.unshift(newFollowing);
     } else {
       return res.status(400).json({ msg: 'Please create a profile first.' });
     }

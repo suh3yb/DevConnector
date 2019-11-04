@@ -19,6 +19,10 @@ const getGithubRepos = require('./getGithubRepos');
 const followFriend = require('./followFriend');
 const unfollowFriend = require('./unfollowFriend');
 const updatePassword = require('./updatePassword');
+const sendFriendRequest = require('./sendFriendRequest');
+const acceptFriendRequest = require('./acceptFriendRequest');
+const rejectFriendRequest = require('./rejectFriendRequest');
+const getAllFriendRequests = require('./getAllFriendRequests');
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -155,6 +159,53 @@ router.post(
     ],
   ],
   updatePassword,
+);
+
+// @route   GET api/profile/friend-request/
+// @desc    Get all friend requests
+// @access  Public
+router.get('/friend-request', getAllFriendRequests);
+
+// @route   POST api/profile/friend-request/
+// @desc    Send a friend request to user
+// @access  Private
+router.post(
+  '/friend-request',
+  auth,
+  [
+    check('recipientId', 'Specify a recipient user')
+      .not()
+      .isEmpty(),
+  ],
+  sendFriendRequest,
+);
+
+// @route   POST api/profile/friend-request/accept
+// @desc    Accept friend request
+// @access  Private
+router.put(
+  '/friend-request/accept',
+  auth,
+  [
+    check('recipientId', 'Specify a recipient user')
+      .not()
+      .isEmpty(),
+  ],
+  acceptFriendRequest,
+);
+
+// @route   POST api/profile/friend-request/reject
+// @desc    Reject friend request
+// @access  Private
+router.put(
+  '/friend-request/reject',
+  auth,
+  [
+    check('recipientId', 'Specify a recipient user')
+      .not()
+      .isEmpty(),
+  ],
+  rejectFriendRequest,
 );
 
 module.exports = router;

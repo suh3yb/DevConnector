@@ -7,6 +7,7 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
+  imageUrl: { type: String },
   company: {
     type: String,
   },
@@ -110,13 +111,30 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  friend: [
+  following: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
       },
       name: {
+        type: String,
+      },
+    },
+  ],
+  friendship: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+      },
+      name: {
+        type: String,
+      },
+      avatar: {
+        type: String,
+      },
+      imgUrl: {
         type: String,
       },
     },

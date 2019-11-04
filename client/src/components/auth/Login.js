@@ -1,9 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { login } from '../../redux/actions/authAction';
+import SocialLogin from './SocialLogin';
+
+import { Form, Input, Button, Grid, Header, Card, Icon } from 'semantic-ui-react';
+import LayoutGrid from '../layout/LayoutGrid';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -25,38 +29,52 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Sing Into Your Account
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
-      <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
-      </p>
-    </Fragment>
+    <LayoutGrid center>
+      <Grid.Column as={Card} raised style={{ maxWidth: '500px' }}>
+        <Header color="blue" icon textAlign="center" as="h3">
+          <Icon name="key" circular />
+          <Header.Content>Login</Header.Content>
+          <Header.Subheader>Sign into your account</Header.Subheader>
+        </Header>
+        <Card.Content>
+          <Form onSubmit={e => onSubmit(e)}>
+            <Form.Field>
+              <Input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={e => onChange(e)}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => onChange(e)}
+                minLength="6"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Button primary fluid content="Login" />
+            </Form.Field>
+          </Form>
+        </Card.Content>
+
+        <p className="my-1">
+          Don't have an account? <Link to="/register">Sign Up</Link>
+        </p>
+        <p className="my-1">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </p>
+        <Card.Content textAlign="center">
+          <SocialLogin />
+        </Card.Content>
+      </Grid.Column>
+    </LayoutGrid>
   );
 };
 
