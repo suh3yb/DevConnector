@@ -1,0 +1,8 @@
+{
+  "mongoURI": "mongodb+srv://<username>:<password>@cluster0-flddr.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "<jwt-secret-here>",
+  "githubSecret": "<github-client-secret-here>",
+  "firebaseAdminPrivateKey": "<firebase-private-key-here>",
+  "email": "<email-address-for-password-recovery>",
+  "password": "<password-for-email-address>"
+}
